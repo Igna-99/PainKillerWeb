@@ -1,0 +1,50 @@
+﻿@model PainKillerWeb.Models.Pivot.AtributoDePersonaje
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>EditAll</h1>
+
+<h4>AtributoDePersonaje</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditAll">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div>
+                @{int i = 0;}
+                @foreach (var item in ViewBag.atributos)
+
+                {
+                <div class="form-group">
+                    <input type="hidden" asp-for="id" name="[@i].id" value=@item.id />
+                    <input type="hidden" asp-for="personajeId" name="[@i].personajeId" value=@ViewData["personajeId"] />
+                    <input type="hidden" asp-for="atributoId" name="[@i].atributoId" value=@item.atributoId />
+
+                    <label asp-for="nivel" class="control-label">@item.atributo.nombre</label>
+                    <input asp-for="nivel" name="[@i].nivel" class="form-control" value="@item.nivel" />
+                    <span asp-validation-for="nivel" class="text-danger"></span>
+                </div>
+                    <span class="invisible">
+                        @(i++)
+                    </span>
+                }
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="EditAll" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
