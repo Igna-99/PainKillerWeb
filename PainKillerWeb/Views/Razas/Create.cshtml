@@ -19,17 +19,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="idAtributoRelevante" class="control-label"></label>
-                <input asp-for="idAtributoRelevante" class="form-control" />
+                <select asp-for="idAtributoRelevante" class="form-control" asp-items="ViewBag.atributoId"></select>
+                @*<input asp-for="idAtributoRelevante" class="form-control" />*@
                 <span asp-validation-for="idAtributoRelevante" class="text-danger"></span>
             </div>
             <div class="form-group">
+
+                @*hay alguna forma de dejar un espacio vacio en este campo?*@
+
                 <label asp-for="idAtributoRelevante2" class="control-label"></label>
-                <input asp-for="idAtributoRelevante2" class="form-control" />
+                <select asp-for="idAtributoRelevante2" class="form-control" asp-items="ViewBag.atributoId"></select>
+                @*<input asp-for="idAtributoRelevante2" class="form-control" />*@
                 <span asp-validation-for="idAtributoRelevante2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="idAtributoPesimo" class="control-label"></label>
-                <input asp-for="idAtributoPesimo" class="form-control" />
+                <select asp-for="idAtributoPesimo" class="form-control" asp-items="ViewBag.atributoId"></select>
+                @*<input asp-for="idAtributoPesimo" class="form-control" />*@
                 <span asp-validation-for="idAtributoPesimo" class="text-danger"></span>
             </div>
             <div class="form-group">

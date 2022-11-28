@@ -46,6 +46,7 @@ namespace PainKillerWeb.Controllers
         // GET: Razas/Create
         public IActionResult Create()
         {
+            ViewData["atributoId"] = new SelectList(_context.atributos, "id", "nombre");
             return View();
         }
 

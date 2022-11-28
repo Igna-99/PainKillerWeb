@@ -8,7 +8,7 @@
 
 <div>
     <h4 style="display:inline">Personaje</h4>
-    <a asp-action="Edit" asp-route-id="@Model.id" style="position: relative; left: 900px" >Editar Personaje</a>
+    <a asp-action="Edit" asp-route-id="@Model.id" style="position: relative; left: 900px">Editar Personaje</a>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -89,6 +89,30 @@
     </dl>
 </div>
 <div>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+    <h4 style="display:inline">Habilidades</h4>
+    <a asp-controller="HabilidadesDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" style="position: relative; left: 850px">Agregar Habilidad</a>
+    <hr />
+    <dl class="row">
+        @foreach (var item in Model.habilidades)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayFor(modelItem => item.Habilidad.nombre)
+            </dt>
+
+
+            <dd class="col-sm-2">
+                @Html.DisplayFor(modelItem => item.Nivel)
+            </dd>
+
+            <dd class="col-sm-2">
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </dd>
+
+            }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
