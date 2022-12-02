@@ -36,6 +36,15 @@ namespace PainKillerWeb.Models.Main
         [Display(Name = "Energia Maxima")]
         public int energiaMax { get; set; }
 
+
+        [Display(Name = "Vida Actual")]
+        public int vidaAct { get; set; }
+        [Display(Name = "Mana Actual")]
+        public int manaAct { get; set; }
+        [Display(Name = "Energia Actual")]
+        public int energisAct { get; set; }
+
+
         public ICollection<AtributoDePersonaje> atributos { get; set; }
         public ICollection<HabilidadDePersonaje> habilidades { get; set; }
     }
