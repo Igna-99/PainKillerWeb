@@ -47,7 +47,27 @@ namespace PainKillerWeb.Controllers
 
             return View(personaje);
         }
+        // GET: Personajes/Details/5
+        public async Task<IActionResult> Jugar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var personaje = await _context.personajes
+                .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .Include(x => x.raza)
+                .FirstOrDefaultAsync(m => m.id == id);
+
+            if (personaje == null)
+            {
+                return NotFound();
+            }
+
+            return View(personaje);
+        }
         // GET: Personajes/Create
         public IActionResult Create()
         {
