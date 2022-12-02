@@ -85,7 +85,7 @@ namespace PainKillerWeb.Controllers
 
                 pers.vidaAct = pers.vidaMax;
                 pers.manaAct = pers.manaMax;
-                pers.energisAct = pers.energiaMax;
+                pers.energiaAct = pers.energiaMax;
                 _context.Update(pers);
                 await _context.SaveChangesAsync();
             }

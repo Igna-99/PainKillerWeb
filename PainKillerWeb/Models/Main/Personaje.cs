@@ -42,7 +42,7 @@ namespace PainKillerWeb.Models.Main
         [Display(Name = "Mana Actual")]
         public int manaAct { get; set; }
         [Display(Name = "Energia Actual")]
-        public int energisAct { get; set; }
+        public int energiaAct { get; set; }
 
 
         public ICollection<AtributoDePersonaje> atributos { get; set; }
