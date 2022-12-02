@@ -79,15 +79,9 @@ namespace PainKillerWeb.Controllers
 
             if (pers.id > 0) {
                 //Agrega lso calculos para las stats correspondientes
-
-
-                pers.vidaMax = pers.atributos.Where(x => x.atributo.nombre == "Fuerza").First().nivel;
-
-                pers.manaMax = pers.atributos.Where(x => x.atributo.nombre == "Entendimiento").First().nivel;
-
-                pers.energiaMax = pers.atributos.Where(x => x.atributo.nombre == "Agilidad").First().nivel;
-
-
+                pers.vidaMax += pers.atributos.Where(x => x.atributo.id == 1).First().nivel + pers.atributos.Where(x => x.atributo.id == 2).First().nivel;
+                pers.manaMax += pers.atributos.Where(x => x.atributo.id == 3).First().nivel + pers.atributos.Where(x => x.atributo.id == 4).First().nivel;
+                pers.energiaMax += pers.atributos.Where(x => x.atributo.id == 5).First().nivel + pers.atributos.Where(x => x.atributo.id == 6).First().nivel;
                 _context.Update(pers);
                 await _context.SaveChangesAsync();
             }
