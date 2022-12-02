@@ -63,8 +63,36 @@
                     <div class="col-2 d-flex">
                         <strong>@Html.DisplayNameFor(model => model.expActual)</strong>:  @Html.DisplayFor(modelItem => item.expActual)
                     </div>
-                    <div class="col-5 d-flex"></div>
-                    <div class="col-2 d-flex justify-content-end">
+                    <div class="col-4 d-flex"></div>
+
+                    <div class="col-2 d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#habilidadesModal-@Html.DisplayFor(modelItem => item.id)">
+                            Habilidades
+                        </button>
+
+                        <div class="modal fade" id="habilidadesModal-@Html.DisplayFor(modelItem => item.id)" tabindex="-1" aria-labelledby="habilidadesLabel-@Html.DisplayFor(modelItem => item.id)" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="habilidadesLabel-@Html.DisplayFor(modelItem => item.id)">Habilidades</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @foreach (var habilidad in item.habilidades)
+                                        {
+                                            <h6> @habilidad.Habilidad.nombre: @habilidad.Nivel</h6>
+
+                                        }
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-flex justify-content-end">
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Opciones

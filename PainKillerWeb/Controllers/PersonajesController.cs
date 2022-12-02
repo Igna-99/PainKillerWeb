@@ -22,7 +22,7 @@ namespace PainKillerWeb.Controllers
         // GET: Personajes
         public async Task<IActionResult> Index()
         {
-            var painKillerDbContext = _context.personajes.Include(p => p.raza);
+            var painKillerDbContext = _context.personajes.Include(p => p.raza).Include(x => x.habilidades).ThenInclude(x => x.Habilidad);
             return View(await painKillerDbContext.ToListAsync());
         }
 
