@@ -76,7 +76,7 @@ namespace PainKillerWeb.Controllers
         public IActionResult CreateAll(Personaje personaje)
         {
             ViewBag.atributos = _context.atributos.ToList();
-            ViewData["personajeId"] = personaje.id;
+            ViewBag.personajeId = personaje.id;
 
             return View();
         }
@@ -85,20 +85,22 @@ namespace PainKillerWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAll([Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
         {
-            if (ModelState.IsValid)
+            Personaje pers = await _context.personajes
+                .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
+
+            if (ModelState.IsValid && !pers.atributos.Any())
             {
                 foreach (var item in atributosDePersonaje)
                 {
                     _context.Add(item);
                 }
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
             }
 
             ViewBag.Atributos = _context.atributos.ToList();
-            ViewData["Personaje"] = atributosDePersonaje.FirstOrDefault().personajeId;
-
+            ViewBag.personajeId = atributosDePersonaje[0].personajeId;
             return View();
         }
 
@@ -194,7 +196,7 @@ namespace PainKillerWeb.Controllers
                     foreach (var atributoDePersonaje in atributosDePersonaje)
                     {
                         _context.Update(atributoDePersonaje);
-                        
+
                     }
                     await _context.SaveChangesAsync();
                     return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });

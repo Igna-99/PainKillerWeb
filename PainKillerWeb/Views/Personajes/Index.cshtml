@@ -4,13 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-4 d-flex justify-content-start align-content-center">
+        <h1 class="goingMedievalG">Lista de Personajes</h1>
+    </div>
+    <div class="col-6"> </div>
+    <div class="col-2 d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-outline-dark botonDetalles m-2">Crear Personaje</a>
+    </div>
+</div>
+<hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+
+@*<table class="table">
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.nombre)
@@ -35,37 +42,74 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.raza.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.expActual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.expGastada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.vidaMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.manaMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.energiaMax)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </table>*@
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+    @foreach (var item in Model)
+    {
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelPj-@Html.DisplayFor(modelItem => item.id)">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelPjOpen-@Html.DisplayFor(modelItem => item.id)" aria-expanded="false" aria-controls="panelPjOpen-@Html.DisplayFor(modelItem => item.id)">
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </button>
+            </h2>
+            <div id="panelPjOpen-@Html.DisplayFor(modelItem => item.id)" class="accordion-collapse collapse" aria-labelledby="panelPj-@Html.DisplayFor(modelItem => item.id)">
+                <div class="accordion-body row">
+                    <div class="col-1"></div>
+                    <div class="col-2 d-flex">
+                        <strong>@Html.DisplayNameFor(model => model.raza)</strong>:  @Html.DisplayFor(modelItem => item.raza.nombre)
+                    </div>
+                    <div class="col-2 d-flex">
+                        <strong>@Html.DisplayNameFor(model => model.expActual)</strong>:  @Html.DisplayFor(modelItem => item.expActual)
+                    </div>
+                    <div class="col-5 d-flex"></div>
+                    <div class="col-2 d-flex justify-content-end">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Opciones
+                            </button>
+                            <ul class="dropdown-menu">
+                                <a asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.id" class="dropdown-item">Delete</a>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.raza.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.expActual)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.expGastada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vidaMax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.manaMax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.energiaMax)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>*@
+    }
+</div>
+
+

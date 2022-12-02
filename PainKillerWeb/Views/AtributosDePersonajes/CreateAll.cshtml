@@ -17,12 +17,12 @@
             @foreach (var item in ViewBag.atributos)
             {
                 <div class="form-group">
-                    <input type="hidden" asp-for="personajeId" name="[@i].personajeId" value=@ViewData["personajeId"] />
+                    <input type="hidden" asp-for="personajeId" name="[@i].personajeId" value=@ViewBag.personajeId ] />
                     <input type="hidden" asp-for="atributoId" name="[@i].atributoId" value=@item.id />
-          
+
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="nivel" name="[@i].nivel" class="form-control" placeholder=1 />
+                    <input type="number" range="" asp-for="nivel" name="[@i].nivel" class="form-control" placeholder=1 />
                     <label asp-for="nivel">@item.nombre</label>
                 </div>
                 <span class="invisible">
@@ -39,7 +39,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Personajes" asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Back to List</a>
 </div>
 
 @section Scripts {
