@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PainKillerWeb.Context;
+using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
 
 namespace PainKillerWeb.Controllers
@@ -94,15 +95,41 @@ namespace PainKillerWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateFor([Bind("personajeId,HabilidadId,Nivel")] HabilidadDePersonaje habilidadDePersonaje)
         {
+            Personaje pj = _context.personajes
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .FirstOrDefault(m => m.id == habilidadDePersonaje.personajeId);
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(habilidadDePersonaje);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Personajes", new { id = habilidadDePersonaje.personajeId });
+                if (pj.expActual >= 2)
+                {
+                    if (!pj.habilidades.Any(x => x.HabilidadId == habilidadDePersonaje.HabilidadId))
+                    {
+                        pj.expActual -= 2;
+                        pj.expGastada += 2;
+                        _context.Update(pj);
+                        _context.Add(habilidadDePersonaje);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Details", "Personajes", new { id = habilidadDePersonaje.personajeId });
+                    }
+                    else 
+                    {
+                        ViewBag.ErrorMessage = $"El Personaje '{pj.nombre}' ya tiene esa habilidad";
+                    }
+                }
+                else  
+                {
+                    ViewBag.ErrorMessage = "no tienes suficiente experiencia para adquirir una habilidad";
+                }
+
             }
-            ViewData["HabilidadId"] = habilidadDePersonaje.personajeId;
-            ViewData["personajeId"] = new SelectList(_context.personajes, "id", "nombre");
-            return View(habilidadDePersonaje);
+
+            
+            ViewData["HabilidadId"] = new SelectList(_context.habilidades, "id", "nombre");
+            ViewData["personajeId"] = habilidadDePersonaje.personajeId;
+
+            return View();
         }
 
 

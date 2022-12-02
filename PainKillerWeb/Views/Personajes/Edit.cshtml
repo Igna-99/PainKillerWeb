@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Personaje</h4>
+<h2 class="goingMedievalG">Edicion de Personaje</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,14 +47,14 @@
                 <span asp-validation-for="energiaMax" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-dark" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
 </div>
 
 @section Scripts {

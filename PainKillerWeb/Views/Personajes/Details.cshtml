@@ -1,14 +1,21 @@
 ﻿@model PainKillerWeb.Models.Main.Personaje
 
 @{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4 style="display:inline">Personaje</h4>
-    <a asp-action="Edit" asp-route-id="@Model.id" style="position: relative; left: 900px">Editar Personaje</a>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-content-center">
+            <h4 class="goingMedievalG">Detalles de Personaje</h4>
+        </div>
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
+            <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles" >Editar Personaje</a>
+        </div>
+    </div>
+
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -56,8 +63,15 @@
     </dl>
 </div>
 <div>
-    <h4 style="display:inline">Atributos</h4>
-    <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" style="position: relative; left: 800px">Editar Atributos De Personaje</a>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-content-center">
+            <h4 class="goingMedievalG">Atributos Del Personaje</h4>
+        </div>
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
+            <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Editar Atributos</a>
+        </div>
+    </div>
     <hr />
     <dl class="row">
         @foreach (var item in Model.atributos)
@@ -89,8 +103,15 @@
     </dl>
 </div>
 <div>
-    <h4 style="display:inline">Habilidades</h4>
-    <a asp-controller="HabilidadesDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" style="position: relative; left: 850px">Agregar Habilidad</a>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-bottom">
+            <h4 class="goingMedievalG">Habilidades Del Personaje</h4>
+        </div>
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
+            <a asp-controller="HabilidadesDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Agregar Habilidad</a>
+        </div>
+    </div>
     <hr />
     <dl class="row">
         @foreach (var item in Model.habilidades)
@@ -100,18 +121,36 @@
             </dt>
 
 
-            <dd class="col-sm-2">
+            <dd class="col-sm-1">
                 @Html.DisplayFor(modelItem => item.Nivel)
             </dd>
 
-            <dd class="col-sm-2">
-                <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            <dd class="col-sm-7">
             </dd>
 
-            }
+            <div class="col-sm-2 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar</a>
+                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a>
+                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id" class="dropdown-item">Eliminar</a>
+                    </ul>
+                </div>
+            </div>
+
+            @*<dt class="col-sm-2 btn-group btn-group-sm pad mt-1 mb-1" role="group" aria-label="Large button group">
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="btn btn-outline-dark">Edit</a>
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-dark">Details</a>
+                <a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id" class="btn btn-outline-dark">Delete</a>
+            </dt>*@
+
+        }
     </dl>
+    
 </div>
 <div>
     <a asp-action="Index">Back to List</a>

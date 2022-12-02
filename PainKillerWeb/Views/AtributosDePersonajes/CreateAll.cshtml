@@ -16,14 +16,15 @@
             @{int i = 0;}
             @foreach (var item in ViewBag.atributos)
             {
-            <div class="form-group">
-                <input type="hidden" asp-for="personajeId" name="[@i].personajeId" value=@ViewData["personajeId"] />
-                <input type="hidden" asp-for="atributoId" name="[@i].atributoId" value=@item.id />
-
-                <label asp-for="nivel" class="control-label">@item.nombre</label>
-                <input asp-for="nivel" name="[@i].nivel" class="form-control" />
-                <span asp-validation-for="nivel" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <input type="hidden" asp-for="personajeId" name="[@i].personajeId" value=@ViewData["personajeId"] />
+                    <input type="hidden" asp-for="atributoId" name="[@i].atributoId" value=@item.id />
+          
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="nivel" name="[@i].nivel" class="form-control" placeholder=1 />
+                    <label asp-for="nivel">@item.nombre</label>
+                </div>
                 <span class="invisible">
                     @(i++)
                 </span>
@@ -32,7 +33,7 @@
 
 
         <div class="form-group">
-            <input type="submit" value="CreateAll" class="btn btn-primary" />
+            <input type="submit" value="Crear Atributos" class="btn btn-dark" />
         </div>
     </form>
 </div>

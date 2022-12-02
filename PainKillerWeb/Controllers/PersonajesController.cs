@@ -60,10 +60,11 @@ namespace PainKillerWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nombre,razaId,expActual,vidaMax,manaMax,energiaMax")] Personaje personaje)
+        public async Task<IActionResult> Create([Bind("id,nombre,razaId,expActual")] Personaje personaje)
         {
             if (ModelState.IsValid)
             {
+                
                 _context.Add(personaje);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("CreateAll", "AtributosDePersonajes", personaje);
@@ -71,6 +72,34 @@ namespace PainKillerWeb.Controllers
             ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
             return View(personaje);
         }
+
+        public async Task<IActionResult> CalcularStats(int id)
+        {
+            Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
+
+            if (pers.id > 0) {
+                //Agrega lso calculos para las stats correspondientes
+
+
+                pers.vidaMax = pers.atributos.Where(x => x.atributo.nombre == "Fuerza").First().nivel;
+
+                pers.manaMax = pers.atributos.Where(x => x.atributo.nombre == "Entendimiento").First().nivel;
+
+                pers.energiaMax = pers.atributos.Where(x => x.atributo.nombre == "Agilidad").First().nivel;
+
+
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+            }
+            
+
+            return RedirectToAction("Details", "Personajes", new { id = pers.id });
+        }
+
+
+
+
+
 
         // GET: Personajes/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -1,0 +1,20 @@
+﻿.goingMedieval {
+    font-family: 'MedievalSharp', cursive;
+    font-weight: 400;
+}
+
+.goingMedievalG {
+    font-family: 'MedievalSharp', cursive;
+    font-weight: 800;
+}
+
+.px30 {
+    font-size: 30px
+}
+.px20 {
+    font-size: 20px
+}
+
+.botonDetalles {
+    width: 175px;
+}

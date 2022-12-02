@@ -83,20 +83,21 @@ namespace PainKillerWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAll([Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributoDePersonajes)
+        public async Task<IActionResult> CreateAll([Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
         {
             if (ModelState.IsValid)
             {
-                foreach (var item in atributoDePersonajes)
+                foreach (var item in atributosDePersonaje)
                 {
                     _context.Add(item);
                 }
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Personajes");
+                return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
             }
 
             ViewBag.Atributos = _context.atributos.ToList();
-            ViewData["Personaje"] = atributoDePersonajes.FirstOrDefault().personaje;
+            ViewData["Personaje"] = atributosDePersonaje.FirstOrDefault().personajeId;
 
             return View();
         }
@@ -196,7 +197,7 @@ namespace PainKillerWeb.Controllers
                         
                     }
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
+                    return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
