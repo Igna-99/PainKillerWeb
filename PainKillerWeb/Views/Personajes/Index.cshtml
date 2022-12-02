@@ -15,35 +15,6 @@
 </div>
 <hr />
 
-
-@*<table class="table">
-
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.raza)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.expActual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.expGastada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.vidaMax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.manaMax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.energiaMax)
-            </th>
-            <th></th>
-        </tr>
-    </table>*@
-
 <div class="accordion" id="accordionPanelsStayOpenExample">
     @foreach (var item in Model)
     {
@@ -70,9 +41,8 @@
                                 Opciones
                             </button>
                             <ul class="dropdown-menu">
-                                <a asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar PJ</a>
-                                <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Editar Contenido</a>
-                                <a asp-action="Delete" asp-route-id="@item.id" style="background-color: #DC3545; color: white" class="dropdown-item">BORRAR PJ</a>
+                                <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">EDITAR</a>
+                                <a asp-action="Delete" asp-route-id="@item.id" style="background-color: #DC3545; color: white" class="dropdown-item">ELIMINAR</a>
                             </ul>
                         </div>
                     </div>
