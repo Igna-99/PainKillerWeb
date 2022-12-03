@@ -143,8 +143,36 @@
                     <ul class="dropdown-menu">
                         <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar</a> </li>
                         <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
-                        <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id" class="dropdown-item">Eliminar</a> </li>
+                        <li>
+                            <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteHabilidadModal-@item.id">
+                                Eliminar
+                            </button>
+                        </li>
                     </ul>
+
+
+                    <div class="modal fade" id="deleteHabilidadModal-@item.id" tabindex="-1" aria-labelledby="deleteHabilidadModal-@item.id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 goingMedievalG"> Confirmar Eliminacion de Habilidad</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <p> estas seguro que deseas eliminar la Habilidad "@item.Habilidad.nombre" del personaje @Model.nombre</p>
+                                    <p><strong> no habra vuelta atras </strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-controller="HabilidadesDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                        <input type="hidden" asp-for="@item.id" />
+                                        <input type="submit" value="Delete" class="btn btn-danger" /> 
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </dd>
 
@@ -154,5 +182,5 @@
     
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
 </div>

@@ -294,6 +294,17 @@ namespace PainKillerWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [HttpPost, ActionName("DeleteInModal")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteInModal(int id)
+        {
+            var habilidadDePersonaje = await _context.habilidadDePersonajes.FindAsync(id);
+            _context.habilidadDePersonajes.Remove(habilidadDePersonaje);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Personajes", new { id = habilidadDePersonaje.personajeId });
+        }
+
         private bool HabilidadDePersonajeExists(int id)
         {
             return _context.habilidadDePersonajes.Any(e => e.id == id);

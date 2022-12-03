@@ -12,8 +12,10 @@ namespace PainKillerWeb.Models.Pivot
         [Key]
         public int id { get; set; }
         [Required]
+        [Display(Name = "´Personaje")]
         public int personajeId { get; set; }
         [Required]
+        [Display(Name = "Habilidad")]
         public int HabilidadId { get; set; }
         [Required]
         public int Nivel { get; set; }
