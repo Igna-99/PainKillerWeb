@@ -38,25 +38,56 @@
                             <div class="col-6 d-flex"> </div>
                             <div class="col-2 d-flex d-flex justify-content-end">
 
-                                <button type="button" class="btn btn-outline-dark dropdown-toggle" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Opciones
+                                <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="modal" data-bs-target="#DetailsModal-@item.id">
+                                    Detalles
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li> <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.id">
-                                            Eliminar
-                                        </button>
-                                    </li>
 
-                                </ul>
+                                <button type="button" class="btn btn-outline-danger" style="margin-left: 6px;" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.id">
+                                    Eliminar
+                                </button>
+
+
+
+
+                                <div class="modal fade" id="DetailsModal-@item.id" tabindex="-1" aria-labelledby="DetailsModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 goingMedievalG"> Detalles De Habilidad</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl class="row">
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.nombre):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.nombre)
+                                                    </dd>
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.atributo):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.atributo.nombre)
+                                                    </dd>
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.atributo):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.atributo.nombre)
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="modal fade" id="deleteModal-@item.id" tabindex="-1" aria-labelledby="deleteModal-@item.id" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5 goingMedievalG"> Confirmar Eliminacion de Personaje</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p> estas seguro que deseas eliminar la habilidad "@item.nombre" </p>

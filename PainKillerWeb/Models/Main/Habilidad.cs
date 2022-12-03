@@ -11,13 +11,14 @@ namespace PainKillerWeb.Models.Main
         [Key]
         public int id { get; set; }
 
+        [Display(Name = "Nombre")]
         [Required]
         public string nombre { get; set; }
 
-        [Display(Name = "atributo")]
+        [Display(Name = "Atributo")]
         [Required(ErrorMessage = ErrMsj.RequeridoM)]
         public int atributoId { get; set; }
-
+        [Display(Name = "Atributo")]
         public Atributo atributo { get; set; }
 
     }
