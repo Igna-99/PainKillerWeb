@@ -1,4 +1,5 @@
-﻿.goingMedieval {
+﻿
+.goingMedieval {
     font-family: 'MedievalSharp', cursive;
     font-weight: 400;
 }
@@ -11,6 +12,7 @@
 .px30 {
     font-size: 30px
 }
+
 .px20 {
     font-size: 20px
 }

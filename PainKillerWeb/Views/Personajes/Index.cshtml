@@ -80,6 +80,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li> <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteModal-@Html.DisplayFor(modelItem => item.id)">
                                     Eliminar

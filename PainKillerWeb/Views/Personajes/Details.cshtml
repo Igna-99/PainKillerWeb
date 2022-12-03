@@ -125,7 +125,11 @@
                 @Html.DisplayFor(modelItem => item.Nivel)
             </dd>
 
-            <dd class="col-sm-6">
+            <dd class="col-sm-1">
+                @item.Habilidad.atributo.nombre
+            </dd>
+
+            <dd class="col-sm-5">
             </dd>
 
             <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
@@ -143,6 +147,7 @@
                     <ul class="dropdown-menu">
                         <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar</a> </li>
                         <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteHabilidadModal-@item.id">
                                 Eliminar
@@ -164,7 +169,7 @@
                                 <div class="modal-footer">
                                     <form asp-controller="HabilidadesDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
                                         <input type="hidden" asp-for="@item.id" />
-                                        <input type="submit" value="Delete" class="btn btn-danger" /> 
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
                                     </form>
 
                                 </div>
