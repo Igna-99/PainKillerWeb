@@ -57,12 +57,12 @@ namespace PainKillerWeb.Context
                     expActual = 15,
                     atributos = new List<AtributoDePersonaje>()
                     {
-                        new AtributoDePersonaje() { atributo = atributosCreados[0], nivel = 2 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[1], nivel = 6 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[2], nivel = 2 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[3], nivel = 4 },
+                        new AtributoDePersonaje() { atributo = atributosCreados[5], nivel = 4 },
                         new AtributoDePersonaje() { atributo = atributosCreados[4], nivel = 4 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[5], nivel = 4 }
+                        new AtributoDePersonaje() { atributo = atributosCreados[3], nivel = 4 },
+                        new AtributoDePersonaje() { atributo = atributosCreados[2], nivel = 2 },
+                        new AtributoDePersonaje() { atributo = atributosCreados[1], nivel = 6 },
+                        new AtributoDePersonaje() { atributo = atributosCreados[0], nivel = 2 }
                     },
                     raza = raza
 

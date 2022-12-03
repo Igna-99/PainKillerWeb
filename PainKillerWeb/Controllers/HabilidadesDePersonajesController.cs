@@ -134,11 +134,6 @@ namespace PainKillerWeb.Controllers
 
 
 
-
-
-
-
-
         // GET: HabilidadesDePersonajes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -193,6 +188,80 @@ namespace PainKillerWeb.Controllers
             ViewData["personajeId"] = new SelectList(_context.personajes, "id", "nombre", habilidadDePersonaje.personajeId);
             return View(habilidadDePersonaje);
         }
+
+
+
+
+
+
+
+
+        public async Task<IActionResult> LevelUp(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var habilidadDePersonaje = await _context.habilidadDePersonajes.Include(p => p.Personaje).Include(h => h.Habilidad).ThenInclude(a => a.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
+            if (habilidadDePersonaje == null)
+            {
+                return NotFound();
+            }
+
+
+            ViewBag.posible = (habilidadDePersonaje.Nivel + 1) <= habilidadDePersonaje.Personaje.expActual;
+
+            return View(habilidadDePersonaje);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LevelUp(int id, [Bind("id,personajeId,HabilidadId,Nivel")] HabilidadDePersonaje habilidadDePersonaje)
+        {
+            Personaje pj = await _context.personajes.FindAsync(habilidadDePersonaje.personajeId);
+
+            if (id != habilidadDePersonaje.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid && habilidadDePersonaje.Nivel <= pj.expActual)
+            {
+                try
+                {
+                    pj.expActual -= habilidadDePersonaje.Nivel;
+                    pj.expGastada += habilidadDePersonaje.Nivel;
+                    _context.Update(pj);
+                    _context.Update(habilidadDePersonaje);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!HabilidadDePersonajeExists(habilidadDePersonaje.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Details", "Personajes", new { id = habilidadDePersonaje.personajeId });
+            }
+
+
+            return View(habilidadDePersonaje);
+        }
+
+
+
+
+
+
+
+
 
         // GET: HabilidadesDePersonajes/Delete/5
         public async Task<IActionResult> Delete(int? id)

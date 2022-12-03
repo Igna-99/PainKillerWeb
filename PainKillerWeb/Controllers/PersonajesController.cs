@@ -166,7 +166,7 @@ namespace PainKillerWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = personaje.id });
             }
             ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
             return View(personaje);

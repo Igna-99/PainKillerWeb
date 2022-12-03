@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout2.cshtml";
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
 <div>
@@ -125,22 +125,28 @@
                 @Html.DisplayFor(modelItem => item.Nivel)
             </dd>
 
-            <dd class="col-sm-7">
+            <dd class="col-sm-6">
             </dd>
 
-            <div class="col-sm-2 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+            <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
 
-                <div class="btn-group" role="group">
+                <div>
+                    <a asp-controller="HabilidadesDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
+                        Subir Nivel
+                    </a>
+                </div>
+
+                <div class="btn-group" role="group" style="margin-left:6px">
                     <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         Opciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar</a>
-                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a>
-                        <li><a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id" class="dropdown-item">Eliminar</a>
+                        <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Edit" asp-route-id="@item.id" class="dropdown-item">Editar</a> </li>
+                        <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                        <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Delete" asp-route-id="@item.id" class="dropdown-item">Eliminar</a> </li>
                     </ul>
                 </div>
-            </div>
+            </dd>
 
 
         }
