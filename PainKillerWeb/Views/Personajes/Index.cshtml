@@ -27,17 +27,28 @@
             </h2>
             <div id="panelPjOpen-@Html.DisplayFor(modelItem => item.id)" class="accordion-collapse collapse" aria-labelledby="panelPj-@Html.DisplayFor(modelItem => item.id)">
                 <div class="accordion-body row">
+
                     <div class="col-1"></div>
+
                     <div class="col-2 d-flex">
                         <strong>@Html.DisplayNameFor(model => model.raza)</strong>:  @Html.DisplayFor(modelItem => item.raza.nombre)
                     </div>
+
                     <div class="col-2 d-flex">
                         <strong>@Html.DisplayNameFor(model => model.expActual)</strong>:  @Html.DisplayFor(modelItem => item.expActual)
                     </div>
-                    <div class="col-2 d-flex"></div>
 
-                    <div class="col-2 d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#habilidadesModal-@Html.DisplayFor(modelItem => item.id)">
+                    <div class="col-3 d-flex"></div>
+
+                    <div class="col-4 d-flex d-flex justify-content-end">
+
+                        <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px" aria-expanded="false">
+                            <a asp-action="Jugar" asp-route-id="@item.id" class="dropdown-item">Jugar</a>
+                        </button>
+
+
+
+                        <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="modal" data-bs-target="#habilidadesModal-@Html.DisplayFor(modelItem => item.id)">
                             Habilidades
                         </button>
 
@@ -62,25 +73,45 @@
                                 </div>
                             </div>
                         </div>
-                    </div><div class="col-2 d-flex justify-content-center">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-primary" aria-expanded="false">
-                                <a asp-action="Jugar" asp-route-id="@item.id" class="dropdown-item">JUGAR</a>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-1 d-flex justify-content-end">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Opciones
-                            </button>
-                            <ul class="dropdown-menu">
-                                <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">EDITAR</a>
-                                <a asp-action="Delete" asp-route-id="@item.id" style="background-color: #DC3545; color: white" class="dropdown-item">ELIMINAR</a>
-                            </ul>
-                        </div>
-                    </div>
 
+
+                        <button type="button" class="btn btn-outline-dark dropdown-toggle" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="dropdown" aria-expanded="false">
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li> <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                            <li>
+                                <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteModal-@Html.DisplayFor(modelItem => item.id)">
+                                    Eliminar
+                                </button>
+                            </li>
+                            
+                        </ul>
+
+
+
+                        <div class="modal fade" id="deleteModal-@Html.DisplayFor(modelItem => item.id)" tabindex="-1" aria-labelledby="deleteModal-@Html.DisplayFor(modelItem => item.id)" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5"> Confirmar Eliminacion de Personaje</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        estas seguro que deseas eliminar al personaje "@item.nombre", si lo eliminar no abra vuelta atras
+                                        @item.id
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-controller="Personajes" asp-action="Delete" asp-route-id="@item.id">
+                                            <input type="hidden" asp-for="@item.id" />
+                                            <input type="submit" value="Delete" class="btn btn-danger" /> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
