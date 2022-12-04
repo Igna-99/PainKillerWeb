@@ -254,7 +254,7 @@ namespace PainKillerWeb.Controllers
             var atributoPersonaje = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r => r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
 
             int costo = 5;
-            if (atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoRelevante || id == atributoPersonaje.personaje.raza.idAtributoRelevante2)
+            if (atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoRelevante || atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoRelevante2)
             {
                 costo = 4;
             }

@@ -130,7 +130,10 @@
         <dt class="col-sm-1">
             TIRADA
         </dt>
-        <dd class="col-sm-3">
+        <dt class="col-sm-1">
+            INFO
+        </dt>
+        <dd class="col-sm-2">
         </dd>
         <dd class="col-sm-2 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
 
@@ -157,7 +160,15 @@
 
                 (@item.Nivel+@item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel) K @item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel
             </dt>
-            <dd class="col-sm-5">
+            <dt class="col-sm-1 justify-content-center">
+                <i class="bi bi-info-circle-fill"></i>
+            </dt>
+            <dt class="col-sm-1 justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                    Tooltip on top
+                </button>
+            </dt>
+            <dd class="col-sm-3">
             </dd>
 
 
