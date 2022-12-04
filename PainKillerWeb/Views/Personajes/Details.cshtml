@@ -5,82 +5,83 @@
     ViewData["Title"] = "Detalles";
 }
 
-<div>
-    <div class="row">
+<div class="row">
+    <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
             <h4 class="goingMedievalG">Detalles de Personaje</h4>
         </div>
-        <div class="col-6"> </div>
-        <div class="col-2 d-flex justify-content-end">
-            <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles" >Editar Personaje</a>
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-end ">
+            <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark">Editar Personaje</a>
         </div>
     </div>
 
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.raza)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.raza.nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.expActual)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.expActual)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.expGastada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.expGastada)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.vidaMax)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.vidaMax)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.manaMax)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.manaMax)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.energiaMax)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.energiaMax)
-        </dd>
-    </dl>
-</div>
-<div>
-    <div class="row">
+    <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
             <h4 class="goingMedievalG">Atributos Del Personaje</h4>
         </div>
-        <div class="col-6"> </div>
-        <div class="col-2 d-flex justify-content-end">
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-end">
             <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles disabled">Editar Atributos</a>
         </div>
     </div>
-    <hr />
-    <dl class="row">
+</div>
+<hr />
+
+<div class="row">
+    <dl class="row col-6">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.raza)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.raza.nombre)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.expActual)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.expActual)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.expGastada)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.expGastada)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.vidaMax)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.vidaMax)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.manaMax)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.manaMax)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.energiaMax)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.energiaMax)
+        </dd>
+    </dl>
+
+    <dl class="row col-6">
         <dt class="col-sm-2 ">
             <h5 class="goingMedievalG">Nombre</h5>
         </dt>
-        <dt class="col-sm-1 d-flex justify-content-center">
+        <dt class="col-sm-2 d-flex justify-content-center">
             <h5 class="goingMedievalG">Nivel</h5>
         </dt>
-        <dt class="col-sm-6"></dt>
+        <dt class="col-sm-5"></dt>
         <dt class="col-sm-3">
         </dt>
         @foreach (var item in Model.atributos)
@@ -104,22 +105,25 @@
                 </dt>
             }
 
-            <dd class="col-sm-1 d-flex justify-content-center">
+            <dd class="col-sm-2 d-flex justify-content-center">
                 @item.nivel
             </dd>
-            <dd class="col-sm-6"></dd>
-            <dd class="col-sm-3 btn-group mt-1" role="group" aria-label="Button group with nested dropdown">
-                @*<div>*@
+            <dd class="col-sm-5"></dd>
+            <dd class="col-sm-3 btn-group d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
                 <a asp-controller="AtributosDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
                     Subir Nivel
                 </a>
-                @*</div>*@
             </dd>
 
 
         }
     </dl>
+
 </div>
+
+<hr />
+
+
 <div>
     <div class="row">
         <div class="col-4 d-flex justify-content-start align-bottom">
@@ -219,7 +223,7 @@
 
         }
     </dl>
-    
+
 </div>
 <div>
     <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
