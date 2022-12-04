@@ -48,7 +48,7 @@ namespace PainKillerWeb.Controllers
         // GET: Habilidades/Create
         public IActionResult Create()
         {
-            ViewData["atributoId"] = new SelectList(_context.atributos, "id", "nombre");
+            ViewData["atributoId"] = new SelectList(_context.atributos, "id", "nombre","descripcion");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace PainKillerWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nombre,atributoId")] Habilidad habilidad)
+        public async Task<IActionResult> Create([Bind("id,nombre,atributoId, descripcion")] Habilidad habilidad)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace PainKillerWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,atributoId")] Habilidad habilidad)
+        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,atributoId,descripcion")] Habilidad habilidad)
         {
             if (id != habilidad.id)
             {

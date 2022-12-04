@@ -249,6 +249,88 @@ namespace PainKillerWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> LevelUp(int? id)
+        {
+            var atributoPersonaje = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r=> r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
+
+            int costo = 5;
+            if (atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoRelevante || id == atributoPersonaje.personaje.raza.idAtributoRelevante2)
+            {
+                costo = 4;
+            }
+            else if (atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoPesimo)
+            {
+                costo = 6;
+            }
+            int costoSubida = (atributoPersonaje.nivel + 1) * costo;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            if (atributoPersonaje == null)
+            {
+                return NotFound();
+            }
+
+
+            ViewBag.posible = (costoSubida) <= atributoPersonaje.personaje.expActual;
+            ViewBag.costoSubida = costoSubida;
+
+            return View(atributoPersonaje);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LevelUp(int id, [Bind("id,personajeId,atributoId,Nivel")] AtributoDePersonaje atributoPersonaje)
+        {
+            Personaje pj = await _context.personajes.FindAsync(atributoPersonaje.personajeId);
+
+            var personajeData = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r => r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
+
+            int costo = 5;
+            if (personajeData.atributoId == personajeData.personaje.raza.idAtributoRelevante || id == personajeData.personaje.raza.idAtributoRelevante2)
+            {
+                costo = 4;
+            }
+            else if (personajeData.atributoId == personajeData.personaje.raza.idAtributoPesimo)
+            {
+                costo = 6;
+            }
+
+            if (id != atributoPersonaje.id)
+            {
+                return NotFound();
+            }
+            int costoSubida = (atributoPersonaje.nivel+1) * costo;
+            if (ModelState.IsValid && costoSubida <= pj.expActual)
+            {
+                try
+                {
+                    pj.expActual -= costoSubida;
+                    pj.expGastada += costoSubida;
+                    _context.Update(pj);
+                    _context.Update(atributoPersonaje);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AtributoDePersonajeExists(atributoPersonaje.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Details", "Personajes", new { id = atributoPersonaje.personajeId });
+            }
+
+
+            return View(atributoPersonaje);
+        }
 
 
         private bool AtributoDePersonajeExists(int id)
