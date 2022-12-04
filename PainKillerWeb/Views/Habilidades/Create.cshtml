@@ -1,40 +1,45 @@
 ﻿@model PainKillerWeb.Models.Main.Habilidad
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Habilidad";
 }
 
-<h1>Create</h1>
 
-<h4>Habilidad</h4>
+<h2 class="goingMedievalG">Creacion De Habilidad</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label>
-                <input asp-for="nombre" class="form-control" />
+
+            <div class="form-floating mb-3">
+                <input asp-for="nombre" class="form-control" placeholder=1 id="nombre" />
+                <label asp-for="nombre"></label>
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="descripcion" class="control-label"></label>
-                <input asp-for="descripcion" class="form-control" />
+
+            <div class="form-floating mb-3">
+
+                <textarea class="form-control" placeholder="Descripcion" asp-for="descripcion" style="height: 100px; resize: none;"></textarea>
+                <label asp-for="descripcion"></label>
+
+
                 <span asp-validation-for="descripcion" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-floating mb-3">
+                <select asp-for="atributoId" class="form-select" aria-label="Floating label select example" asp-items="ViewBag.atributoId"></select>
                 <label asp-for="atributoId" class="control-label"></label>
-                <select asp-for="atributoId" class ="form-control" asp-items="ViewBag.atributoId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear Habilidad" class="btn btn-dark" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
 </div>
 
 @section Scripts {
