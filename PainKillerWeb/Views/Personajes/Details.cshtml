@@ -74,25 +74,26 @@
     </div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            NOMBRE
+        <dt class="col-sm-2 ">
+            <h5 class="goingMedievalG">Nombre</h5>
         </dt>
-        <dt class="col-sm-7">
-            NIVEL
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <h5 class="goingMedievalG">Nivel</h5>
         </dt>
+        <dt class="col-sm-6"></dt>
         <dt class="col-sm-3">
         </dt>
         @foreach (var item in Model.atributos)
         {
             if (item.atributoId == Model.raza.idAtributoRelevante || item.atributoId == Model.raza.idAtributoRelevante2)
             {
-                <dt class="col-sm-2" style="color:#14C12C">
+                <dt class="col-sm-2 text-success">
                     @item.atributo.nombre
                 </dt>
             }
             else if (item.atributoId == Model.raza.idAtributoPesimo)
             {
-                <dt class="col-sm-2" style="color: #BE1E1E">
+                <dt class="col-sm-2 text-danger">
                     @item.atributo.nombre
                 </dt>
             }
@@ -103,9 +104,10 @@
                 </dt>
             }
 
-            <dd class="col-sm-7">
+            <dd class="col-sm-1 d-flex justify-content-center">
                 @item.nivel
             </dd>
+            <dd class="col-sm-6"></dd>
             <dd class="col-sm-3 btn-group mt-1" role="group" aria-label="Button group with nested dropdown">
                 @*<div>*@
                 <a asp-controller="AtributosDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
@@ -131,15 +133,15 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            NOMBRE
+            <h5 class="goingMedievalG">Nombre</h5>
         </dt>
-        <dt class="col-sm-1">
-            NIVEL
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <h5 class="goingMedievalG">Nivel</h5>
         </dt>
         <dd class="col-sm-1">
         </dd>
-        <dt class="col-sm-1">
-            CARACTERISTICA
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <h5 class="goingMedievalG">Atributo</h5>
         </dt>
         <dd class="col-sm-4">
         </dd>
@@ -153,13 +155,13 @@
             </dt>
 
 
-            <dd class="col-sm-1">
+            <dd class="col-sm-1 d-flex justify-content-center">
                 @Html.DisplayFor(modelItem => item.Nivel)
             </dd>
 
             <dd class="col-sm-1">
             </dd>
-            <dd class="col-sm-1">
+            <dd class="col-sm-1 d-flex justify-content-center">
                 @item.Habilidad.atributo.nombre
             </dd>
 
