@@ -132,6 +132,24 @@ namespace PainKillerWeb.Controllers
             return View();
         }
 
+        public async Task<IActionResult> useHabilidad(int id)
+        {
+            HabilidadDePersonaje hDP = _context.habilidadDePersonajes.Where(x => x.id == id).Include(x => x.Personaje).Include(x => x.Habilidad).FirstOrDefault();
+            Personaje pers = hDP.Personaje;
+
+            if (hDP != null && pers.manaAct >= hDP.Nivel)
+            {
+                pers.manaAct -= hDP.Nivel;
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+            }
+
+            ViewBag.hola = "hola";
+
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+        }
+
+
 
 
         // GET: HabilidadesDePersonajes/Edit/5

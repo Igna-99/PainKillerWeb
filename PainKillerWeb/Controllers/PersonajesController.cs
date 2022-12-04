@@ -116,9 +116,6 @@ namespace PainKillerWeb.Controllers
 
 
 
-
-
-
         // GET: Personajes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

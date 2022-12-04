@@ -2,149 +2,140 @@
 
 @{
     Layout = "~/Views/Shared/_Layout2.cshtml";
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Details";
 }
 
-<div class="row">
-    <div class="row col-6">
+<div>
+    <div class="row">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h2 class="goingMedievalG">
-                @Html.DisplayFor(model => model.nombre)
-            </h2>
+            <h4 class="goingMedievalG">Detalles de Personaje</h4>
         </div>
-        <div class="col-5"> </div>
-        <div class="col-3 d-flex justify-content-end ">
-            <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark">Editar Personaje</a>
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
+            <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles" >Editar Personaje</a>
         </div>
     </div>
 
-    <div class="row col-6">
-        <div class="col-4 d-flex justify-content-start align-content-center">
-            <h3 class="goingMedievalG">Atributos</h3>
-        </div>
-        <div class="col-5"> </div>
-        <div class="col-3 d-flex justify-content-end">
-            <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles disabled">Editar Atributos</a>
-        </div>
-    </div>
-</div>
-<hr />
-
-<div class="row">
-    <dl class="row col-6">
-        <dt class="col-sm-4">
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.raza)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.raza.nombre)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.expActual)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.expActual)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.expGastada)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.expGastada)
         </dd>
-        <dt class="col-sm-4" style="color:red">
-            VIDA
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.vidaMax)
         </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dt class="col-sm-4" style="color:blue">
-            MANA
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.manaMax)
         </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dt class="col-sm-4" style="color:green">
-            ENERGIA
-         </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.energiaMax)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.energiaMax)
         </dd>
     </dl>
-
-    <dl class="row col-6">
-        <dt class="col-sm-3 ">
-            <h5 class="goingMedievalG">Nombre</h5>
-        </dt>
-        <dt class="col-sm-2 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
-        </dt>
-        <dt class="col-sm-4"></dt>
-        <dt class="col-sm-3">
-        </dt>
+</div>
+<div>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-content-center">
+            <h4 class="goingMedievalG">Atributos Del Personaje</h4>
+        </div>
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
+            <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Editar Atributos</a>
+        </div>
+    </div>
+    <hr />
+    <dl class="row">
         @foreach (var item in Model.atributos)
         {
             if (item.atributoId == Model.raza.idAtributoRelevante || item.atributoId == Model.raza.idAtributoRelevante2)
             {
-                <dt class="col-sm-3 text-success">
+                <dt class="col-sm-2" style="color:#14C12C">
                     @item.atributo.nombre
                 </dt>
             }
             else if (item.atributoId == Model.raza.idAtributoPesimo)
             {
-                <dt class="col-sm-3 text-danger">
+                <dt class="col-sm-2" style="color: #BE1E1E">
                     @item.atributo.nombre
                 </dt>
             }
             else
             {
-                <dt class="col-sm-3">
+                <dt class="col-sm-2">
                     @item.atributo.nombre
                 </dt>
             }
 
-            <dd class="col-sm-2 d-flex justify-content-center">
+            <dd class="col-sm-10">
                 @item.nivel
             </dd>
-            <dd class="col-sm-4"></dd>
-            <dd class="col-sm-3 btn-group d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
-                <a asp-controller="AtributosDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
-                    Subir Nivel
-                </a>
-            </dd>
-
 
         }
     </dl>
-
 </div>
-
-<br>
-
 <div>
     <div class="row">
         <div class="col-4 d-flex justify-content-start align-bottom">
-            <h3 class="goingMedievalG">Habilidades</h3>
+            <h4 class="goingMedievalG">Habilidades Del Personaje</h4>
         </div>
-        <div class="col-5"> </div>
-        <div class="col-3 d-flex justify-content-center">
+        <div class="col-6"> </div>
+        <div class="col-2 d-flex justify-content-end">
             <a asp-controller="HabilidadesDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Agregar Habilidad</a>
         </div>
     </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            <h5 class="goingMedievalG">Nombre</h5>
+            NOMBRE
         </dt>
-        <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+        <dt class="col-sm-1">
+            NIVEL
         </dt>
         <dd class="col-sm-1">
         </dd>
-        <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Atributo</h5>
+        <dt class="col-sm-1">
+            CARACTERISTICA
         </dt>
-        <dd class="col-sm-4">
+        <dd class="col-sm-1">
         </dd>
-        <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+        <dt class="col-sm-1">
+            TIRADA
+        </dt>
+        <dt class="col-sm-1">
+            INFO
+        </dt>
+        <dd class="col-sm-2">
+        </dd>
+        <dd class="col-sm-2 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
 
         </dd>
         @foreach (var item in Model.habilidades)
@@ -154,30 +145,37 @@
             </dt>
 
 
-            <dd class="col-sm-1 d-flex justify-content-center">
+            <dd class="col-sm-1">
                 @Html.DisplayFor(modelItem => item.Nivel)
             </dd>
 
             <dd class="col-sm-1">
             </dd>
-            <dd class="col-sm-1 d-flex justify-content-center">
+            <dd class="col-sm-1">
                 @item.Habilidad.atributo.nombre
             </dd>
-
-            <dd class="col-sm-4">
+            <dd class="col-sm-1">
+            </dd>
+            <dt class="col-sm-1">
+                (@item.Nivel+@item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel) K @item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel
+            </dt>
+            <dt class="col-sm-1 justify-content-center">
+                <i class="bi bi-info-circle-fill"></i>
+            </dt>
+            <dt class="col-sm-1 justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+                    Tooltip on top
+                </button>
+            </dt>
+            <dd class="col-sm-3">
             </dd>
 
-            <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-center" role="group" aria-label="Button group with nested dropdown">
 
-                <div>
-                    <a asp-controller="HabilidadesDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
-                        Subir Nivel
-                    </a>
-                </div>
+
+            @*<div class="col-sm-2 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
 
                 <div class="btn-group" role="group" style="margin-left:6px">
-                    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Opciones
+                    <button type="button" class="btn b 
                     </button>
                     <ul class="dropdown-menu">
                         <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
@@ -210,16 +208,14 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-            </dd>
+            </div>*@
 
 
         }
     </dl>
-
+    
 </div>
 <div>
-    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
+    <a asp-action="Index">Back to List</a>
 </div>
