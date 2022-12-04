@@ -251,7 +251,7 @@ namespace PainKillerWeb.Controllers
         }
         public async Task<IActionResult> LevelUp(int? id)
         {
-            var atributoPersonaje = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r=> r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
+            var atributoPersonaje = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r => r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
 
             int costo = 5;
             if (atributoPersonaje.atributoId == atributoPersonaje.personaje.raza.idAtributoRelevante || id == atributoPersonaje.personaje.raza.idAtributoRelevante2)
@@ -274,27 +274,24 @@ namespace PainKillerWeb.Controllers
                 return NotFound();
             }
 
-
-            ViewBag.posible = (costoSubida) <= atributoPersonaje.personaje.expActual;
-            ViewBag.costoSubida = costoSubida;
+            ViewBag.posible = costoSubida <= atributoPersonaje.personaje.expActual;
+            ViewBag.costo = costoSubida;
 
             return View(atributoPersonaje);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LevelUp(int id, [Bind("id,personajeId,atributoId,Nivel")] AtributoDePersonaje atributoPersonaje)
+        public async Task<IActionResult> LevelUp(int id, [Bind("id,personajeId,atributoId,nivel")] AtributoDePersonaje atributoPersonaje)
         {
-            Personaje pj = await _context.personajes.FindAsync(atributoPersonaje.personajeId);
-
-            var personajeData = await _context.atributosDePersonajes.Include(p => p.personaje).ThenInclude(r => r.raza).Include(h => h.atributo).Where(x => x.id == id).FirstOrDefaultAsync();
+            Personaje pj = await _context.personajes.Include(x => x.raza).Where(x => x.id == atributoPersonaje.personajeId).FirstOrDefaultAsync();
 
             int costo = 5;
-            if (personajeData.atributoId == personajeData.personaje.raza.idAtributoRelevante || id == personajeData.personaje.raza.idAtributoRelevante2)
+            if (atributoPersonaje.atributoId == pj.raza.idAtributoRelevante || atributoPersonaje.atributoId == pj.raza.idAtributoRelevante2)
             {
                 costo = 4;
             }
-            else if (personajeData.atributoId == personajeData.personaje.raza.idAtributoPesimo)
+            else if (atributoPersonaje.atributoId == pj.raza.idAtributoPesimo)
             {
                 costo = 6;
             }
@@ -303,7 +300,7 @@ namespace PainKillerWeb.Controllers
             {
                 return NotFound();
             }
-            int costoSubida = (atributoPersonaje.nivel+1) * costo;
+            int costoSubida = (atributoPersonaje.nivel) * costo;
             if (ModelState.IsValid && costoSubida <= pj.expActual)
             {
                 try
@@ -325,7 +322,7 @@ namespace PainKillerWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", "Personajes", new { id = atributoPersonaje.personajeId });
+                return RedirectToAction("CalcularStats", "Personajes", new { id = atributoPersonaje.personajeId });
             }
 
 

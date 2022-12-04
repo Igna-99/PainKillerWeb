@@ -69,11 +69,19 @@
         </div>
         <div class="col-6"> </div>
         <div class="col-2 d-flex justify-content-end">
-            <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Editar Atributos</a>
+            <a asp-controller="AtributosDePersonajes" asp-action="EditAll" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles disabled">Editar Atributos</a>
         </div>
     </div>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            NOMBRE
+        </dt>
+        <dt class="col-sm-7">
+            NIVEL
+        </dt>
+        <dt class="col-sm-3">
+        </dt>
         @foreach (var item in Model.atributos)
         {
             if (item.atributoId == Model.raza.idAtributoRelevante || item.atributoId == Model.raza.idAtributoRelevante2)
@@ -95,14 +103,16 @@
                 </dt>
             }
 
-            <dd class="col-sm-10">
+            <dd class="col-sm-7">
                 @item.nivel
             </dd>
-            <div>
+            <dd class="col-sm-3 btn-group mt-1" role="group" aria-label="Button group with nested dropdown">
+                @*<div>*@
                 <a asp-controller="AtributosDePersonajes" asp-action="LevelUp" asp-route-id="@item.id" class="btn btn-outline-success" style="margin-right:6px">
                     Subir Nivel
                 </a>
-            </div>
+                @*</div>*@
+            </dd>
 
 
         }
@@ -120,6 +130,22 @@
     </div>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            NOMBRE
+        </dt>
+        <dt class="col-sm-1">
+            NIVEL
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dt class="col-sm-1">
+            CARACTERISTICA
+        </dt>
+        <dd class="col-sm-4">
+        </dd>
+        <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+
+        </dd>
         @foreach (var item in Model.habilidades)
         {
             <dt class="col-sm-2">
@@ -132,10 +158,12 @@
             </dd>
 
             <dd class="col-sm-1">
+            </dd>
+            <dd class="col-sm-1">
                 @item.Habilidad.atributo.nombre
             </dd>
 
-            <dd class="col-sm-5">
+            <dd class="col-sm-4">
             </dd>
 
             <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">

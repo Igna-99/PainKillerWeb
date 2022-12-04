@@ -19,7 +19,6 @@ namespace PainKillerWeb.Models.Main
         [Display(Name = "Atributo")]
         [Required(ErrorMessage = ErrMsj.RequeridoM)]
         public int atributoId { get; set; }
-        [Display(Name = "Atributo")]
         [Display(Name = "Descripcion")]
         public string descripcion { get; set; }
         public Atributo atributo { get; set; }

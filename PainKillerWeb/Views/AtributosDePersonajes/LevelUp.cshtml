@@ -2,25 +2,23 @@
 
 @{
     ViewData["Title"] = "Subir Nivel De Atributo";
+    int i = Model.nivel + 1;
 }
 
 <h2 class="goingMedievalG">Subir Atributo de Nivel</h2>
-@{
-    int costoSubida = ViewBag.costoSubida;
-    int i = Model.nivel + 1;
-}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <p class="goingMedievalG">Estas seguro que deseas subir de nivel el atributo "@Model.atributo.nombre" del personaje @Model.personaje.nombre </p>
-        <p class="goingMedievalG"><strong>Tendra un costo de @costoSubida puntos de Experiencia </strong></p>
+        <p class="goingMedievalG"><strong>Tendra un costo de @ViewBag.costo puntos de Experiencia </strong></p>
 
         <form asp-action="LevelUp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
                 <input type="hidden" asp-for="id" />
-                <input type="hidden" asp-for="personajeId" class="form-control" value="@Model.personajeId" />
-                <input type="hidden" asp-for="atributoId" class="form-control" value="@Model.atributoId" />
+                <input type="hidden" asp-for="personajeId" />
+                <input type="hidden" asp-for="atributoId" />
 
                 <input type="hidden" asp-for="nivel" class="form-control" value="@i" />
             </div>
@@ -54,4 +52,4 @@
 
 @*@section Scripts {*@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
