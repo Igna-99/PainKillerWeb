@@ -169,6 +169,40 @@ namespace PainKillerWeb.Controllers
             return View(personaje);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEnJugar(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax,vidaAct,manaAct,energiaAct")] Personaje personaje)
+        {
+            if (id != personaje.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(personaje);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonajeExists(personaje.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+            return RedirectToAction("index");
+        }
+
+
         // GET: Personajes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
