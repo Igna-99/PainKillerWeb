@@ -50,19 +50,19 @@
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.expGastada)
         </dd>
-        <dt class="col-sm-4" style="color:red">
-            VIDA
+        <dt class="col-sm-4 text-danger">
+            Vida
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dt class="col-sm-4" style="color:blue">
+        <dt class="col-sm-4 text-primary" >
             MANA
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dt class="col-sm-4" style="color:green">
+        <dt class="col-sm-4 text-success" >
             ENERGIA
          </dt>
         <dd class="col-sm-8">
@@ -221,5 +221,6 @@
 
 </div>
 <div>
+    <a asp-action="Jugar" asp-route-id="@Model.id" class="btn btn-outline-dark mt-2 btn-sm">Ir A Jugar</a>
     <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
 </div>

@@ -19,7 +19,7 @@ namespace PainKillerWeb.Context
 
             var atributos = new Atributo[]
             {
-                new Atributo{ nombre= "Fuerza" },
+                new Atributo{ nombre= "Fuerza"},
                 new Atributo{ nombre= "Agilidad" },
                 new Atributo{ nombre= "Entendimiento" },
                 new Atributo{ nombre= "Fe" },
@@ -80,16 +80,19 @@ namespace PainKillerWeb.Context
                 {
                     nombre = "Mandoble",
                     atributoId = 1,
+                    descripcion=""
                 },
                 new Habilidad
                 {
                     nombre = "Arqueria",
                     atributoId = 2,
+                    descripcion=""
                 },
                 new Habilidad
                 {
                     nombre = "Hechiceria",
                     atributoId = 3,
+                    descripcion=""
                 }
             };
             foreach (var p in habilidades)
