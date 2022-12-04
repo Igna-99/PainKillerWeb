@@ -1,41 +1,127 @@
 ﻿@model IEnumerable<PainKillerWeb.Models.Main.Habilidad>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Habilidades";
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-4 d-flex justify-content-start align-content-center">
+        <h1 class="goingMedievalG">Lista de Habilidades</h1>
+    </div>
+    <div class="col-6"> </div>
+    <div class="col-2 d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-outline-dark botonDetalles m-2">Crear Habilidad</a>
+    </div>
+</div>
+<hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.atributo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.atributo.nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-2 "> </div>
+    <div class="col-8 ">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            @foreach (var item in Model)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelHab-@item.id">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelHabOpen-@item.id" aria-expanded="false" aria-controls="panelHabOpen-@item.id">
+                            @item.nombre
+                        </button>
+                    </h2>
+                    <div id="panelHabOpen-@item.id" class="accordion-collapse collapse" aria-labelledby="panelHab-@item.id">
+                        <div class="accordion-body row">
+
+                            <div class="col-1"></div>
+                            <div class="col-3 d-flex justify-content-md-start">
+                                <strong>@Html.DisplayNameFor(model => model.atributo)</strong>: @Html.DisplayFor(modelItem => item.atributo.nombre)
+                            </div>
+
+                            <div class="col-6 d-flex"> </div>
+                            <div class="col-2 d-flex d-flex justify-content-end">
+
+                                <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="modal" data-bs-target="#DetailsModal-@item.id">
+                                    Detalles
+                                </button>
+
+                                <button type="button" class="btn btn-outline-danger" style="margin-left: 6px;" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.id">
+                                    Eliminar
+                                </button>
+
+
+
+
+                                <div class="modal fade" id="DetailsModal-@item.id" tabindex="-1" aria-labelledby="DetailsModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 goingMedievalG"> Detalles De Habilidad</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl class="row">
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.nombre):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.nombre)
+                                                    </dd>
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.atributo):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.atributo.nombre)
+                                                    </dd>
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.atributo):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @Html.DisplayFor(model => item.atributo.nombre)
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="deleteModal-@item.id" tabindex="-1" aria-labelledby="deleteModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 goingMedievalG"> Confirmar Eliminacion de Personaje</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> estas seguro que deseas eliminar la habilidad "@item.nombre" </p>
+                                                <p><strong> no habra vuelta atras </strong></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-controller="Habilidades" asp-action="Delete" asp-route-id="@item.id">
+                                                    <input type="hidden" asp-for="@item.id" />
+                                                    <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <div class="col-2 "> </div>
+
+</div>
+
+
+
+
+

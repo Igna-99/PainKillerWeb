@@ -38,7 +38,11 @@
                         <strong>@Html.DisplayNameFor(model => model.expActual)</strong>:  @Html.DisplayFor(modelItem => item.expActual)
                     </div>
 
-                    <div class="col-3 d-flex"></div>
+                    <div class="col-2 d-flex">
+                        <strong>@Html.DisplayNameFor(model => model.expGastada)</strong>:  @Html.DisplayFor(modelItem => item.expGastada)
+                    </div>
+
+                    <div class="col-1 d-flex"></div>
 
                     <div class="col-4 d-flex d-flex justify-content-end">
 
@@ -80,6 +84,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li> <a asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteModal-@Html.DisplayFor(modelItem => item.id)">
                                     Eliminar
