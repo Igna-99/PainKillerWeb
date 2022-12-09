@@ -12,6 +12,10 @@
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-end ">
+            <a asp-action="descansar" asp-route-id="@Model.id" class="btn btn-outline-success">Descansar</a>
+        </div>
 
     </div>
 
@@ -68,18 +72,18 @@
 
                                 <div class="form-floating mb-3">
                                     <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="energiaAct" value="@Model.energiaAct" />
-                                    <input type="hidden" asp-for="manaAct" value="@Model.manaAct" />
+                                    <input type="hidden" asp-for="nombre"  />
+                                    <input type="hidden" asp-for="razaId"  />
+                                    <input type="hidden" asp-for="expActual"  />
+                                    <input type="hidden" asp-for="expGastada"  />
+                                    <input type="hidden" asp-for="vidaMax" />
+                                    <input type="hidden" asp-for="energiaMax"  />
+                                    <input type="hidden" asp-for="manaMax"  />
+                                    <input type="hidden" asp-for="energiaAct" />
+                                    <input type="hidden" asp-for="manaAct" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="vidaAct" class="form-control" placeholder=1 />
+                                    <input asp-for="vidaAct" class="form-control" placeholder=1 min="0" max="@Model.vidaMax" />
                                     <label asp-for="vidaAct"></label>
                                     <span asp-validation-for="vidaAct" class="text-danger"></span>
                                 </div>
@@ -133,7 +137,7 @@
                                     <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="manaAct" class="form-control" placeholder=1 />
+                                    <input asp-for="manaAct" class="form-control" placeholder=1 min="0" max="@Model.manaMax"/>
                                     <label asp-for="manaAct"></label>
                                     <span asp-validation-for="manaAct" class="text-danger"></span>
                                 </div>
@@ -186,7 +190,7 @@
                                     <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="energiaAct" class="form-control" placeholder=1 />
+                                    <input asp-for="energiaAct" class="form-control" placeholder=1 min="0" max="@Model.energiaMax/>
                                     <label asp-for="energiaAct"></label>
                                     <span asp-validation-for="energiaAct" class="text-danger"></span>
                                 </div>

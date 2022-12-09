@@ -114,6 +114,23 @@ namespace PainKillerWeb.Controllers
             return RedirectToAction("Details", "Personajes", new { id = pers.id });
         }
 
+        public async Task<IActionResult> Descansar(int id)
+        {
+            Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
+
+            if (pers != null)
+            {
+                pers.vidaAct = pers.vidaMax;
+                pers.manaAct = pers.manaMax;
+                pers.energiaAct = pers.energiaMax;
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+        }
+
 
 
         // GET: Personajes/Edit/5
