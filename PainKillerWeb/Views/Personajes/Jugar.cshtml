@@ -49,22 +49,20 @@
             @Html.DisplayFor(model => model.expGastada)
         </dd>
 
-        <dt class="col-sm-4" style="color:red">
-            VIDA
+        <dt class="col-sm-4">
+            <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" >
+                VIDA
+            </button>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalVida-@Model.id" tabindex="-1" aria-labelledby="modalVida-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-danger" id="modalVida-@Model.id" tabindex="-1" aria-labelledby="modalVida-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar vida </h1>
+                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Vida Actual </h1>
                         </div>
                         <div class="modal-body">
                             <form asp-action="EditEnJugar">
@@ -89,7 +87,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-danger" />
                                 </div>
 
                             </form>
@@ -99,26 +97,22 @@
                 </div>
             </div>
         </dd>
-        <dd class="col-sm-2">
-        </dd>
 
 
         <dt class="col-sm-4" style="color:blue">
-            MANA
+            <button type="button" class="btn btn-outline-primary btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" >
+                MANA
+            </button>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalMana-@Model.id" tabindex="-1" aria-labelledby="modalMana-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-primary" id="modalMana-@Model.id" tabindex="-1" aria-labelledby="modalMana-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar mana </h1>
+                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Mana Actual </h1>
                         </div>
                         <div class="modal-body">
                             <form asp-action="EditEnJugar">
@@ -143,7 +137,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-primary" />
                                 </div>
 
                             </form>
@@ -153,28 +147,24 @@
                 </div>
             </div>
         </dd>
-        <dd class="col-sm-2">
-        </dd>
 
-        <dt class="col-sm-4" style="color:green">
-            ENERGIA
+        <dt class="col-sm-4">
+            <button type="button" class="btn btn-outline-success btn-sm " style="width:70px" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" >
+                ENERGIA
+            </button>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalEnerg-@Model.id" tabindex="-1" aria-labelledby="modalEnerg-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-success" id="modalEnerg-@Model.id" tabindex="-1" aria-labelledby="modalEnerg-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar energia </h1>
+                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Energia Actual </h1>
                         </div>
                         <div class="modal-body">
-                            <form asp-action="EditEnJugar">
+                            <form asp-action="EditEnJugar" >
                                 <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
 
                                 <div class="form-floating mb-3">
@@ -190,13 +180,13 @@
                                     <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="energiaAct" class="form-control" placeholder=1 min="0" max="@Model.energiaMax/>
-                                    <label asp-for="energiaAct"></label>
+                                    <input asp-for="energiaAct" class="form-control" placeholder=1 min="0" max="@Model.energiaMax"/>
+                                    <label asp-for="energiaAct" ></label>
                                     <span asp-validation-for="energiaAct" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-success" />
                                 </div>
 
                             </form>
@@ -206,7 +196,6 @@
                 </div>
             </div>
         </dd>
-
     </dl>
 
     <dl class="row col-6">
