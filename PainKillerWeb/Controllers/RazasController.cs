@@ -10,11 +10,11 @@ using PainKillerWeb.Models.Main;
 
 namespace PainKillerWeb.Controllers
 {
-    public class ElementoController : Controller
+    public class RazasController : Controller
     {
         private readonly PainKillerDbContext _context;
 
-        public ElementoController(PainKillerDbContext context)
+        public RazasController(PainKillerDbContext context)
         {
             _context = context;
         }
