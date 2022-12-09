@@ -1,7 +1,9 @@
-﻿using PainKillerWeb.Models.Main;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -99,6 +101,52 @@ namespace PainKillerWeb.Context
             {
                 context.habilidades.Add(p);
             }
+
+            var elementos = new Elemento[]
+            {
+                new Elemento() {nombre = "Fuego"},
+                new Elemento() {nombre = "Tierra"},
+                new Elemento() {nombre = "Aire"},
+                new Elemento() {nombre = "Agua"},
+                new Elemento() {nombre = "Frio"},
+                new Elemento() {nombre = "Rayo"},
+                new Elemento() {nombre = "Cuerpo"},
+                new Elemento() {nombre = "Espiritu"},
+                new Elemento() {nombre = "Mente"},
+                new Elemento() {nombre = "Astral"},
+                new Elemento() {nombre = "Luz"},
+                new Elemento() {nombre = "Oscuridad"}
+            };
+
+            foreach (var p in elementos)
+            {
+                context.elementos.Add(p);
+            }
+
+            var distancia = new Distancia[]
+            {
+                new Distancia() {nombre = "Vista"},
+                new Distancia() {nombre = "Personal"},
+                new Distancia() {nombre = "Toque"},
+                new Distancia() {nombre = "Corto"},
+                new Distancia() {nombre = "Medio"},
+                new Distancia() {nombre = "Largo"},
+                new Distancia() {nombre = "Epico"}
+            };
+            foreach (var p in distancia)
+            {
+                context.distancias.Add(p);
+            }
+            context.raza.Add(new Raza() { nombre = "Feerica", idAtributoRelevante = 2, idAtributoRelevante2 = 3, idAtributoPesimo = 1 });
+
+            context.hechizos.Add(new Hechizo() { nombre = "Antorcha", costeExp = 1, distanciaId = 3, elementoId = 1, costeUso = 2, tipoCoste = 3, tiempo = "Instantaneo", duracion = "Un min por punto en FE", efecto = "Conjuras un pequeño orbe de fuego en las manos que da calor y luz como una antorcha." });
+            context.hechizos.Add(new Hechizo() { nombre = "Saetas", costeExp = 2, distanciaId = 5, elementoId = 1, costeUso = 2, tipoCoste = 2, tiempo = "Instantaneo",
+                efecto = "[Ignora resistencia a conjuros] [Proyectil] Lanza una hiriente saeta de fuego Ataque (Mente + Hechicería) daño 3K1 Inflige Daño Físico."
+                //,
+                //cadena = context.hechizos.Find(x => x.nombre == "Antorcha")
+            });
+           //Hay que agregar a cadena los hechizos que hagan cadena. Nunca puede ser el mismo hechizo
+
 
             context.SaveChanges();
         }
