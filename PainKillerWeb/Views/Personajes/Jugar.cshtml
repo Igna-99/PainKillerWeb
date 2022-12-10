@@ -63,35 +63,25 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 goingMedievalG"> Modificar Vida Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarVida" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre"  />
-                                    <input type="hidden" asp-for="razaId"  />
-                                    <input type="hidden" asp-for="expActual"  />
-                                    <input type="hidden" asp-for="expGastada"  />
-                                    <input type="hidden" asp-for="vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax"  />
-                                    <input type="hidden" asp-for="manaMax"  />
-                                    <input type="hidden" asp-for="energiaAct" />
-                                    <input type="hidden" asp-for="manaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="vidaAct" class="form-control" placeholder=1 min="0" max="@Model.vidaMax" />
-                                    <label asp-for="vidaAct"></label>
-                                    <span asp-validation-for="vidaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.vidaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
                                     <input type="submit" value="alterar" class="btn btn-danger" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -113,35 +103,25 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 goingMedievalG"> Modificar Mana Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarMana" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="energiaAct" value="@Model.energiaAct" />
-                                    <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="manaAct" class="form-control" placeholder=1 min="0" max="@Model.manaMax"/>
-                                    <label asp-for="manaAct"></label>
-                                    <span asp-validation-for="manaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.manaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
                                     <input type="submit" value="alterar" class="btn btn-primary" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -162,35 +142,25 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 goingMedievalG"> Modificar Energia Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar" >
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarEnergia" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="manaAct" value="@Model.manaAct" />
-                                    <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="energiaAct" class="form-control" placeholder=1 min="0" max="@Model.energiaMax"/>
-                                    <label asp-for="energiaAct" ></label>
-                                    <span asp-validation-for="energiaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.energiaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
                                     <input type="submit" value="alterar" class="btn btn-success" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -315,6 +285,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5 goingMedievalG">  Usar La Habilidad "@item.Habilidad.nombre"</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <p>estas seguro de que deseas utilizar esta habilidad</p>
@@ -342,6 +313,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5 goingMedievalG"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <h5>Descripcion: </h5>

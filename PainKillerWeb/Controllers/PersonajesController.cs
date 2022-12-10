@@ -189,34 +189,102 @@ namespace PainKillerWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditEnJugar(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax,vidaAct,manaAct,energiaAct")] Personaje personaje)
+        public async Task<IActionResult> EditarVida(int id, int num)
         {
-            if (id != personaje.id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
             {
-                try
+                if ((personaje.vidaAct + num) >= personaje.vidaMax)
                 {
-                    _context.Update(personaje);
-                    await _context.SaveChangesAsync();
+                    personaje.vidaAct = personaje.vidaMax;
                 }
-                catch (DbUpdateConcurrencyException)
+                else if ((personaje.vidaAct + num) <= 0)
                 {
-                    if (!PersonajeExists(personaje.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    personaje.vidaAct = 0;
                 }
+                else
+                {
+                    personaje.vidaAct += num;
+                }
+
+                
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
                 return RedirectToAction("Jugar", new { id = personaje.id });
             }
             return RedirectToAction("index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarMana(int id, int num)
+        {
+
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
+            {
+                if ((personaje.manaAct + num) >= personaje.manaMax)
+                {
+                    personaje.manaAct = personaje.manaMax;
+                }
+                else if ((personaje.manaAct + num) <= 0)
+                {
+                    personaje.manaAct = 0;
+                }
+                else
+                {
+                    personaje.manaAct += num;
+                }
+
+                
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+            return RedirectToAction("index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarEnergia(int id, int num)
+        {
+
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
+            {
+                if ((personaje.energiaAct + num) >= personaje.energiaMax)
+                {
+                    personaje.energiaAct = personaje.energiaMax;
+                }
+                else if ((personaje.energiaAct + num) <= 0)
+                {
+                    personaje.energiaAct = 0;
+                }
+                else 
+                {
+                    personaje.energiaAct += num;
+                }
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+            return RedirectToAction("index");
+
         }
 
 
