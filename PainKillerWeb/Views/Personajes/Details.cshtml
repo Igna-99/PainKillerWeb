@@ -180,7 +180,11 @@
                         Opciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li> <a asp-controller="HabilidadesDePersonajes" asp-action="Details" asp-route-id="@item.id" class="dropdown-item">Detalles</a> </li>
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#detalles-@item.id">
+                                Detalles
+                            </button>
+                        </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteHabilidadModal-@item.id">
@@ -188,6 +192,26 @@
                             </button>
                         </li>
                     </ul>
+
+
+                    <div class="modal fade" id="detalles-@item.id" tabindex="-1" aria-labelledby="detalles-@item.id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 goingMedievalG"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Descripcion: </h5>
+                                    <p>@Html.DisplayFor(modelItem => item.Habilidad.descripcion)</p>
+                                    <h5>tirada: </h5>
+                                    (@item.Nivel+@item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel) K @item.Personaje.atributos.Where(x => x.atributoId == item.Habilidad.atributoId).FirstOrDefault().nivel
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="modal fade" id="deleteHabilidadModal-@item.id" tabindex="-1" aria-labelledby="deleteHabilidadModal-@item.id" aria-hidden="true">
