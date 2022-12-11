@@ -1,8 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "PK";
 }
 
 
 <div class="row">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
 
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Proyecto inpirado en el juego de mesa PainKiller!
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <strong>Que es PK (Pain Killer)</strong><br />
+                    Es una obra en la cual gente lleva muchísimos años jugando, a base de prueba y error durante muchos años
+                    fue puliéndose creando historias y anécdotas heroicas y gestas gloriosas. Basadas en un mundo fantástico
+                    medieval con un toque épico ha sido el entretenimiento de muchas personas durante mucho tiempo, espero
+                    que este libro pueda hacerle justicia a tal obra.<br />
+                    ¿Que necesitas para jugar?<br />
+                    Solo necesitas, una copia de este texto completa. Una ficha de personaje por jugador, un juego de dados de
+                    Diez caras (D10 de aquí en mas) lápices, papel para notas, jugadores y mucha imaginación.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    La hoja de jugador original es un EXCEL!!
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> Loco, no? Con aprox 5 paginas, calculos automaticos, inventario, seguimiento de exp, tecnicas y muchas coass mas.<br />
+                    Al ser un juego de rol fluido y con reglas flexibles no se pueden hacer numeros perfectos.<br />
+                    En un juego los arcos pueden hacer 10 de daño (Como dice el manual) y en otra hacen 15 porque asi lo quiso el director de juego!<br />
+                    <a href="https://docs.google.com/spreadsheets/d/1CA0mS23IgUdEZ-WnBhtf66BKSf_Mvkb83Yp-YzjG7uQ/edit?usp=sharing" target="_blank">
+                    HOJA ORIGINAL
+                        </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    MANUAL DE JUEGO
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <a href="https://drive.google.com/file/d/1H7gHL0LyDiIHfoJQbJIEYEbEX0rxOQIY/view?usp=share_link" target="_blank">
+                        MANUAL
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Proximas features
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#features" aria-controls="features">
+                        WORK IN PROGRESS!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*
+    Offcanvas ->
+    https://getbootstrap.com/docs/5.2/components/offcanvas/
+*@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="features" aria-labelledby="featuresLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="featuresLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            Proximas features!
+        </div>
+        <div class="dropdown mt-3">
+            <ol>
+                <li>Action</li>
+                <li>Another action</li>
+                <li>Something else here<</li>
+            </ol>
+        </div>
+    </div>
 </div>
