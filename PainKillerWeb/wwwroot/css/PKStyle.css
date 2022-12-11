@@ -1,0 +1,60 @@
+﻿body {
+    background-image: url("../images/FondoPainKiller.png");
+    background-size: cover;
+    background-position-y: 20px;
+}
+
+.img4040 {
+    width: 40px;
+    height: 40px;
+}
+
+.fuenteMedieval {
+    font-family: 'Rakkas', cursive;
+}
+
+.fuenteMedieval800 {
+    font-family: 'Rakkas', cursive;
+    font-weight: 800;
+}
+
+.texto23px {
+    font-size: 23px;
+}
+
+.texto80px {
+    font-size: 80px;
+}
+
+
+#tituloAcordionIndex {
+    font-size: 20px;
+}
+
+#layoutTitulo {
+    font-size: 30px;
+}
+
+#acordionTitulo {
+    font-size: 23px;
+    border: 1px black solid;
+    background-image: url("../images/FondoDeBoton.png");
+    border-radius: 20px;
+    height: 100px;
+}
+
+#acordionDiv {
+    border-radius: 20px
+}
+
+#contenedorVistas {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 75px;
+    margin-bottom: 45px;
+    background-color: rgba(255, 255, 255,0.5);
+    border-radius: 20px;
+}
+
+
+

@@ -1,15 +1,23 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewData["Title"] = "PK";
 }
+
+
+<div class="fuenteMedieval800">
+    <h1 class="d-flex justify-content-center texto80px">Bienvenido A</h1>
+    <h1 class="d-flex justify-content-center texto80px">PainKiller Web</h1>
+</div>
 
 
 <div class="row">
     <div class="accordion accordion-flush" id="accordionFlushExample">
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Proyecto inpirado en el juego de mesa PainKiller!
+        <div class="accordion-item" id="acordionDiv">
+            <h2 class="accordion-header " id="flush-headingOne">
+                <button class="accordion-button collapsed d-block text-center fuenteMedieval" id="acordionTitulo"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Que es PainKiller?
                 </button>
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -26,27 +34,31 @@
             </div>
         </div>
 
-        <div class="accordion-item">
+        <div class="accordion-item" id="acordionDiv">
             <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                    La hoja de jugador original es un EXCEL!!
+                <button class="accordion-button collapsed d-block text-center fuenteMedieval" id="acordionTitulo"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Forma Original De Jugar A PK
                 </button>
             </h2>
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body"> Loco, no? Con aprox 5 paginas, calculos automaticos, inventario, seguimiento de exp, tecnicas y muchas coass mas.<br />
+                <div class="accordion-body">
+                    <strong>!!!Normalmente PK se juega con una Hoja de Personaje en EXEL¡¡¡</strong><br />
+                    Loco, no? Con aprox 5 paginas, calculos automaticos, inventario, seguimiento de exp, tecnicas y muchas coass mas.<br />
                     Al ser un juego de rol fluido y con reglas flexibles no se pueden hacer numeros perfectos.<br />
                     En un juego los arcos pueden hacer 10 de daño (Como dice el manual) y en otra hacen 15 porque asi lo quiso el director de juego!<br />
                     <a href="https://docs.google.com/spreadsheets/d/1CA0mS23IgUdEZ-WnBhtf66BKSf_Mvkb83Yp-YzjG7uQ/edit?usp=sharing" target="_blank">
-                    HOJA ORIGINAL
-                        </a>
+                        HOJA ORIGINAL
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="accordion-item">
+        <div class="accordion-item " id="acordionDiv">
             <h2 class="accordion-header" id="flush-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                    MANUAL DE JUEGO
+                <button class="accordion-button collapsed d-block text-center fuenteMedieval" id="acordionTitulo"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Manual De Juego
                 </button>
             </h2>
             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
@@ -57,21 +69,21 @@
                 </div>
             </div>
         </div>
-@*
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingFour">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                    Proximas features
-                </button>
-            </h2>
-            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#features" aria-controls="features">
-                        WORK IN PROGRESS!
+        @*
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        Proximas features
                     </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#features" aria-controls="features">
+                            WORK IN PROGRESS!
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
         <br />
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#features" aria-controls="features">

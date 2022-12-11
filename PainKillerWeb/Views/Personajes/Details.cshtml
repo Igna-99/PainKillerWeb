@@ -1,14 +1,13 @@
 ﻿@model PainKillerWeb.Models.Main.Personaje
 
 @{
-    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewData["Title"] = "Detalles";
 }
 
 <div class="row">
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h2 class="goingMedievalG">
+            <h2 class="fuenteMedieval800">
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
@@ -20,7 +19,7 @@
 
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h3 class="goingMedievalG">Atributos</h3>
+            <h3 class="fuenteMedieval800">Atributos</h3>
         </div>
         <div class="col-5"> </div>
         <div class="col-3 d-flex justify-content-end">
@@ -72,10 +71,10 @@
 
     <dl class="row col-6">
         <dt class="col-sm-3 ">
-            <h5 class="goingMedievalG">Nombre</h5>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-2 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dt class="col-sm-4"></dt>
         <dt class="col-sm-3">
@@ -122,7 +121,7 @@
 <div>
     <div class="row">
         <div class="col-4 d-flex justify-content-start align-bottom">
-            <h3 class="goingMedievalG">Habilidades</h3>
+            <h3 class="fuenteMedieval800">Habilidades</h3>
         </div>
         <div class="col-5"> </div>
         <div class="col-3 d-flex justify-content-center">
@@ -132,15 +131,15 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            <h5 class="goingMedievalG">Nombre</h5>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dd class="col-sm-1">
         </dd>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Atributo</h5>
+            <p class="fuenteMedieval800 texto23px">Atributo</p>
         </dt>
         <dd class="col-sm-4">
         </dd>
@@ -198,7 +197,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 goingMedievalG"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -218,7 +217,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 goingMedievalG"> Confirmar Eliminacion de Habilidad</h1>
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Habilidad</h1>
                                 </div>
                                 <div class="modal-body">
                                     <p> estas seguro que deseas eliminar la Habilidad "@item.Habilidad.nombre" del personaje @Model.nombre</p>

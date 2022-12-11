@@ -1,14 +1,13 @@
 ﻿@model PainKillerWeb.Models.Main.Personaje
 
 @{
-    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewData["Title"] = "Jugar";
 }
 
 <div class="row">
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h2 class="goingMedievalG">
+            <h2 class="fuenteMedieval800">
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
@@ -21,7 +20,7 @@
 
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h3 class="goingMedievalG">Atributos</h3>
+            <h3 class="fuenteMedieval800">Atributos</h3>
         </div>
 
     </div>
@@ -62,7 +61,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Vida Actual </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Vida Actual </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form asp-action="EditarVida" method="post">
@@ -102,7 +101,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Mana Actual </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Mana Actual </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form asp-action="EditarMana" method="post">
@@ -141,7 +140,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> Modificar Energia Actual </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Energia Actual </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form asp-action="EditarEnergia" method="post">
@@ -170,10 +169,10 @@
 
     <dl class="row col-6">
         <dt class="col-sm-3 ">
-            <h5 class="goingMedievalG">Nombre</h5>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-2 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dt class="col-sm-4"></dt>
         <dt class="col-sm-3">
@@ -216,7 +215,7 @@
 <div>
     <div class="row">
         <div class="col-4 d-flex justify-content-start align-bottom">
-            <h3 class="goingMedievalG">Habilidades</h3>
+            <h3 class="fuenteMedieval800">Habilidades</h3>
         </div>
         <div class="col-8"> </div>
 
@@ -224,20 +223,20 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            <p class="goingMedievalG">Nombre</p>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <p class="goingMedievalG">Nivel</p>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dd class="col-sm-1">
         </dd>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <p class="goingMedievalG">Atributo</p>
+            <p class="fuenteMedieval800 texto23px">Atributo</p>
         </dt>
         <dd class="col-sm-1">
         </dd>
         <dd class="col-sm-1">
-            <p class="goingMedievalG">Tirada</p>
+            <p class="fuenteMedieval800 texto23px">Tirada</p>
         </dd>
         <dd class="col-sm-2">
         </dd>
@@ -284,7 +283,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 goingMedievalG">  Usar La Habilidad "@item.Habilidad.nombre"</h1>
+                                <h1 class="modal-title fs-5 fuenteMedieval800">  Usar La Habilidad "@item.Habilidad.nombre"</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -312,7 +311,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 goingMedievalG"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

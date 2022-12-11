@@ -4,15 +4,15 @@
     ViewData["Title"] = "Subir Nivel De Habilidad";
 }
 
-<h2 class="goingMedievalG">Subir Habilidad de Nivel</h2>
+<h2 class="fuenteMedieval800">Subir Habilidad de Nivel</h2>
 @{
     int i = Model.Nivel + 1;
 }
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <p class="goingMedievalG">Estas seguro que deseas subir de nivel la habilidad "@Model.Habilidad.nombre" (@Model.Habilidad.atributo.nombre) del personaje @Model.Personaje.nombre </p>
-        <p class="goingMedievalG"><strong>Tendra un costo de @i puntos de Experiencia </strong></p>
+        <p class="fuenteMedieval800">Estas seguro que deseas subir de nivel la habilidad "@Model.Habilidad.nombre" (@Model.Habilidad.atributo.nombre) del personaje @Model.Personaje.nombre </p>
+        <p class="fuenteMedieval800"><strong>Tendra un costo de @i puntos de Experiencia </strong></p>
 
         <form asp-action="LevelUp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
