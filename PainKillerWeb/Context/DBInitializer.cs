@@ -139,8 +139,8 @@ namespace PainKillerWeb.Context
             }
             context.raza.Add(new Raza() { nombre = "Feerica", idAtributoRelevante = 2, idAtributoRelevante2 = 3, idAtributoPesimo = 1 });
 
-            context.hechizos.Add(new Hechizo() { nombre = "Antorcha", costeExp = 1, distanciaId = 3, elementoId = 1, costeUso = 2, tipoCoste = 3, tiempo = "Instantaneo", duracion = "Un min por punto en FE", efecto = "Conjuras un pequeño orbe de fuego en las manos que da calor y luz como una antorcha." });
-            context.hechizos.Add(new Hechizo() { nombre = "Saetas", costeExp = 2, distanciaId = 5, elementoId = 1, costeUso = 2, tipoCoste = 2, tiempo = "Instantaneo",
+            context.hechizos.Add(new Hechizo() { nombre = "Antorcha", costeExp = 1, distanciaId = 3, elementoId = 7, costeUso = 2, tipoCoste = 3, tiempo = "Instantaneo", duracion = "Un min por punto en FE", efecto = "Conjuras un pequeño orbe de fuego en las manos que da calor y luz como una antorcha." });
+            context.hechizos.Add(new Hechizo() { nombre = "Saetas", costeExp = 2, distanciaId = 5, elementoId = 7, costeUso = 2, tipoCoste = 2, tiempo = "Instantaneo",
                 efecto = "[Ignora resistencia a conjuros] [Proyectil] Lanza una hiriente saeta de fuego Ataque (Mente + Hechicería) daño 3K1 Inflige Daño Físico."
                 //,
                 //cadena = context.hechizos.Find(x => x.nombre == "Antorcha")
