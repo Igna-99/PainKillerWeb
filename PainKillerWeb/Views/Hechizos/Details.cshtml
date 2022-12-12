@@ -1,0 +1,72 @@
+﻿@model PainKillerWeb.Models.Main.Hechizo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Hechizo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.duracion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.duracion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.costeExp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.costeExp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.costeUso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.costeUso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipoCoste)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipoCoste)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.efecto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.efecto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tiempo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tiempo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.distancia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.distancia.nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.elemento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.elemento.nombre)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

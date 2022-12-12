@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PainKillerWeb.Context;
 
 namespace PainKillerWeb.Migrations
 {
     [DbContext(typeof(PainKillerDbContext))]
-    partial class PainKillerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221209171603_PK-MK7")]
+    partial class PKMK7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,6 +103,9 @@ namespace PainKillerWeb.Migrations
                     b.Property<int?>("Hechizoid")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Personajeid")
+                        .HasColumnType("int");
+
                     b.Property<int>("costeExp")
                         .HasColumnType("int");
 
@@ -134,6 +139,8 @@ namespace PainKillerWeb.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("Hechizoid");
+
+                    b.HasIndex("Personajeid");
 
                     b.HasIndex("distanciaId");
 
@@ -279,28 +286,6 @@ namespace PainKillerWeb.Migrations
                     b.ToTable("habilidadDePersonajes");
                 });
 
-            modelBuilder.Entity("PainKillerWeb.Models.Pivot.HechizoDePersonaje", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("HechizoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("personajeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("HechizoId");
-
-                    b.HasIndex("personajeId");
-
-                    b.ToTable("hechizosDePersonajes");
-                });
-
             modelBuilder.Entity("PainKillerWeb.Models.Main.Habilidad", b =>
                 {
                     b.HasOne("PainKillerWeb.Models.Main.Atributo", "atributo")
@@ -315,6 +300,10 @@ namespace PainKillerWeb.Migrations
                     b.HasOne("PainKillerWeb.Models.Main.Hechizo", null)
                         .WithMany("cadena")
                         .HasForeignKey("Hechizoid");
+
+                    b.HasOne("PainKillerWeb.Models.Main.Personaje", null)
+                        .WithMany("hechizos")
+                        .HasForeignKey("Personajeid");
 
                     b.HasOne("PainKillerWeb.Models.Main.Distancia", "distancia")
                         .WithMany()
@@ -378,21 +367,6 @@ namespace PainKillerWeb.Migrations
 
                     b.HasOne("PainKillerWeb.Models.Main.Personaje", "Personaje")
                         .WithMany("habilidades")
-                        .HasForeignKey("personajeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PainKillerWeb.Models.Pivot.HechizoDePersonaje", b =>
-                {
-                    b.HasOne("PainKillerWeb.Models.Main.Hechizo", "Hechizo")
-                        .WithMany()
-                        .HasForeignKey("HechizoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PainKillerWeb.Models.Main.Personaje", "Personaje")
-                        .WithMany("hechizos")
                         .HasForeignKey("personajeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
