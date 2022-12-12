@@ -6,9 +6,39 @@
 
   <ItemGroup>
     <Compile Remove="Views\Atributos\**" />
+    <Compile Remove="Views\Razas\**" />
     <Content Remove="Views\Atributos\**" />
+    <Content Remove="Views\Razas\**" />
     <EmbeddedResource Remove="Views\Atributos\**" />
+    <EmbeddedResource Remove="Views\Razas\**" />
     <None Remove="Views\Atributos\**" />
+    <None Remove="Views\Razas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\RazasController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\AtributosDePersonajes\Create.cshtml" />
+    <Content Remove="Views\AtributosDePersonajes\Delete.cshtml" />
+    <Content Remove="Views\AtributosDePersonajes\Edit.cshtml" />
+    <Content Remove="Views\AtributosDePersonajes\Index.cshtml" />
+    <Content Remove="Views\HabilidadesDePersonajes\Create.cshtml" />
+    <Content Remove="Views\HabilidadesDePersonajes\Delete.cshtml" />
+    <Content Remove="Views\HabilidadesDePersonajes\Details.cshtml" />
+    <Content Remove="Views\HabilidadesDePersonajes\Index.cshtml" />
+    <Content Remove="Views\Habilidades\Delete.cshtml" />
+    <Content Remove="Views\Habilidades\Details.cshtml" />
+    <Content Remove="Views\Personajes\Delete.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_Layout1.cshtml" />
+    <None Include="Views\Shared\_Layout2.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
