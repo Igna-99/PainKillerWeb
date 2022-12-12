@@ -184,7 +184,7 @@ namespace PainKillerWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax")] Personaje personaje)
+        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax,vidaAct,energiaAct,manaAct")] Personaje personaje)
         {
             if (id != personaje.id)
             {

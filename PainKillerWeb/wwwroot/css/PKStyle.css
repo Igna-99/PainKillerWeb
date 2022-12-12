@@ -1,4 +1,5 @@
-﻿body {
+﻿
+#bodyNormal {
     background-image: url("../images/FondoPainKiller.png");
     background-size: cover;
     background-position-y: 20px;
@@ -56,5 +57,7 @@
     border-radius: 20px;
 }
 
-
+#textoDevelopers {
+    font-size: 100px;
+}
 
