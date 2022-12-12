@@ -137,9 +137,9 @@ namespace PainKillerWeb.Controllers
             HabilidadDePersonaje hDP = _context.habilidadDePersonajes.Where(x => x.id == id).Include(x => x.Personaje).Include(x => x.Habilidad).FirstOrDefault();
             Personaje pers = hDP.Personaje;
 
-            if (hDP != null && pers.manaAct >= hDP.Nivel)
+            if (hDP != null && pers.energiaAct >= hDP.Nivel)
             {
-                pers.manaAct -= hDP.Nivel;
+                pers.energiaAct -= hDP.Nivel;
                 _context.Update(pers);
                 await _context.SaveChangesAsync();
             }

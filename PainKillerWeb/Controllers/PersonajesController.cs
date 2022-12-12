@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -129,6 +130,34 @@ namespace PainKillerWeb.Controllers
 
 
             return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+        }
+
+        public async Task<IActionResult> DescansarDeAUno(int id, int numero)
+        {
+            Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
+            if (pers != null)
+            {
+                switch (numero)
+                {
+                    case 1:
+                        pers.vidaAct = pers.vidaMax;
+
+                        break;
+                    case 2:
+                        pers.manaAct = pers.manaMax;
+
+                        break;
+                    case 3:
+                        pers.energiaAct = pers.energiaMax;
+
+                        break;
+                }
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+
+            }
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+
         }
 
 

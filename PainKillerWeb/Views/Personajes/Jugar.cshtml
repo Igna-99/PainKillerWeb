@@ -16,6 +16,7 @@
             <a asp-action="descansar" asp-route-id="@Model.id" class="btn btn-outline-success">Descansar</a>
         </div>
 
+
     </div>
 
     <div class="row col-6">
@@ -52,6 +53,9 @@
             <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" >
                 VIDA
             </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="1" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
@@ -92,6 +96,9 @@
             <button type="button" class="btn btn-outline-primary btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" >
                 MANA
             </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="2" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
@@ -131,6 +138,9 @@
             <button type="button" class="btn btn-outline-success btn-sm " style="width:70px" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" >
                 ENERGIA
             </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="3" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
@@ -287,8 +297,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>estas seguro de que deseas utilizar esta habilidad</p>
-                                <p>tendra un costo de @item.Nivel puntos de mana </p>
+                                <p>Estas seguro de que deseas utilizar esta habilidad?</p>
+                                <p>Tendra un costo de @item.Nivel puntos de <span class="text-success">ENERGIA</span> </p>
 
                             </div>
                             <div class="modal-footer">
