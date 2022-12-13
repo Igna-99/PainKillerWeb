@@ -22,7 +22,7 @@
             <div class="form-group">
                 <input type="submit" value="Agregar Hechizo" class="btn btn-dark" />
 
-                <input value="Agregar Hechizo Modal" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalHechizo" />
+                @*<input value="Agregar Hechizo Modal" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalHechizo" />
                 <div class="modal fade" id="modalHechizo" tabindex="-1" aria-labelledby="modalHechizo" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -30,14 +30,14 @@
                                 <h1 class="modal-title fs-5 fuenteMedieval800"> Agregar Hechizo</h1>
                             </div>
                             <div class="modal-body">
-                                <p>El Hechizo cuesta @ViewBag.HechizoId </p>
+                                <p>El Hechizo cuesta @Model.Hechizo.costeExp </p>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" value="Agregar Hechizo" class="btn btn-dark" />
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
             </div>
             <div>
@@ -62,7 +62,9 @@
             </div>
         </div>
     </div>
-    </div>
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     }
