@@ -280,30 +280,28 @@
         @foreach (var item in Model.hechizos)
         {
             <dt class="col-sm-2">
-                @*@Html.DisplayFor(modelItem => item.Hechizo.nombre)*@
-                @item.Hechizo.nombre
+                @Html.DisplayFor(modelItem => item.Hechizo.nombre)
             </dt>
 
 
             <dd class="col-sm-1 d-flex justify-content-center">
-                @Html.DisplayFor(modelItem => item.Hechizo.elemento)
+                @item.Hechizo.elemento.nombre
             </dd>
 
             <dd class="col-sm-1">
             </dd>
 
             <dd class="col-sm-1 d-flex justify-content-center">
-                @item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+                @item.Hechizo.costeUso: @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
             </dd>
 
             <dd class="col-sm-1">
             </dd>
             <dd class="col-sm-1">
-                @item.Hechizo.distancia
+                @item.Hechizo.distancia.nombre
             </dd>
             <dd class="col-sm-2">
             </dd>
-
 
             <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-center" role="group" aria-label="Button group with nested dropdown">
 
@@ -326,7 +324,7 @@
                         </li>
                     </ul>
 
-                    <div class="modal fade" id="DetailsModal-@item.HechizoId" tabindex="-1" aria-labelledby="detallesHechizo-@item.HechizoId" aria-hidden="true">
+                    <div class="modal fade" id="detallesHechizo-@item.id" tabindex="-1" aria-labelledby="detallesHechizo-@item.id" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -340,23 +338,20 @@
                                             Nombre:
                                         </dt>
                                         <dd class="col-sm-10">
-                                            @*@Html.DisplayFor(model => item.nombre) (@Html.DisplayFor(model => item.distancia.nombre[0]))*@
-                                            @item.Hechizo.nombre (@item.Hechizo.distancia)
+                                            @item.Hechizo.nombre (@item.Hechizo.distancia.nombre)
                                         </dd>
 
                                         <dt class="col-sm-2">
                                             Elemento:
                                         </dt>
                                         <dd class="col-sm-4">
-                                            @item.Hechizo.elemento
+                                            @item.Hechizo.elemento.nombre
                                         </dd>
                                         <dt class="col-sm-2">
                                             Coste:
                                         </dt>
                                         <dd class="col-sm-4">
-                                            @*@item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste]*@
-                                            @item.Hechizo.tipoCoste
-
+                                            @item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
                                         </dd>
 
                                         <dt class="col-sm-3">
@@ -366,10 +361,10 @@
                                             @item.Hechizo.duracion
                                         </dd>
 
-                                        <dt class="col-sm-3">
-                                            @item.Hechizo.efecto:
+                                        <dt class="col-sm-12">
+                                            Efecto:
                                         </dt>
-                                        <dd class="col-sm-9">
+                                        <dd class="col-sm-12">
                                             @item.Hechizo.efecto
                                         </dd>
 
@@ -395,7 +390,7 @@
                                     <p><strong> No habra vuelta atras </strong></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <form asp-controller="HechizosDePersonaje" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                    <form asp-controller="HechizosDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
                                         <input type="hidden" asp-for="@item.id" />
                                         <input type="submit" value="Delete" class="btn btn-danger" />
                                     </form>

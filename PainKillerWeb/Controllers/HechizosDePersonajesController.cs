@@ -171,7 +171,7 @@ namespace PainKillerWeb.Controllers
                 return NotFound();
             }
 
-            ViewBag.HechizoId = new SelectList(_context.hechizos, "id", "nombre", "costeExp");
+            ViewData["HechizoId"] = new SelectList(_context.hechizos, "id", "nombre");
             ViewData["personajeId"] = id;
             return View();
         }
@@ -212,12 +212,22 @@ namespace PainKillerWeb.Controllers
                 }
 
             }
-
-            ViewBag.HechizoId = new SelectList(_context.hechizos, "id", "nombre", "costeExp");
+            ViewData["HechizoId"] = new SelectList(_context.hechizos, "id", "nombre");
             ViewData["personajeId"] = hechizoDePersonaje.personajeId;
 
             return View();
         }
+
+        [HttpPost, ActionName("DeleteInModal")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteInModal(int id)
+        {
+            var hechizoDePersonaje = await _context.hechizosDePersonajes.FindAsync(id);
+            _context.hechizosDePersonajes.Remove(hechizoDePersonaje);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Personajes", new { id = hechizoDePersonaje.personajeId });
+        }
+
         public async Task<IActionResult> useHechizo(int id)
         {
             HechizoDePersonaje hDP = _context.hechizosDePersonajes.Where(x => x.id == id).Include(x => x.Personaje).Include(x => x.Hechizo).FirstOrDefault();
@@ -257,15 +267,6 @@ namespace PainKillerWeb.Controllers
             }
 
             return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
-        }
-        [HttpPost, ActionName("DeleteInModal")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteInModal(int id)
-        {
-            var hechizoDePersonaje = await _context.hechizosDePersonajes.FindAsync(id);
-            _context.hechizosDePersonajes.Remove(hechizoDePersonaje);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Personajes", new { id = hechizoDePersonaje.personajeId });
         }
         private bool HechizoDePersonajeExists(int id)
         {

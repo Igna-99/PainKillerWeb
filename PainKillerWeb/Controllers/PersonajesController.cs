@@ -51,6 +51,8 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
                 .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.elemento)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.distancia)
                 .FirstOrDefaultAsync(m => m.id == id);
 
             List<string> tipoCostes = new List<string>();
@@ -80,6 +82,8 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
                 .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.elemento)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.distancia)
                 .FirstOrDefaultAsync(m => m.id == id);
 
 

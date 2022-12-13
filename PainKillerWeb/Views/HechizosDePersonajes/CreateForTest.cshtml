@@ -15,7 +15,7 @@
                 <input type="hidden" asp-for="personajeId" value=@ViewData["personajeId"] />
             </div>
             <div class="form-floating">
-                <select asp-for="HechizoId" class="form-select" aria-label="Floating label select example" asp-items="ViewBag.HechizoId"></select>
+                <select asp-for="HechizoId" class="form-select" aria-label="Floating label select example" asp-items="@ViewBag.HechizoId"></select>
                 <label asp-for="HechizoId" class="control-label"></label>
                 <p class="text-danger">@ViewBag.ErrorMessage</p>
             </div>
@@ -42,8 +42,9 @@
             </div>
         </div>
     </div>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</div>
+@section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
