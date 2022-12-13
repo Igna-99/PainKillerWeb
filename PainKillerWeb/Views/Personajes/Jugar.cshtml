@@ -1,23 +1,27 @@
 ﻿@model PainKillerWeb.Models.Main.Personaje
 
 @{
-    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewData["Title"] = "Jugar";
 }
 
 <div class="row">
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h2 class="goingMedievalG">
+            <h2 class="fuenteMedieval800">
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-end ">
+            <a asp-action="descansar" asp-route-id="@Model.id" class="btn btn-outline-success">Descansar</a>
+        </div>
+
 
     </div>
 
     <div class="row col-6">
         <div class="col-4 d-flex justify-content-start align-content-center">
-            <h3 class="goingMedievalG">Atributos</h3>
+            <h3 class="fuenteMedieval800">Atributos</h3>
         </div>
 
     </div>
@@ -45,172 +49,140 @@
             @Html.DisplayFor(model => model.expGastada)
         </dd>
 
-        <dt class="col-sm-4" style="color:red">
-            VIDA
+        <dt class="col-sm-4">
+            <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" >
+                VIDA
+            </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="1" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalVida-@Model.id" tabindex="-1" aria-labelledby="modalVida-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-danger" id="modalVida-@Model.id" tabindex="-1" aria-labelledby="modalVida-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar vida </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Vida Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarVida" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="energiaAct" value="@Model.energiaAct" />
-                                    <input type="hidden" asp-for="manaAct" value="@Model.manaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="vidaAct" class="form-control" placeholder=1 />
-                                    <label asp-for="vidaAct"></label>
-                                    <span asp-validation-for="vidaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.vidaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-danger" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
         </dd>
-        <dd class="col-sm-2">
-        </dd>
 
 
-        <dt class="col-sm-4" style="color:blue">
-            MANA
+        <dt class="col-sm-4">
+            <button type="button" class="btn btn-outline-primary btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" >
+                MANA
+            </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="2" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalMana-@Model.id" tabindex="-1" aria-labelledby="modalMana-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-primary" id="modalMana-@Model.id" tabindex="-1" aria-labelledby="modalMana-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar mana </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Mana Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarMana" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="energiaAct" value="@Model.energiaAct" />
-                                    <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="manaAct" class="form-control" placeholder=1 />
-                                    <label asp-for="manaAct"></label>
-                                    <span asp-validation-for="manaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.manaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-primary" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
         </dd>
-        <dd class="col-sm-2">
-        </dd>
 
-        <dt class="col-sm-4" style="color:green">
-            ENERGIA
+        <dt class="col-sm-4">
+            <button type="button" class="btn btn-outline-success btn-sm " style="width:70px" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" >
+                ENERGIA
+            </button>
+            <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="3" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-bandaid-fill"></i>
+            </a>
         </dt>
         <dd class="col-sm-4">
             @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
         </dd>
-        <dd class="col-sm-2">
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" style="margin-right:12px;">
-                alterar
-            </button>
-
-            <div class="modal fade" id="modalEnerg-@Model.id" tabindex="-1" aria-labelledby="modalEnerg-@Model.id" aria-hidden="true">
+        <dd class="col-sm-4">
+            <div class="modal fade text-success" id="modalEnerg-@Model.id" tabindex="-1" aria-labelledby="modalEnerg-@Model.id" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 goingMedievalG"> alterar energia </h1>
+                            <h1 class="modal-title fs-5 fuenteMedieval800"> Modificar Energia Actual </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form asp-action="EditEnJugar">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+                        <form asp-action="EditarEnergia" method="post">
+                            <div class="modal-body">
 
-                                <div class="form-floating mb-3">
-                                    <input type="hidden" asp-for="id" />
-                                    <input type="hidden" asp-for="nombre" value="@Model.nombre" />
-                                    <input type="hidden" asp-for="razaId" value="@Model.razaId" />
-                                    <input type="hidden" asp-for="expActual" value="@Model.expActual" />
-                                    <input type="hidden" asp-for="expGastada" value="@Model.expGastada" />
-                                    <input type="hidden" asp-for="vidaMax" value="@Model.vidaMax" />
-                                    <input type="hidden" asp-for="energiaMax" value="@Model.energiaMax" />
-                                    <input type="hidden" asp-for="manaMax" value="@Model.manaMax" />
-                                    <input type="hidden" asp-for="manaAct" value="@Model.manaAct" />
-                                    <input type="hidden" asp-for="vidaAct" value="@Model.vidaAct" />
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="@Model.id" />
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input asp-for="energiaAct" class="form-control" placeholder=1 />
-                                    <label asp-for="energiaAct"></label>
-                                    <span asp-validation-for="energiaAct" class="text-danger"></span>
+                                    <input type="number" id="num" name="num" class="form-control" placeholder=1 />
+                                    <label for="num">@Html.DisplayNameFor(model => model.energiaAct)</label>
                                 </div>
-
+                            </div>
+                            <div class="modal-footer">
                                 <div class="form-group">
-                                    <input type="submit" value="alterar" class="btn btn-dark" />
+                                    <input type="submit" value="alterar" class="btn btn-success" />
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
         </dd>
-
     </dl>
 
     <dl class="row col-6">
         <dt class="col-sm-3 ">
-            <h5 class="goingMedievalG">Nombre</h5>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-2 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dt class="col-sm-4"></dt>
         <dt class="col-sm-3">
@@ -253,7 +225,7 @@
 <div>
     <div class="row">
         <div class="col-4 d-flex justify-content-start align-bottom">
-            <h3 class="goingMedievalG">Habilidades</h3>
+            <h3 class="fuenteMedieval800">Habilidades</h3>
         </div>
         <div class="col-8"> </div>
 
@@ -261,20 +233,20 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            <h5 class="goingMedievalG">Nombre</h5>
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
         </dt>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Nivel</h5>
+            <p class="fuenteMedieval800 texto23px">Nivel</p>
         </dt>
         <dd class="col-sm-1">
         </dd>
         <dt class="col-sm-1 d-flex justify-content-center">
-            <h5 class="goingMedievalG">Atributo</h5>
+            <p class="fuenteMedieval800 texto23px">Atributo</p>
         </dt>
         <dd class="col-sm-1">
         </dd>
         <dd class="col-sm-1">
-            <h5 class="goingMedievalG">Tirada</h5>
+            <p class="fuenteMedieval800 texto23px">Tirada</p>
         </dd>
         <dd class="col-sm-2">
         </dd>
@@ -321,11 +293,12 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 goingMedievalG">  Usar La Habilidad "@item.Habilidad.nombre"</h1>
+                                <h1 class="modal-title fs-5 fuenteMedieval800">  Usar La Habilidad "@item.Habilidad.nombre"</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>estas seguro de que deseas utilizar esta habilidad</p>
-                                <p>tendra un costo de @item.Nivel puntos de mana </p>
+                                <p>Estas seguro de que deseas utilizar esta habilidad?</p>
+                                <p>Tendra un costo de @item.Nivel puntos de <span class="text-success">ENERGIA</span> </p>
 
                             </div>
                             <div class="modal-footer">
@@ -348,7 +321,8 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 goingMedievalG"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De La Habilidad "@item.Habilidad.nombre"</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <h5>Descripcion: </h5>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -114,6 +115,51 @@ namespace PainKillerWeb.Controllers
             return RedirectToAction("Details", "Personajes", new { id = pers.id });
         }
 
+        public async Task<IActionResult> Descansar(int id)
+        {
+            Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
+
+            if (pers != null)
+            {
+                pers.vidaAct = pers.vidaMax;
+                pers.manaAct = pers.manaMax;
+                pers.energiaAct = pers.energiaMax;
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+        }
+
+        public async Task<IActionResult> DescansarDeAUno(int id, int numero)
+        {
+            Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
+            if (pers != null)
+            {
+                switch (numero)
+                {
+                    case 1:
+                        pers.vidaAct = pers.vidaMax;
+
+                        break;
+                    case 2:
+                        pers.manaAct = pers.manaMax;
+
+                        break;
+                    case 3:
+                        pers.energiaAct = pers.energiaMax;
+
+                        break;
+                }
+                _context.Update(pers);
+                await _context.SaveChangesAsync();
+
+            }
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+
+        }
+
 
 
         // GET: Personajes/Edit/5
@@ -138,7 +184,7 @@ namespace PainKillerWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax")] Personaje personaje)
+        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax,vidaAct,energiaAct,manaAct")] Personaje personaje)
         {
             if (id != personaje.id)
             {
@@ -172,34 +218,102 @@ namespace PainKillerWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditEnJugar(int id, [Bind("id,nombre,razaId,expActual,expGastada,vidaMax,manaMax,energiaMax,vidaAct,manaAct,energiaAct")] Personaje personaje)
+        public async Task<IActionResult> EditarVida(int id, int num)
         {
-            if (id != personaje.id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
             {
-                try
+                if ((personaje.vidaAct + num) >= personaje.vidaMax)
                 {
-                    _context.Update(personaje);
-                    await _context.SaveChangesAsync();
+                    personaje.vidaAct = personaje.vidaMax;
                 }
-                catch (DbUpdateConcurrencyException)
+                else if ((personaje.vidaAct + num) <= 0)
                 {
-                    if (!PersonajeExists(personaje.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    personaje.vidaAct = 0;
                 }
+                else
+                {
+                    personaje.vidaAct += num;
+                }
+
+                
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
                 return RedirectToAction("Jugar", new { id = personaje.id });
             }
             return RedirectToAction("index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarMana(int id, int num)
+        {
+
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
+            {
+                if ((personaje.manaAct + num) >= personaje.manaMax)
+                {
+                    personaje.manaAct = personaje.manaMax;
+                }
+                else if ((personaje.manaAct + num) <= 0)
+                {
+                    personaje.manaAct = 0;
+                }
+                else
+                {
+                    personaje.manaAct += num;
+                }
+
+                
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+            return RedirectToAction("index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarEnergia(int id, int num)
+        {
+
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
+            {
+                if ((personaje.energiaAct + num) >= personaje.energiaMax)
+                {
+                    personaje.energiaAct = personaje.energiaMax;
+                }
+                else if ((personaje.energiaAct + num) <= 0)
+                {
+                    personaje.energiaAct = 0;
+                }
+                else 
+                {
+                    personaje.energiaAct += num;
+                }
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+            return RedirectToAction("index");
+
         }
 
 

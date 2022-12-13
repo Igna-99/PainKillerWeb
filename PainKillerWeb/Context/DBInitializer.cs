@@ -14,10 +14,12 @@ namespace PainKillerWeb.Context
         public static void Initialize(PainKillerDbContext context)
         {
             // Look for any characters.
-            if (context.personajes.Any() || context.atributos.Any())
+            if (context.personajes.Any() || context.habilidades.Any() || context.atributos.Any())
             {
                 return;   // DB has been seeded
             }
+
+
 
             var atributos = new Atributo[]
             {
@@ -88,14 +90,53 @@ namespace PainKillerWeb.Context
                 {
                     nombre = "Arqueria",
                     atributoId = 2,
-                    descripcion=""
+                    descripcion=" Es la habilidad de usar arcos, el arma de proyectil más común de la época. " +
+                    "Los arqueros experimentados también saben cómo cuidar y reparar sus armas e incluso como fabricarlas. Tiro con arco cubre ballestas y otras armas relacionadas. " +
+                    "No cubre jabalinas y otras armas arrojadizas."
                 },
                 new Habilidad
                 {
                     nombre = "Hechiceria",
                     atributoId = 3,
-                    descripcion=""
+                    descripcion=" Es la habilidad que contiene los conocimientos que todo usuario de las artes mágicas necesita." +
+                    " Provee la habilidad de identificar conjuros cuando estén siendo lanzados o cuando estén en funcionamiento," +
+                    " así mismo la comprensión de rituales y simbologías. Esta habilidad en sí no permite realizar magia," +
+                    " pero si distinguir sus fuentes, debilites y fortalezas. "
+                },
+                new Habilidad
+                {
+                    nombre = "Mano a mano",
+                    atributoId = 1,
+                    descripcion="Esta es la habilidad de luchar desarmado, peleando a uñas y dientes, o simplemente agitando los brazos y " +
+                    "confiando en la experiencia de unos sobre dónde y cómo golpear. Pelear bien requiere coordinación," +
+                    "velocidad, la capacidad de aguantar dolor y la voluntad de infligir dolor. "
+                },
+                new Habilidad
+                {
+                    nombre = "Medicina",
+                    atributoId = 3,
+                    descripcion="Esta es la habilidad de luchar desarmado, peleando a uñas y dientes, o simplemente agitando los brazos y " +
+                    "confiando en la experiencia de unos sobre dónde y cómo golpear. Pelear bien requiere coordinación," +
+                    "velocidad, la capacidad de aguantar dolor y la voluntad de infligir dolor. "
+                },
+                new Habilidad
+                {
+                    nombre = "Interpretación",
+                    atributoId = 6,
+                    descripcion="Es la habilidad de realizar proezas artísticas como cantar, bailar, actuar o tocar un instrumento musical. Esta " +
+                    "es una habilidad genérica y deberías elegir un campo de experiencia cuando la adquieras por primera vez. " +
+                    "Cada vez que quieras obtener una nueva disciplina artística deberás pagarla por separado."
+                },
+                new Habilidad
+                {
+                    nombre = "Concentración",
+                    atributoId = 4,
+                    descripcion="Es la habilidad que permite a un personaje ignorar las distracciones físicas o mentales para seguir con su " +
+                    "accionar. Generalmente utilizada por aquellos que unen la mente y el cuerpo. Esta habilidad permite a los " +
+                    "magos seguir conjurando a pesar del dolor y a los faquires resistir terribles torturas sin siquiera pestañear."
                 }
+
+
             };
             foreach (var p in habilidades)
             {
