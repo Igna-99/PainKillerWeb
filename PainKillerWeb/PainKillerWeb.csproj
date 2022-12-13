@@ -30,6 +30,9 @@
     <Content Remove="Views\HabilidadesDePersonajes\Index.cshtml" />
     <Content Remove="Views\Habilidades\Delete.cshtml" />
     <Content Remove="Views\Habilidades\Details.cshtml" />
+    <Content Remove="Views\HechizosDePersonajes\Delete.cshtml" />
+    <Content Remove="Views\HechizosDePersonajes\Details.cshtml" />
+    <Content Remove="Views\HechizosDePersonajes\Index.cshtml" />
     <Content Remove="Views\Personajes\Delete.cshtml" />
   </ItemGroup>
 

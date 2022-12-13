@@ -1,83 +1,162 @@
 ﻿@model IEnumerable<PainKillerWeb.Models.Main.Hechizo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hechizos";
+    int a = 0;
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-4 d-flex justify-content-start align-content-center">
+        <h1 class="fuenteMedieval800">Lista de Hechizos</h1>
+    </div>
+    <div class="col-6"> </div>
+    <div class="col-2 d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-outline-dark botonDetalles m-2">Crear Hechizo</a>
+    </div>
+</div>
+<hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.duracion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.costeExp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.costeUso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tipoCoste)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.efecto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tiempo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.distancia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.elemento)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.duracion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.costeExp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.costeUso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipoCoste)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.efecto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tiempo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.distancia.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.elemento.nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-2 "> </div>
+    <div class="col-8 ">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            @foreach (var item in Model)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelHab-@item.id">
+                        <button class="accordion-button collapsed fuenteMedieval800" id="tituloAcordionIndex" type="button" data-bs-toggle="collapse" data-bs-target="#panelHabOpen-@item.id" aria-expanded="false" aria-controls="panelHabOpen-@item.id">
+                            @item.nombre
+                        </button>
+                    </h2>
+                    <div id="panelHabOpen-@item.id" class="accordion-collapse collapse" aria-labelledby="panelHab-@item.id">
+                        <div class="accordion-body row">
+
+                            <div class="col-1"></div>
+                            <div class="col-1 d-flex justify-content-md-start">
+                                @Html.DisplayFor(modelItem => item.elemento.nombre)
+                            </div>
+                            <div class="col-3 d-flex justify-content-md-start">
+                                @Html.DisplayNameFor(model => model.costeUso): @Html.DisplayFor(modelItem => item.costeUso) de @ViewBag.tipoCostes[item.tipoCoste-1]
+                            </div>
+                            <div class="col-5 d-flex justify-content-md-start">
+                                @Html.DisplayNameFor(model => model.duracion): @Html.DisplayFor(modelItem => item.duracion)
+                            </div>
+
+                            <div class="col-2 d-flex d-flex justify-content-end">
+
+                                <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="modal" data-bs-target="#DetailsModal-@item.id">
+                                    Detalles
+                                </button>
+
+                                <button type="button" class="btn btn-outline-danger" style="margin-left: 6px;" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.id">
+                                    Eliminar
+                                </button>
+
+
+                                <div class="modal fade" id="DetailsModal-@item.id" tabindex="-1" aria-labelledby="DetailsModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De Hechizo</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <dl class="row">
+                                                    <dt class="col-sm-2">
+                                                        @Html.DisplayNameFor(model => model.nombre):
+                                                    </dt>
+                                                    <dd class="col-sm-10">
+                                                        @*@Html.DisplayFor(model => item.nombre) (@Html.DisplayFor(model => item.distancia.nombre[0]))*@
+                                                        @Html.DisplayFor(model => item.nombre) (@Html.DisplayFor(model => item.distancia.nombre))
+                                                    </dd>
+                                                    @*
+                                                    <dt class="col-sm-3">
+                                                        Distancia:
+                                                    </dt>
+                                                    <dd class="col-sm-9">
+                                                        @Html.DisplayFor(model => item.distancia.nombre)
+                                                    </dd>*@
+
+                                                    <dt class="col-sm-2">
+                                                        Elemento:
+                                                    </dt>
+                                                    <dd class="col-sm-4">
+                                                        @Html.DisplayFor(model => item.elemento.nombre)
+                                                    </dd>
+                                                    <dt class="col-sm-2">
+                                                        Coste:
+                                                    </dt>
+                                                    <dd class="col-sm-4">
+                                                        @Html.DisplayFor(modelItem => item.costeUso) @ViewBag.tipoCostes[item.tipoCoste-1]
+                                                    </dd>
+
+                                                    <dt class="col-sm-3">
+                                                        Duracion:
+                                                    </dt>
+                                                    <dd class="col-sm-9">
+                                                        @Html.DisplayFor(model => item.duracion)
+                                                    </dd>
+
+                                                    <dt class="col-sm-3">
+                                                        @Html.DisplayNameFor(model => model.efecto):
+                                                    </dt>
+                                                    <dd class="col-sm-9">
+                                                        @Html.DisplayFor(model => item.efecto)
+                                                    </dd>
+
+                                                    <dt class="col-sm-3">
+                                                        Cadena:
+                                                    </dt>
+                                                    <dd class="col-sm-9">
+                                                        No tiene
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="deleteModal-@item.id" tabindex="-1" aria-labelledby="deleteModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Hechizo</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> Estas seguro que deseas eliminar el hechizo "@item.nombre" </p>
+                                                <p><strong> No habra vuelta atras </strong></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-controller="Habilidades" asp-action="Delete" asp-route-id="@item.id">
+                                                    <input type="hidden" asp-for="@item.id" />
+                                                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <div class="col-2 "> </div>
+
+</div>
+
+
+
+
+

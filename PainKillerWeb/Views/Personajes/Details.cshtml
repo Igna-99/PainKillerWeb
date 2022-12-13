@@ -180,7 +180,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#detalles-@item.id">
+                            <button type="button" class="dropdown-item btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detalles-@item.id">
                                 Detalles
                             </button>
                         </li>
@@ -243,6 +243,173 @@
     </dl>
 
 </div>
+
+<div>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-bottom">
+            <h3 class="fuenteMedieval800">Hechizos</h3>
+        </div>
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-center">
+            <a asp-controller="HechizosDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Agregar Hechizo</a>
+        </div>
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
+        </dt>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Elemento</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Coste</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dd class="col-sm-1">
+            <p class="fuenteMedieval800 texto23px">Distancia</p>
+        </dd>
+        <dd class="col-sm-2">
+        </dd>
+        <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+
+        </dd>
+        @foreach (var item in Model.hechizos)
+        {
+            <dt class="col-sm-2">
+                @*@Html.DisplayFor(modelItem => item.Hechizo.nombre)*@
+                @item.Hechizo.nombre
+            </dt>
+
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @Html.DisplayFor(modelItem => item.Hechizo.elemento)
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+            <dd class="col-sm-1">
+                @item.Hechizo.distancia
+            </dd>
+            <dd class="col-sm-2">
+            </dd>
+
+
+            <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-center" role="group" aria-label="Button group with nested dropdown">
+
+                
+                <div class="btn-group" role="group" style="margin-left:6px">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detallesHechizo-@item.HechizoId">
+                                Detalles
+                            </button>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteHechizoModal-@item.id">
+                                Eliminar
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="modal fade" id="DetailsModal-@item.HechizoId" tabindex="-1" aria-labelledby="detallesHechizo-@item.HechizoId" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De Hechizo</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">
+                                            Nombre:
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @*@Html.DisplayFor(model => item.nombre) (@Html.DisplayFor(model => item.distancia.nombre[0]))*@
+                                            @item.Hechizo.nombre (@item.Hechizo.distancia)
+                                        </dd>
+
+                                        <dt class="col-sm-2">
+                                            Elemento:
+                                        </dt>
+                                        <dd class="col-sm-4">
+                                            @item.Hechizo.elemento
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Coste:
+                                        </dt>
+                                        <dd class="col-sm-4">
+                                            @*@item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste]*@
+                                            @item.Hechizo.tipoCoste
+
+                                        </dd>
+
+                                        <dt class="col-sm-3">
+                                            Duracion:
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                            @item.Hechizo.duracion
+                                        </dd>
+
+                                        <dt class="col-sm-3">
+                                            @item.Hechizo.efecto:
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                            @item.Hechizo.efecto
+                                        </dd>
+
+                                        <dt class="col-sm-3">
+                                            Cadena:
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                            No tiene
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="deleteHechizoModal-@item.id" tabindex="-1" aria-labelledby="deleteHechizoModal-@item.id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Hechizo</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Estas seguro que deseas eliminar el Hechizo "@item.Hechizo.nombre" del personaje @Model.nombre</p>
+                                    <p><strong> No habra vuelta atras </strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-controller="HechizosDePersonaje" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                        <input type="hidden" asp-for="@item.id" />
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dd>
+        }
+    </dl>
+
+</div>
+
 <div>
     <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
     <a asp-action="Jugar" asp-route-id="@Model.id" class="btn btn-outline-dark mt-2 btn-sm">Jugar</a>

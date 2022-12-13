@@ -36,10 +36,12 @@ namespace PainKillerWeb.Models.Main
 
         [Display(Name = "Distancia")]
         public Distancia distancia { get; set; }
+        [Display(Name = "Distancia")]
         public int distanciaId { get; set; }
 
         [Display(Name = "Elemento")]
         public Elemento elemento { get; set; }
+        [Display(Name = "Elemento")]
         public int elementoId { get; set; }
         public ICollection<Hechizo> cadena { get; set; }
 

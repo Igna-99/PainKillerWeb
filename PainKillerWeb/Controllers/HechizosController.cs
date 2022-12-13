@@ -12,6 +12,7 @@ namespace PainKillerWeb.Controllers
 {
     public class HechizosController : Controller
     {
+
         private readonly PainKillerDbContext _context;
 
         public HechizosController(PainKillerDbContext context)
@@ -23,6 +24,13 @@ namespace PainKillerWeb.Controllers
         public async Task<IActionResult> Index()
         {
             var painKillerDbContext = _context.hechizos.Include(h => h.distancia).Include(h => h.elemento);
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
+
             return View(await painKillerDbContext.ToListAsync());
         }
 

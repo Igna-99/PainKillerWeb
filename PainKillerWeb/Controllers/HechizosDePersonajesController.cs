@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using PainKillerWeb.Context;
+using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
 
 namespace PainKillerWeb.Controllers
@@ -158,6 +160,113 @@ namespace PainKillerWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public IActionResult CreateFor(int id)
+        {
+
+            var personaje = _context.personajes.Find(id);
+
+            if (personaje == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.HechizoId = new SelectList(_context.hechizos, "id", "nombre", "costeExp");
+            ViewData["personajeId"] = id;
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFor([Bind("personajeId,HechizoId")] HechizoDePersonaje hechizoDePersonaje)
+        {
+            Personaje pj = _context.personajes
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .FirstOrDefault(m => m.id == hechizoDePersonaje.personajeId);
+            Hechizo hechizo = _context.hechizos
+                .FirstOrDefault(x => x.id == hechizoDePersonaje.HechizoId);
+
+            if (ModelState.IsValid)
+            {
+                if (pj.expActual >= hechizo.costeExp)
+                {
+                    if (!pj.hechizos.Any(x => x.HechizoId == hechizoDePersonaje.HechizoId))
+                    {
+                        pj.expActual -= hechizo.costeExp;
+                        pj.expGastada += hechizo.costeExp;
+                        _context.Update(pj);
+                        _context.Add(hechizoDePersonaje);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Details", "Personajes", new { id = hechizoDePersonaje.personajeId });
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = $"El Personaje '{pj.nombre}' ya tiene ese hechizo";
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "no tienes suficiente experiencia para adquirir una hechizo";
+                }
+
+            }
+
+            ViewBag.HechizoId = new SelectList(_context.hechizos, "id", "nombre", "costeExp");
+            ViewData["personajeId"] = hechizoDePersonaje.personajeId;
+
+            return View();
+        }
+        public async Task<IActionResult> useHechizo(int id)
+        {
+            HechizoDePersonaje hDP = _context.hechizosDePersonajes.Where(x => x.id == id).Include(x => x.Personaje).Include(x => x.Hechizo).FirstOrDefault();
+            Personaje pers = hDP.Personaje;
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            switch (hDP.Hechizo.tipoCoste)
+            {
+                case 1:
+                    if (hDP != null && pers.vidaAct >= hDP.Hechizo.costeUso)
+                    {
+                        pers.vidaAct -= hDP.Hechizo.costeUso;
+                        _context.Update(pers);
+                        await _context.SaveChangesAsync();
+                    }
+                    break;
+                case 2:
+                    if (hDP != null && pers.manaAct >= hDP.Hechizo.costeUso)
+                    {
+                        pers.manaAct -= hDP.Hechizo.costeUso;
+                        _context.Update(pers);
+                        await _context.SaveChangesAsync();
+                    }
+                    break;
+                case 3:
+                    if (hDP != null && pers.energiaAct >= hDP.Hechizo.costeUso)
+                    {
+                        pers.energiaAct -= hDP.Hechizo.costeUso;
+                        _context.Update(pers);
+                        await _context.SaveChangesAsync();
+                    }
+                    break;
+            }
+
+            return RedirectToAction("Jugar", "Personajes", new { id = pers.id });
+        }
+        [HttpPost, ActionName("DeleteInModal")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteInModal(int id)
+        {
+            var hechizoDePersonaje = await _context.hechizosDePersonajes.FindAsync(id);
+            _context.hechizosDePersonajes.Remove(hechizoDePersonaje);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Personajes", new { id = hechizoDePersonaje.personajeId });
+        }
         private bool HechizoDePersonajeExists(int id)
         {
             return _context.hechizosDePersonajes.Any(e => e.id == id);

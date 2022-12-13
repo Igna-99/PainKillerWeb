@@ -50,7 +50,7 @@
         </dd>
 
         <dt class="col-sm-4">
-            <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id" >
+            <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalVida-@Model.id">
                 VIDA
             </button>
             <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="1" class="btn btn-outline-success btn-sm">
@@ -93,7 +93,7 @@
 
 
         <dt class="col-sm-4">
-            <button type="button" class="btn btn-outline-primary btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id" >
+            <button type="button" class="btn btn-outline-primary btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalMana-@Model.id">
                 MANA
             </button>
             <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="2" class="btn btn-outline-success btn-sm">
@@ -135,7 +135,7 @@
         </dd>
 
         <dt class="col-sm-4">
-            <button type="button" class="btn btn-outline-success btn-sm " style="width:70px" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id" >
+            <button type="button" class="btn btn-outline-success btn-sm " style="width:70px" data-bs-toggle="modal" data-bs-target="#modalEnerg-@Model.id">
                 ENERGIA
             </button>
             <a asp-action="DescansarDeAUno" asp-route-id="@Model.id" asp-route-numero="3" class="btn btn-outline-success btn-sm">
@@ -303,7 +303,7 @@
                             </div>
                             <div class="modal-footer">
                                 <form asp-controller="HabilidadesDePersonajes" asp-action="useHabilidad" asp-route-id="@item.id">
-                                    @if (Model.manaAct >= @item.Nivel)
+                                    @if (Model.energiaAct >= @item.Nivel)
                                     {
                                         <input type="submit" value="Usar" class="btn btn-outline-success" />
                                     }
@@ -344,6 +344,197 @@
     </dl>
 
 </div>
+
+
+<div>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-bottom">
+            <h3 class="fuenteMedieval800">Hechizos</h3>
+        </div>
+        <div class="col-8"> </div>
+
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
+        </dt>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Elemento</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Coste</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dd class="col-sm-1">
+            <p class="fuenteMedieval800 texto23px">Distancia</p>
+        </dd>
+        <dd class="col-sm-2">
+        </dd>
+        <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+
+        </dd>
+        @foreach (var item in Model.hechizos)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayFor(modelItem => item.Hechizo.nombre)
+            </dt>
+
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @Html.DisplayFor(modelItem => item.Hechizo.elemento)
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @item.Hechizo.costeUso: @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+            <dd class="col-sm-1">
+                @item.Hechizo.distancia
+            </dd>
+            <dd class="col-sm-2">
+            </dd>
+
+            <dd class="col-sm-3 mt-1 d-flex justify-content-center">
+
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#useHechizo-@item.id" style="margin-right:12px;">
+                    Usar Hechizo
+                </button>
+
+                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detallesHechizo-@item.HechizoId">
+                    Detalles
+                </button>
+
+                <div class="modal fade" id="useHechizo-@item.id" tabindex="-1" aria-labelledby="useHechizo-@item.id" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 fuenteMedieval800">  Usar El Hechizo "@item.Hechizo.nombre"</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Estas seguro de que deseas utilizar el hechizo?</p>
+                                <p>Tendra un costo de @item.Hechizo.costeUso puntos de <span class="text-success">@ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]</span> </p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <form asp-controller="HechizosDePersonajes" asp-action="useHechizo" asp-route-id="@item.id">
+                                    @switch (item.Hechizo.tipoCoste)
+                                    {
+                                        case 1:
+                                            @if (Model.vidaAct >= @item.Hechizo.costeUso)
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" disabled />
+                                            }
+
+                                            break;
+                                        case 2:
+
+                                            @if (Model.manaAct >= @item.Hechizo.costeUso)
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" disabled />
+                                            }
+
+                                            break;
+                                        case 3:
+
+                                            @if (Model.energiaAct >= @item.Hechizo.costeUso)
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Usar" class="btn btn-outline-success" disabled />
+                                            }
+
+                                            break;
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="DetailsModal-@item.HechizoId" tabindex="-1" aria-labelledby="detallesHechizo-@item.HechizoId" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De Hechizo</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <dl class="row">
+                                    <dt class="col-sm-2">
+                                        Nombre:
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @*@Html.DisplayFor(model => item.nombre) (@Html.DisplayFor(model => item.distancia.nombre[0]))*@
+                                        @item.Hechizo.nombre (@item.Hechizo.distancia)
+                                    </dd>
+
+                                    <dt class="col-sm-2">
+                                        Elemento:
+                                    </dt>
+                                    <dd class="col-sm-4">
+                                        @item.Hechizo.elemento
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        Coste:
+                                    </dt>
+                                    <dd class="col-sm-4">
+                                        @item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+                                    </dd>
+
+                                    <dt class="col-sm-3">
+                                        Duracion:
+                                    </dt>
+                                    <dd class="col-sm-9">
+                                        @item.Hechizo.duracion
+                                    </dd>
+
+                                    <dt class="col-sm-3">
+                                        @item.Hechizo.efecto:
+                                    </dt>
+                                    <dd class="col-sm-9">
+                                       @item.Hechizo.efecto
+                                    </dd>
+
+                                    <dt class="col-sm-3">
+                                        Cadena:
+                                    </dt>
+                                    <dd class="col-sm-9">
+                                        No tiene
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </dd>
+
+
+        }
+    </dl>
+
+</div>
+
 <div>
     <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
     <a asp-action="Details" asp-route-id="@Model.id" class="btn btn-outline-dark mt-2 btn-sm">Detalles</a>

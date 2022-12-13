@@ -23,7 +23,10 @@ namespace PainKillerWeb.Controllers
         // GET: Personajes
         public async Task<IActionResult> Index()
         {
-            var painKillerDbContext = _context.personajes.Include(p => p.raza).Include(x => x.habilidades).ThenInclude(x => x.Habilidad);
+            var painKillerDbContext = 
+                _context.personajes.Include(p => p.raza)
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo);
             return View(await painKillerDbContext.ToListAsync());
         }
 
@@ -39,7 +42,15 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.atributos).ThenInclude(x => x.atributo)
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
                 .FirstOrDefaultAsync(m => m.id == id);
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
 
             if (personaje == null)
             {
@@ -60,7 +71,16 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.atributos).ThenInclude(x => x.atributo)
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
                 .FirstOrDefaultAsync(m => m.id == id);
+
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
 
             if (personaje == null)
             {
@@ -325,7 +345,11 @@ namespace PainKillerWeb.Controllers
                 return NotFound();
             }
 
-            var personaje = await _context.personajes.Include(x => x.atributos).ThenInclude(x => x.atributo).Include(x => x.raza)
+            var personaje = 
+                await _context.personajes
+                .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .Include(x => x.raza).Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (personaje == null)
             {
