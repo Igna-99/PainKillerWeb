@@ -6,17 +6,31 @@
 
   <ItemGroup>
     <Compile Remove="Views\Atributos\**" />
+    <Compile Remove="Views\HechizosDePersonajes\**" />
+    <Compile Remove="Views\Hechizos\**" />
     <Compile Remove="Views\Razas\**" />
     <Content Remove="Views\Atributos\**" />
+    <Content Remove="Views\HechizosDePersonajes\**" />
+    <Content Remove="Views\Hechizos\**" />
     <Content Remove="Views\Razas\**" />
     <EmbeddedResource Remove="Views\Atributos\**" />
+    <EmbeddedResource Remove="Views\HechizosDePersonajes\**" />
+    <EmbeddedResource Remove="Views\Hechizos\**" />
     <EmbeddedResource Remove="Views\Razas\**" />
     <None Remove="Views\Atributos\**" />
+    <None Remove="Views\HechizosDePersonajes\**" />
+    <None Remove="Views\Hechizos\**" />
     <None Remove="Views\Razas\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\HechizosController.cs" />
+    <Compile Remove="Controllers\HechizosDePersonajesController.cs" />
     <Compile Remove="Controllers\RazasController.cs" />
+    <Compile Remove="Models\Main\Distancia.cs" />
+    <Compile Remove="Models\Main\Elemento.cs" />
+    <Compile Remove="Models\Main\Hechizo.cs" />
+    <Compile Remove="Models\Pivot\HechizoDePersonaje.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -303,7 +303,7 @@
                             </div>
                             <div class="modal-footer">
                                 <form asp-controller="HabilidadesDePersonajes" asp-action="useHabilidad" asp-route-id="@item.id">
-                                    @if (Model.manaAct >= @item.Nivel)
+                                    @if (Model.energiaAct >= @item.Nivel)
                                     {
                                         <input type="submit" value="Usar" class="btn btn-outline-success" />
                                     }
