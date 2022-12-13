@@ -25,5 +25,7 @@ namespace PainKillerWeb.Context
         public DbSet<Hechizo> hechizos { get; set; }
         public DbSet<HechizoDePersonaje> hechizosDePersonajes{ get; set; }
         public DbSet<Distancia> distancias { get; set; }
+        public DbSet<Item> items { get; set; }
+        public DbSet<ItemDePersonaje> itemsDePersonajes { get; set; }
     }
 }
