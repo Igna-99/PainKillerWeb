@@ -15,12 +15,6 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th></th>
-        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -41,7 +35,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p> Estas seguro que deseas eliminar el Item? "@item.nombre" </p>
+                                    <p> Estas seguro que deseas eliminar el Item "@item.nombre"? </p>
                                     <p><strong> No habra vuelta atras </strong></p>
                                 </div>
                                 <div class="modal-footer">

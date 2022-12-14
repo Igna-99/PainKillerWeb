@@ -53,25 +53,37 @@
                             </button>
                         </h2>
                         <div id="flush-collapseOne-@item.id" class="accordion-collapse collapse row" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">@item.cantidad | @item.descripcion </div>
+                            <div class="accordion-body row">
+                                <div>
+                                    Desc: @item.descripcion
+                                </div>
+
+                                <div>
+                                    <a asp-controller="ItemsDePersonajes" asp-action="Edit" asp-route-id="@item.id" type="button">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="bg-danger" data-bs-toggle="modal" data-bs-target="#deleteINVModal-@item.id">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
 
                             <div class="btn-group" role="group" style="margin-left:6px">
-                                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Opciones
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a asp-controller="ItemsDePersonajes" asp-action="Edit" asp-route-id="@item.id" type="button" class="dropdown-item" style="margin-right:6px">
-                                            Editar
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteINVModal-@item.id">
-                                            Eliminar
-                                        </button>
-                                    </li>
-                                </ul>
+                                @*
+                            <button type="button" class="btn btn-outline-dark " data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-arrow-down-circle"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li>
+                            <a asp-controller="ItemsDePersonajes" asp-action="Edit" asp-route-id="@item.id" type="button" class="dropdown-item">
+                            <i class="bi bi-pencil"></i>
+                            </a>
+                            <button type="button" class="dropdown-item bg-dange" data-bs-toggle="modal" data-bs-target="#deleteINVModal-@item.id">
+                            <i class="bi bi-trash"></i>
+                            </button>
+                            </li>
+                            </ul>*@
+
 
                                 <div class="modal fade" id="deleteINVModal-@item.id" tabindex="-1" aria-labelledby="deleteINVModal-@item.id" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -498,7 +510,7 @@
                             </div>
                             <div class="modal-body">
                                 <p>Estas seguro de que deseas utilizar el hechizo?</p>
-                                <p>Tendra un costo de @item.Hechizo.costeUso puntos de <span class="text-success">@ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]</span> </p>
+                                <p>Tendra un costo de @item.Hechizo.costeUso puntos de <strong>@ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]</strong> </p>
 
                             </div>
                             <div class="modal-footer">
@@ -612,8 +624,6 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
+    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm"><i class="bi bi-arrow-left"></i></a>
     <a asp-action="Details" asp-route-id="@Model.id" class="btn btn-outline-dark mt-2 btn-sm">Detalles</a>
-
-
 </div>
