@@ -53,42 +53,50 @@ namespace PainKillerWeb.Context
 
             var atributosCreados = context.atributos.ToArray();
 
-            var personajes = new Personaje[]
-            {
-                new Personaje
-                {
-                    nombre= "Test",
-                    expActual = 15,
-                    atributos = new List<AtributoDePersonaje>()
-                    {
-                        new AtributoDePersonaje() { atributo = atributosCreados[5], nivel = 4 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[4], nivel = 4 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[3], nivel = 4 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[2], nivel = 2 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[1], nivel = 6 },
-                        new AtributoDePersonaje() { atributo = atributosCreados[0], nivel = 2 }
-                    },
-                    raza = raza
+            //var personajes = new Personaje[]
+            //{
+            //    new Personaje
+            //    {
+            //        nombre= "Test",
+            //        expActual = 15,
+            //        atributos = new List<AtributoDePersonaje>()
+            //        {
+            //            new AtributoDePersonaje() { atributo = atributosCreados[5], nivel = 4 },
+            //            new AtributoDePersonaje() { atributo = atributosCreados[4], nivel = 4 },
+            //            new AtributoDePersonaje() { atributo = atributosCreados[3], nivel = 4 },
+            //            new AtributoDePersonaje() { atributo = atributosCreados[2], nivel = 2 },
+            //            new AtributoDePersonaje() { atributo = atributosCreados[1], nivel = 6 },
+            //            new AtributoDePersonaje() { atributo = atributosCreados[0], nivel = 2 }
+            //        },
+            //        raza = raza
 
-                }
-            };
+            //    }
+            //};
 
-            foreach (var p in personajes)
-            {
-                context.personajes.Add(p);
-            }
+            //foreach (var p in personajes)
+            //{
+            //    context.personajes.Add(p);
+            //}
 
             var habilidades = new Habilidad[]
             {
                 new Habilidad
                 {
-                    nombre = "Mandoble",
+                    nombre = "Armas cuerpo a cuerpo",
                     atributoId = 1,
-                    descripcion=""
+                    descripcion="Es la habilidad de luchar con armas que van desde palos y garrotes a espadas y armas más exóticas, " +
+                    "Dependiendo la habilidad y detalles del entrenamiento. Existen distintos tipos de grupos de armas." +
+                    "Cuando se elija la habilidad se deberá seleccionar en qué grupo de armas es competente el personaje si se" +
+                    "quiere tomar otro grupo de armas se deben comprar por separado. Existe una especialidad exclusiva en" +
+                    "algunos ciertos tipos de armas, para mayor descripción ver armas y equipo. Cadenas y látigos (Agilidad): Especialidades: Presas, Derribo, " +
+                    "Desarmes, Trucos artísticos. Armas pesadas (Fuerza): Especialidades: Romper, Derribos, Cabalgando. " +
+                    "Espadas (Agilidad): Especialidades: Fintas, Desarme, Cabalgando, Formas. Cuchillos y dagas (Agilidad): Especialidades: Lanzamiento, Ocultación, " +
+                    "Venenos, Malabares. Bastones y porras (Agilidad): Especialidades: Derribos, Desarmes, Fintas, Formas. Mazas y Mayales (Fuerza): Especialidades: " +
+                    "Cabalgando, Derribo, Romper. Lanzas y armas de asta (Agilidad): Especialidades: Cabalgando, Derribo, Lanzamiento, Formas."
                 },
                 new Habilidad
                 {
-                    nombre = "Arqueria",
+                    nombre = "Tiro con Arco",
                     atributoId = 2,
                     descripcion=" Es la habilidad de usar arcos, el arma de proyectil más común de la época. " +
                     "Los arqueros experimentados también saben cómo cuidar y reparar sus armas e incluso como fabricarlas. Tiro con arco cubre ballestas y otras armas relacionadas. " +
