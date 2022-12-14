@@ -30,33 +30,76 @@
 </div>
 <hr />
 
+
 @* OFFCANVAS INVENTARIO *@
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fuenteMedieval800" id="featuresLabel">Inventario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div class="list-group">
-
-            @*<button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
-                AGREGAR ITEM
-            </button>*@
-            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">AGREGAR</a>
-
+            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-sm btn-outline-dark botonDetalles">AGREGAR</a>
             <br />
-            @foreach (var item in Model.inventario)
-            {
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                @foreach (var item in Model.inventario)
+                {
+                    <div class="accordion-item">
 
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        @item.Personaje.inventario.
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-@item.id" aria-expanded="false" aria-controls="flush-collapseOne-@item.id">
+                                @item.Item.nombre | Cant: @item.cantidad
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne-@item.id" class="accordion-collapse collapse row" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">@item.cantidad | @item.descripcion </div>
+
+                            <div class="btn-group" role="group" style="margin-left:6px">
+                                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Opciones
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-controller="ItemsDePersonajes" asp-action="Edit" asp-route-id="@item.id" type="button" class="dropdown-item" style="margin-right:6px">
+                                            Editar
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteINVModal-@item.id">
+                                            Eliminar
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="modal fade" id="deleteINVModal-@item.id" tabindex="-1" aria-labelledby="deleteINVModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Item</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> Estas seguro que deseas eliminar el item  "@item.Item.nombre" del personaje @Model.nombre</p>
+                                                <p><strong> No habra vuelta atras </strong></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-controller="ItemsDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                                    <input type="hidden" asp-for="@item.id" />
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
                     </div>
-                </a>
-            }
-
-
+                }
+            </div>
         </div>
     </div>
 </div>

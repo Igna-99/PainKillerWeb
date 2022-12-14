@@ -112,6 +112,18 @@ namespace PainKillerWeb.Controllers
 
             return View();
         }
+
+
+        [HttpPost, ActionName("DeleteInModal")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteInModal(int id)
+        {
+            var itemsDePersonajes = await _context.itemsDePersonajes.FindAsync(id);
+            _context.itemsDePersonajes.Remove(itemsDePersonajes);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Personajes", new { id = itemsDePersonajes.personajeId });
+        }
+
         // GET: ItemsDePersonajes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -160,7 +172,8 @@ namespace PainKillerWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Personajes", new { id = itemDePersonaje.personajeId });
+
             }
             ViewData["itemId"] = new SelectList(_context.items, "id", "nombre", itemDePersonaje.itemId);
             ViewData["personajeId"] = new SelectList(_context.personajes, "id", "nombre", itemDePersonaje.personajeId);
