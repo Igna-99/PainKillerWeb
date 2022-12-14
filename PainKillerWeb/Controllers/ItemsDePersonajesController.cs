@@ -91,7 +91,7 @@ namespace PainKillerWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFor([Bind("personajeId, ItemId, cantidad, descripcion")] ItemDePersonaje itemDePersonaje)
+        public async Task<IActionResult> CreateFor([Bind("personajeId, itemId, cantidad, descripcion")] ItemDePersonaje itemDePersonaje)
         {
             Personaje pj = _context.personajes
                 .Include(x => x.inventario).ThenInclude(x => x.Item)

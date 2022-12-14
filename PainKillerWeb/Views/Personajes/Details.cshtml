@@ -38,7 +38,7 @@
 
 @* OFFCANVAS INVENTARIO *@
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title fuenteMedieval800" id="featuresLabel">Inventario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -46,47 +46,60 @@
     <div class="offcanvas-body">
         <div class="list-group">
 
-@*          <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
-                AGREGAR ITEM
+            @*          <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
+            AGREGAR ITEM
             </button>*@
-            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">AGREGAR</a>
+            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-sm btn-outline-dark botonDetalles">AGREGAR</a>
             <br />
             @foreach (var item in Model.inventario)
-           {               
-            <a class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    @item.Personaje.inventario
+            {
+                @*El llamado al modal funciona pero se bloquea la vista porque el modal bloquea el fondo. 
+                    No encuentro manera de hacer que el fondo no se ponga en gris del modal. Offcanva lo tienen y se llama Body Scrolling 
+                    (Fijate en la doc de bootstrap)
+                *@
+                @*<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detallesINV-@item.id">*@
+
+                <button type="button" class="btn  btn-outline-info" id="ToastBtn">
+                    @item.Item.nombre
+                </button>
+                <br />
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="ToastBtn" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+
+                            <strong class="me-auto">@item.Item.nombre</strong>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+
+                        </div>
+                        <div class="toast-body">
+                            @item.descripcion
+                        </div>
+                    </div>
                 </div>
-            </a>
-           }
+                @*El llamado al toast no funciona de ninguna manera, ver si falta hacer algun import para que este funcione*@
 
 
-        </div>
-    </div>
-</div>
-
-@* MODAL AGREGAR ITEM *@
-
-<div class="modal fade text-danger" id="modalAgregarInv" tabindex="-1" aria-labelledby="modalAgregarInv" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+                @*
+            <div class="modal fade" id="detallesINV-@item.id" tabindex="-1" aria-labelledby="detallesINVLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 fuenteMedieval800"> Agregar ITEM </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1 class="modal-title fs-5" id="detallesINVLabel">@item.Item.nombre</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="create" method="post">
-                <div class="modal-body">
-                    <div>
-                        <input type="hidden" id="id" name="id" value="@Model.id" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <input type="submit" value="Agregar" class="btn btn-success" />
-                    </div>
-                </div>
-            </form>
-
+            <div class="modal-body">
+            Cantidad: @item.cantidad
+            <br />
+            Descripcion: @item.descripcion
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>*@
+            }
         </div>
     </div>
 </div>
