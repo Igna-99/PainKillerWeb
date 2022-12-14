@@ -84,7 +84,7 @@ namespace PainKillerWeb.Context
                 {
                     nombre = "Mandoble",
                     atributoId = 1,
-                    descripcion=""
+                    descripcion=" *insertar descripcion aqui* "
                 },
                 new Habilidad
                 {
