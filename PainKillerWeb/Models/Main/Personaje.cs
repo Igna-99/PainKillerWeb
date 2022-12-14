@@ -48,5 +48,7 @@ namespace PainKillerWeb.Models.Main
         public ICollection<AtributoDePersonaje> atributos { get; set; }
         public ICollection<HabilidadDePersonaje> habilidades { get; set; }
         public ICollection<HechizoDePersonaje> hechizos { get; set; }
+        public ICollection<ItemDePersonaje> inventario { get; set; }
+
     }
 }

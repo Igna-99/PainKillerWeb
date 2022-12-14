@@ -11,7 +11,14 @@
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
-        <div class="col-5"> </div>
+
+        <div class="col-2">
+            <button class="btn btn-outline-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#inventario" aria-controls="inventario">
+                <i class="bi bi-card-list"></i>
+            </button>
+        </div>
+
+        <div class="col-3"> </div>
         <div class="col-3 d-flex justify-content-end ">
             <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark">Editar Personaje</a>
         </div>
@@ -28,6 +35,61 @@
     </div>
 </div>
 <hr />
+
+@* OFFCANVAS INVENTARIO *@
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fuenteMedieval800" id="featuresLabel">Inventario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="list-group">
+
+@*          <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
+                AGREGAR ITEM
+            </button>*@
+            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">AGREGAR</a>
+            <br />
+            @foreach (var item in Model.inventario)
+           {               
+            <a class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    @item.Personaje.inventario
+                </div>
+            </a>
+           }
+
+
+        </div>
+    </div>
+</div>
+
+@* MODAL AGREGAR ITEM *@
+
+<div class="modal fade text-danger" id="modalAgregarInv" tabindex="-1" aria-labelledby="modalAgregarInv" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fuenteMedieval800"> Agregar ITEM </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="create" method="post">
+                <div class="modal-body">
+                    <div>
+                        <input type="hidden" id="id" name="id" value="@Model.id" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <input type="submit" value="Agregar" class="btn btn-success" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <dl class="row col-6">
@@ -50,20 +112,20 @@
             @Html.DisplayFor(model => model.expGastada)
         </dd>
         <dt class="col-sm-4 text-danger">
-            Vida
+            VIDA
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dt class="col-sm-4 text-primary" >
+        <dt class="col-sm-4 text-primary">
             MANA
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dt class="col-sm-4 text-success" >
+        <dt class="col-sm-4 text-success">
             ENERGIA
-         </dt>
+        </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
         </dd>
@@ -305,7 +367,7 @@
 
             <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-center" role="group" aria-label="Button group with nested dropdown">
 
-                
+
                 <div class="btn-group" role="group" style="margin-left:6px">
                     <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         Opciones
@@ -324,7 +386,7 @@
                         </li>
                     </ul>
 
-                    <div class="modal fade" id="detallesHechizo-@item.id" tabindex="-1" aria-labelledby="detallesHechizo-@item.id" aria-hidden="true">
+                    <div class="modal fade" id="detallesHechizo-@item.HechizoId" tabindex="-1" aria-labelledby="detallesHechizo-@item.HechizoId" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -30,9 +30,19 @@
     <Content Remove="Views\HabilidadesDePersonajes\Index.cshtml" />
     <Content Remove="Views\Habilidades\Delete.cshtml" />
     <Content Remove="Views\Habilidades\Details.cshtml" />
+    <Content Remove="Views\HechizosDePersonajes\Create.cshtml" />
+    <Content Remove="Views\HechizosDePersonajes\CreateForTest.cshtml" />
     <Content Remove="Views\HechizosDePersonajes\Delete.cshtml" />
     <Content Remove="Views\HechizosDePersonajes\Details.cshtml" />
     <Content Remove="Views\HechizosDePersonajes\Index.cshtml" />
+    <Content Remove="Views\Hechizos\Delete.cshtml" />
+    <Content Remove="Views\Hechizos\Details.cshtml" />
+    <Content Remove="Views\ItemsDePersonajes\Create.cshtml" />
+    <Content Remove="Views\ItemsDePersonajes\Delete.cshtml" />
+    <Content Remove="Views\ItemsDePersonajes\Details.cshtml" />
+    <Content Remove="Views\ItemsDePersonajes\Index.cshtml" />
+    <Content Remove="Views\Items\Delete.cshtml" />
+    <Content Remove="Views\Items\Details.cshtml" />
     <Content Remove="Views\Personajes\Delete.cshtml" />
   </ItemGroup>
 

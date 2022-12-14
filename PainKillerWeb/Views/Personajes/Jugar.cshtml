@@ -11,9 +11,11 @@
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
-        <div class="col-5"> </div>
-        <div class="col-3 d-flex justify-content-end ">
-            <a asp-action="descansar" asp-route-id="@Model.id" class="btn btn-outline-success">Descansar</a>
+
+        <div class="col-2">
+            <button class="btn btn-outline-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#inventario" aria-controls="inventario">
+                <i class="bi bi-card-list"></i>
+            </button>
         </div>
 
 
@@ -27,6 +29,37 @@
     </div>
 </div>
 <hr />
+
+@* OFFCANVAS INVENTARIO *@
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fuenteMedieval800" id="featuresLabel">Inventario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="list-group">
+
+            @*<button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
+                AGREGAR ITEM
+            </button>*@
+            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">AGREGAR</a>
+
+            <br />
+            @foreach (var item in Model.inventario)
+            {
+
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        @item.Personaje.inventario.
+                    </div>
+                </a>
+            }
+
+
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <dl class="row col-6">
