@@ -63,6 +63,7 @@ namespace PainKillerWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            //Program.inicializarDB(context);
 
             app.UseRouting();
 
