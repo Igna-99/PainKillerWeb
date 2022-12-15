@@ -11,7 +11,14 @@
                 @Html.DisplayFor(model => model.nombre)
             </h2>
         </div>
-        <div class="col-5"> </div>
+
+        <div class="col-2">
+            <button class="btn btn-outline-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#inventario" aria-controls="inventario">
+                <i class="bi bi-card-list"></i>
+            </button>
+        </div>
+
+        <div class="col-3"> </div>
         <div class="col-3 d-flex justify-content-end ">
             <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-outline-dark">Editar Personaje</a>
         </div>
@@ -28,6 +35,145 @@
     </div>
 </div>
 <hr />
+
+@* OFFCANVAS INVENTARIO *@
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="inventario" aria-labelledby="inventarioLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fuenteMedieval800" id="featuresLabel">Inventario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="list-group">
+
+            @*          <button type="button" class="btn btn-outline-danger btn-sm" style="width:70px" data-bs-toggle="modal" data-bs-target="#modalAgregarInv">
+            AGREGAR ITEM
+            </button>*@
+            <a asp-controller="ItemsDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-sm btn-outline-dark botonDetalles">AGREGAR</a>
+            <br />
+
+
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                @foreach (var item in Model.inventario)
+                {
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-@item.id" aria-expanded="false" aria-controls="flush-collapseOne-@item.id">
+                                @item.Item.nombre | Cant: @item.cantidad
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne-@item.id" class="accordion-collapse collapse row" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">@item.cantidad | @item.descripcion </div>
+
+                            <div class="btn-group" role="group" style="margin-left:6px">
+                                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Opciones
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-controller="ItemsDePersonajes" asp-action="Edit" asp-route-id="@item.id" type="button" class="dropdown-item" style="margin-right:6px">
+                                            Editar
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteINVModal-@item.id">
+                                            Eliminar
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="modal fade" id="deleteINVModal-@item.id" tabindex="-1" aria-labelledby="deleteINVModal-@item.id" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Item</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> Estas seguro que deseas eliminar el item  "@item.Item.nombre" del personaje @Model.nombre</p>
+                                                <p><strong> No habra vuelta atras </strong></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-controller="ItemsDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                                    <input type="hidden" asp-for="@item.id" />
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            @*
+            @foreach (var item in Model.inventario)
+            {
+            El llamado al modal funciona pero se bloquea la vista porque el modal bloquea el fondo.
+            No encuentro manera de hacer que el fondo no se ponga en gris del modal. Offcanva lo tienen y se llama Body Scrolling
+            (Fijate en la doc de bootstrap)
+
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detallesINV-@item.id">
+
+
+
+
+            <button type="button" class="btn  btn-outline-info" id="ToastBtn">
+            @item.Item.nombre
+            </button>
+            <br />
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="ToastBtn" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+
+            <strong class="me-auto">@item.Item.nombre</strong>
+
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+
+            </div>
+            <div class="toast-body">
+            @item.descripcion
+            </div>
+            </div>
+            </div>
+
+            *@
+
+
+            @*El llamado al toast no funciona de ninguna manera, ver si falta hacer algun import para que este funcione*@
+
+
+            @*
+            <div class="modal fade" id="detallesINV-@item.id" tabindex="-1" aria-labelledby="detallesINVLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="detallesINVLabel">@item.Item.nombre</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            Cantidad: @item.cantidad
+            <br />
+            Descripcion: @item.descripcion
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            }
+            *@
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <dl class="row col-6">
@@ -50,20 +196,20 @@
             @Html.DisplayFor(model => model.expGastada)
         </dd>
         <dt class="col-sm-4 text-danger">
-            Vida
+            VIDA
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.vidaAct) | @Html.DisplayFor(model => model.vidaMax)
         </dd>
-        <dt class="col-sm-4 text-primary" >
+        <dt class="col-sm-4 text-primary">
             MANA
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.manaAct) | @Html.DisplayFor(model => model.manaMax)
         </dd>
-        <dt class="col-sm-4 text-success" >
+        <dt class="col-sm-4 text-success">
             ENERGIA
-         </dt>
+        </dt>
         <dd class="col-sm-8">
             @Html.DisplayFor(model => model.energiaAct) | @Html.DisplayFor(model => model.energiaMax)
         </dd>
@@ -180,7 +326,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#detalles-@item.id">
+                            <button type="button" class="dropdown-item btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detalles-@item.id">
                                 Detalles
                             </button>
                         </li>
@@ -243,7 +389,169 @@
     </dl>
 
 </div>
+
 <div>
-    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
+    <div class="row">
+        <div class="col-4 d-flex justify-content-start align-bottom">
+            <h3 class="fuenteMedieval800">Hechizos</h3>
+        </div>
+        <div class="col-5"> </div>
+        <div class="col-3 d-flex justify-content-center">
+            <a asp-controller="HechizosDePersonajes" asp-action="CreateFor" asp-route-id="@Model.id" class="btn btn-outline-dark botonDetalles">Agregar Hechizo</a>
+        </div>
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <p class="fuenteMedieval800 texto23px">Nombre</p>
+        </dt>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Elemento</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dt class="col-sm-1 d-flex justify-content-center">
+            <p class="fuenteMedieval800 texto23px">Coste</p>
+        </dt>
+        <dd class="col-sm-1">
+        </dd>
+        <dd class="col-sm-1">
+            <p class="fuenteMedieval800 texto23px">Distancia</p>
+        </dd>
+        <dd class="col-sm-2">
+        </dd>
+        <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-end" role="group" aria-label="Button group with nested dropdown">
+
+        </dd>
+        @foreach (var item in Model.hechizos)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayFor(modelItem => item.Hechizo.nombre)
+            </dt>
+
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @item.Hechizo.elemento.nombre
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+
+            <dd class="col-sm-1 d-flex justify-content-center">
+                @item.Hechizo.costeUso: @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+            </dd>
+
+            <dd class="col-sm-1">
+            </dd>
+            <dd class="col-sm-1">
+                @item.Hechizo.distancia.nombre
+            </dd>
+            <dd class="col-sm-2">
+            </dd>
+
+            <dd class="col-sm-3 btn-group mt-1 d-flex justify-content-center" role="group" aria-label="Button group with nested dropdown">
+
+
+                <div class="btn-group" role="group" style="margin-left:6px">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detallesHechizo-@item.id">
+                                Detalles
+                            </button>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <button type="button" class="dropdown-item bg-danger" style="color: white" data-bs-toggle="modal" data-bs-target="#deleteHechizoModal-@item.id">
+                                Eliminar
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="modal fade" id="detallesHechizo-@item.id" tabindex="-1" aria-labelledby="detallesHechizo-@item.id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Detalles De Hechizo</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <dl class="row">
+                                        <dt class="col-sm-2">
+                                            Nombre:
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @item.Hechizo.nombre (@item.Hechizo.distancia.nombre)
+                                        </dd>
+
+                                        <dt class="col-sm-2">
+                                            Elemento:
+                                        </dt>
+                                        <dd class="col-sm-4">
+                                            @item.Hechizo.elemento.nombre
+                                        </dd>
+                                        <dt class="col-sm-2">
+                                            Coste:
+                                        </dt>
+                                        <dd class="col-sm-4">
+                                            @item.Hechizo.costeUso @ViewBag.tipoCostes[item.Hechizo.tipoCoste-1]
+                                        </dd>
+
+                                        <dt class="col-sm-3">
+                                            Duracion:
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                            @item.Hechizo.duracion
+                                        </dd>
+
+                                        <dt class="col-sm-12">
+                                            Efecto:
+                                        </dt>
+                                        <dd class="col-sm-12">
+                                            @item.Hechizo.efecto
+                                        </dd>
+
+                                        <dt class="col-sm-3">
+                                            Cadena:
+                                        </dt>
+                                        <dd class="col-sm-9">
+                                            No tiene
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="deleteHechizoModal-@item.id" tabindex="-1" aria-labelledby="deleteHechizoModal-@item.id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 fuenteMedieval800"> Confirmar Eliminacion de Hechizo</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Estas seguro que deseas eliminar el Hechizo "@item.Hechizo.nombre" del personaje @Model.nombre</p>
+                                    <p><strong> No habra vuelta atras </strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-controller="HechizosDePersonajes" asp-action="DeleteInModal" asp-route-id="@item.id">
+                                        <input type="hidden" asp-for="@item.id" />
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dd>
+        }
+    </dl>
+
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm"><i class="bi bi-arrow-left"></i></a>
     <a asp-action="Jugar" asp-route-id="@Model.id" class="btn btn-outline-dark mt-2 btn-sm">Jugar</a>
 </div>

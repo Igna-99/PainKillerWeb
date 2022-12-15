@@ -21,5 +21,11 @@ namespace PainKillerWeb.Context
         public DbSet<AtributoDePersonaje> atributosDePersonajes { get; set; }
         public DbSet<HabilidadDePersonaje> habilidadDePersonajes { get; set; }
         public DbSet<Raza> raza { get; set; }
+        public DbSet<Elemento> elementos { get; set; }
+        public DbSet<Hechizo> hechizos { get; set; }
+        public DbSet<HechizoDePersonaje> hechizosDePersonajes{ get; set; }
+        public DbSet<Distancia> distancias { get; set; }
+        public DbSet<Item> items { get; set; }
+        public DbSet<ItemDePersonaje> itemsDePersonajes { get; set; }
     }
 }

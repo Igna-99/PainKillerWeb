@@ -1,0 +1,50 @@
+﻿@model PainKillerWeb.Models.Pivot.HechizoDePersonaje
+
+@{
+    ViewData["Title"] = "Agregar Hechizo";
+}
+
+<h2 class="fuenteMedieval800">Agregar Hechizo a Personaje</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateFor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="hidden" asp-for="personajeId" value=@ViewData["personajeId"] />
+            </div>
+            <div class="form-floating">
+                <select asp-for="HechizoId" class="form-select" aria-label="Floating label select example" asp-items="@ViewBag.HechizoId"></select>
+                <label asp-for="HechizoId" class="control-label"></label>
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Agregar Hechizo" class="btn btn-dark" />
+            </div>
+            <div>
+                <a asp-controller="Personajes" asp-action="Details" asp-route-id="@ViewData["personajeId"]" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"> </div>
+    <div class="col-md-4 accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Info
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                    La experiencia requerida para adquirir un <strong>Hechizo</strong> depende de este.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }

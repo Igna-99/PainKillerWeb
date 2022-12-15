@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<PainKillerWeb.Models.Pivot.HabilidadDePersonaje>
+﻿@model IEnumerable<PainKillerWeb.Models.Pivot.ItemDePersonaje>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nivel)
+                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Personaje)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Habilidad)
+                @Html.DisplayNameFor(model => model.Item)
             </th>
             <th></th>
         </tr>
@@ -28,13 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nivel)
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Personaje.nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Habilidad.nombre)
+                @Html.DisplayFor(modelItem => item.Item.nombre)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
@@ -44,4 +50,4 @@
         </tr>
 }
     </tbody>
-</table>*@
+</table>

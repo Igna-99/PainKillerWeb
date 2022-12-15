@@ -13,6 +13,31 @@ namespace PainKillerWeb.Context
     {
         public static void Initialize(PainKillerDbContext context)
         {
+            //if (context.items.Any() == null)
+            //{
+            //    var item = new Item[]
+            //{
+            //        new Item() {nombre = "Espada"},
+            //        new Item() {nombre = "Arco Corto"},
+            //        new Item() {nombre = "Arco Largo"},
+            //        new Item() {nombre = "Vara"},
+            //        new Item() {nombre = "Mandoble"},
+            //        new Item() {nombre = "Rodela"},
+            //        new Item() {nombre = "Escudo"},
+            //        new Item() {nombre = "Escudo Torre"},
+            //        new Item() {nombre = "Armadura Ligera"},
+            //        new Item() {nombre = "Armadura Media"},
+            //        new Item() {nombre = "Armadura Pesada"},
+            //        new Item() {nombre = "Flecha Normal"},
+            //        new Item() {nombre = "Racion"},
+            //        new Item() {nombre = "Otro"},
+            //};
+            //    foreach (var i in item)
+            //    {
+            //        context.items.Add(i);
+            //    }
+
+            //}
             // Look for any characters.
             if (context.personajes.Any() || context.habilidades.Any() || context.atributos.Any())
             {
@@ -151,50 +176,60 @@ namespace PainKillerWeb.Context
                 context.habilidades.Add(p);
             }
 
-           // var elementos = new Elemento[]
-           // {
-           //     new Elemento() {nombre = "Fuego"},
-           //     new Elemento() {nombre = "Tierra"},
-           //     new Elemento() {nombre = "Aire"},
-           //     new Elemento() {nombre = "Agua"},
-           //     new Elemento() {nombre = "Frio"},
-           //     new Elemento() {nombre = "Rayo"},
-           //     new Elemento() {nombre = "Cuerpo"},
-           //     new Elemento() {nombre = "Espiritu"},
-           //     new Elemento() {nombre = "Mente"},
-           //     new Elemento() {nombre = "Astral"},
-           //     new Elemento() {nombre = "Luz"},
-           //     new Elemento() {nombre = "Oscuridad"}
-           // };
+            var elementos = new Elemento[]
+            {
+                new Elemento() {nombre = "Fuego"},
+                new Elemento() {nombre = "Tierra"},
+                new Elemento() {nombre = "Aire"},
+                new Elemento() {nombre = "Agua"},
+                new Elemento() {nombre = "Frio"},
+                new Elemento() {nombre = "Rayo"},
+                new Elemento() {nombre = "Cuerpo"},
+                new Elemento() {nombre = "Espiritu"},
+                new Elemento() {nombre = "Mente"},
+                new Elemento() {nombre = "Astral"},
+                new Elemento() {nombre = "Luz"},
+                new Elemento() {nombre = "Oscuridad"}
+            };
 
-           // foreach (var p in elementos)
-           // {
-           //     context.elementos.Add(p);
-           // }
+            foreach (var p in elementos)
+            {
+                context.elementos.Add(p);
+            }
 
-           // var distancia = new Distancia[]
-           // {
-           //     new Distancia() {nombre = "Vista"},
-           //     new Distancia() {nombre = "Personal"},
-           //     new Distancia() {nombre = "Toque"},
-           //     new Distancia() {nombre = "Corto"},
-           //     new Distancia() {nombre = "Medio"},
-           //     new Distancia() {nombre = "Largo"},
-           //     new Distancia() {nombre = "Epico"}
-           // };
-           // foreach (var p in distancia)
-           // {
-           //     context.distancias.Add(p);
-           // }
-           // context.raza.Add(new Raza() { nombre = "Feerica", idAtributoRelevante = 2, idAtributoRelevante2 = 3, idAtributoPesimo = 1 });
+            var distancia = new Distancia[]
+            {
+                new Distancia() {nombre = "Vista"},
+                new Distancia() {nombre = "Personal"},
+                new Distancia() {nombre = "Toque"},
+                new Distancia() {nombre = "Corto"},
+                new Distancia() {nombre = "Medio"},
+                new Distancia() {nombre = "Largo"},
+                new Distancia() {nombre = "Epico"}
+            };
+            foreach (var p in distancia)
+            {
+                context.distancias.Add(p);
+            }
 
-           // context.hechizos.Add(new Hechizo() { nombre = "Antorcha", costeExp = 1, distanciaId = 3, elementoId = 7, costeUso = 2, tipoCoste = 3, tiempo = "Instantaneo", duracion = "Un min por punto en FE", efecto = "Conjuras un pequeño orbe de fuego en las manos que da calor y luz como una antorcha." });
-           // context.hechizos.Add(new Hechizo() { nombre = "Saetas", costeExp = 2, distanciaId = 5, elementoId = 7, costeUso = 2, tipoCoste = 2, tiempo = "Instantaneo",
-           //     efecto = "[Ignora resistencia a conjuros] [Proyectil] Lanza una hiriente saeta de fuego Ataque (Mente + Hechicería) daño 3K1 Inflige Daño Físico."
-           //     //,
-           //     //cadena = context.hechizos.Find(x => x.nombre == "Antorcha")
-           // });
-           ////Hay que agregar a cadena los hechizos que hagan cadena. Nunca puede ser el mismo hechizo
+
+            context.raza.Add(new Raza() { nombre = "Feerica", idAtributoRelevante = 2, idAtributoRelevante2 = 3, idAtributoPesimo = 1 });
+
+            context.hechizos.Add(new Hechizo() { nombre = "Antorcha", costeExp = 1, distanciaId = 3, elementoId = 7, costeUso = 2, tipoCoste = 3, tiempo = "Instantaneo", duracion = "Un min por punto en FE", efecto = "Conjuras un pequeño orbe de fuego en las manos que da calor y luz como una antorcha." });
+            context.hechizos.Add(new Hechizo()
+            {
+                nombre = "Saetas",
+                costeExp = 2,
+                distanciaId = 5,
+                elementoId = 7,
+                costeUso = 2,
+                tipoCoste = 2,
+                tiempo = "Instantaneo",
+                efecto = "[Ignora resistencia a conjuros] [Proyectil] Lanza una hiriente saeta de fuego Ataque (Mente + Hechicería) daño 3K1 Inflige Daño Físico."
+                //,
+                //cadena = context.hechizos.Find(x => x.nombre == "Antorcha")
+            });
+            //Hay que agregar a cadena los hechizos que hagan cadena. Nunca puede ser el mismo hechizo
 
 
             context.SaveChanges();

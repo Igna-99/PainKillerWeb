@@ -23,7 +23,18 @@ namespace PainKillerWeb.Controllers
         // GET: Personajes
         public async Task<IActionResult> Index()
         {
-            var painKillerDbContext = _context.personajes.Include(p => p.raza).Include(x => x.habilidades).ThenInclude(x => x.Habilidad);
+            var painKillerDbContext =
+                _context.personajes.Include(p => p.raza)
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.elemento);
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
+
             return View(await painKillerDbContext.ToListAsync());
         }
 
@@ -39,7 +50,18 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.atributos).ThenInclude(x => x.atributo)
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.elemento)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.distancia)
+                .Include(x => x.inventario).ThenInclude(x => x.Item)
                 .FirstOrDefaultAsync(m => m.id == id);
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
 
             if (personaje == null)
             {
@@ -60,7 +82,19 @@ namespace PainKillerWeb.Controllers
                 .Include(x => x.atributos).ThenInclude(x => x.atributo)
                 .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
                 .Include(x => x.raza)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.elemento)
+                .Include(x => x.hechizos).ThenInclude(x => x.Hechizo).ThenInclude(x => x.distancia)
+                .Include(x => x.inventario).ThenInclude(x => x.Item)
                 .FirstOrDefaultAsync(m => m.id == id);
+
+
+            List<string> tipoCostes = new List<string>();
+            tipoCostes.Add("VIDA");
+            tipoCostes.Add("MANA");
+            tipoCostes.Add("ENERGIA");
+
+            ViewBag.tipoCostes = tipoCostes;
 
             if (personaje == null)
             {
@@ -85,7 +119,7 @@ namespace PainKillerWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 _context.Add(personaje);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("CreateAll", "AtributosDePersonajes", personaje);
@@ -98,11 +132,12 @@ namespace PainKillerWeb.Controllers
         {
             Personaje pers = _context.personajes.Where(x => x.id == id).Include(x => x.atributos).ThenInclude(x => x.atributo).FirstOrDefault();
 
-            if (pers.id > 0) {
+            if (pers.id > 0)
+            {
                 //Agrega lso calculos para las stats correspondientes
-                pers.vidaMax = (pers.atributos.Where(x => x.atributo.id == 1).First().nivel + pers.atributos.Where(x => x.atributo.id == 2).First().nivel)*6;
-                pers.manaMax = (pers.atributos.Where(x => x.atributo.id == 3).First().nivel + pers.atributos.Where(x => x.atributo.id == 4).First().nivel)*6;
-                pers.energiaMax = (pers.atributos.Where(x => x.atributo.id == 5).First().nivel + pers.atributos.Where(x => x.atributo.id == 6).First().nivel)*6;
+                pers.vidaMax = (pers.atributos.Where(x => x.atributo.id == 1).First().nivel + pers.atributos.Where(x => x.atributo.id == 2).First().nivel) * 6;
+                pers.manaMax = (pers.atributos.Where(x => x.atributo.id == 3).First().nivel + pers.atributos.Where(x => x.atributo.id == 4).First().nivel) * 6;
+                pers.energiaMax = (pers.atributos.Where(x => x.atributo.id == 5).First().nivel + pers.atributos.Where(x => x.atributo.id == 6).First().nivel) * 6;
 
                 pers.vidaAct = pers.vidaMax;
                 pers.manaAct = pers.manaMax;
@@ -110,7 +145,7 @@ namespace PainKillerWeb.Controllers
                 _context.Update(pers);
                 await _context.SaveChangesAsync();
             }
-            
+
 
             return RedirectToAction("Details", "Personajes", new { id = pers.id });
         }
@@ -238,7 +273,7 @@ namespace PainKillerWeb.Controllers
                     personaje.vidaAct += num;
                 }
 
-                
+
 
                 _context.Update(personaje);
                 await _context.SaveChangesAsync();
@@ -272,7 +307,7 @@ namespace PainKillerWeb.Controllers
                     personaje.manaAct += num;
                 }
 
-                
+
 
                 _context.Update(personaje);
                 await _context.SaveChangesAsync();
@@ -301,7 +336,7 @@ namespace PainKillerWeb.Controllers
                 {
                     personaje.energiaAct = 0;
                 }
-                else 
+                else
                 {
                     personaje.energiaAct += num;
                 }
@@ -325,7 +360,12 @@ namespace PainKillerWeb.Controllers
                 return NotFound();
             }
 
-            var personaje = await _context.personajes.Include(x => x.atributos).ThenInclude(x => x.atributo).Include(x => x.raza)
+            var personaje =
+                await _context.personajes
+                .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .Include(x => x.habilidades).ThenInclude(x => x.Habilidad)
+                .Include(x => x.raza).Include(x => x.hechizos).ThenInclude(x => x.Hechizo)
+                .Include(x => x.inventario)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (personaje == null)
             {

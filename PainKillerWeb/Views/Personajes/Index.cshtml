@@ -18,6 +18,9 @@
 <div class="accordion" id="accordionPanelsStayOpenExample">
     @foreach (var item in Model)
     {
+        int sum = 0;
+        sum += Convert.ToInt32(item.expGastada);
+        sum += Convert.ToInt32(item.expActual);
 
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelPj-@Html.DisplayFor(modelItem => item.id)">
@@ -35,11 +38,10 @@
                     </div>
 
                     <div class="col-2 d-flex">
-                        <strong class="fuenteMedieval">@Html.DisplayNameFor(model => model.expActual)</strong>:  @Html.DisplayFor(modelItem => item.expActual)
+                        Experiencia: @Html.DisplayFor(modelItem => item.expActual) | @sum
                     </div>
 
                     <div class="col-2 d-flex">
-                        <strong class="fuenteMedieval">@Html.DisplayNameFor(model => model.expGastada)</strong>:  @Html.DisplayFor(modelItem => item.expGastada)
                     </div>
 
                     <div class="col-1 d-flex"></div>
@@ -66,7 +68,7 @@
                                     <div class="modal-body">
                                         @foreach (var habilidad in item.habilidades)
                                         {
-                                            <h6> @habilidad.Habilidad.nombre: @habilidad.Nivel</h6>
+                                            <h6> @habilidad.Habilidad.nombre | Nivel: @habilidad.Nivel</h6>
 
                                         }
 
@@ -78,6 +80,32 @@
                             </div>
                         </div>
 
+
+
+
+                        <button type="button" class="btn btn-outline-primary" style="margin-left: 6px; margin-right: 6px;" data-bs-toggle="modal" data-bs-target="#hechizosModal-@Html.DisplayFor(modelItem => item.id)">
+                            Hechizos
+                        </button>
+
+                        <div class="modal fade" id="hechizosModal-@Html.DisplayFor(modelItem => item.id)" tabindex="-1" aria-labelledby="hechizosLabel-@Html.DisplayFor(modelItem => item.id)" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5 fuenteMedieval800" id="hechizosLabel-@Html.DisplayFor(modelItem => item.id)" style="color:indigo;">Hechizos</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @foreach (var h in item.hechizos)
+                                        {
+                                            <h6> @h.Hechizo.nombre: @h.Hechizo.elemento.nombre | Consume @h.Hechizo.costeUso de @ViewBag.tipoCostes[@h.Hechizo.tipoCoste-1] </h6>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <button type="button" class="btn btn-outline-dark dropdown-toggle" style="margin-left: 6px; margin-right: 6px" data-bs-toggle="dropdown" aria-expanded="false">
                             Opciones
