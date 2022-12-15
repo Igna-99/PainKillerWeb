@@ -5,32 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Atributos\**" />
-    <Compile Remove="Views\HechizosDePersonajes\**" />
-    <Compile Remove="Views\Hechizos\**" />
     <Compile Remove="Views\Razas\**" />
-    <Content Remove="Views\Atributos\**" />
-    <Content Remove="Views\HechizosDePersonajes\**" />
-    <Content Remove="Views\Hechizos\**" />
     <Content Remove="Views\Razas\**" />
-    <EmbeddedResource Remove="Views\Atributos\**" />
-    <EmbeddedResource Remove="Views\HechizosDePersonajes\**" />
-    <EmbeddedResource Remove="Views\Hechizos\**" />
     <EmbeddedResource Remove="Views\Razas\**" />
-    <None Remove="Views\Atributos\**" />
-    <None Remove="Views\HechizosDePersonajes\**" />
-    <None Remove="Views\Hechizos\**" />
     <None Remove="Views\Razas\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\HechizosController.cs" />
-    <Compile Remove="Controllers\HechizosDePersonajesController.cs" />
     <Compile Remove="Controllers\RazasController.cs" />
-    <Compile Remove="Models\Main\Distancia.cs" />
-    <Compile Remove="Models\Main\Elemento.cs" />
-    <Compile Remove="Models\Main\Hechizo.cs" />
-    <Compile Remove="Models\Pivot\HechizoDePersonaje.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,13 +26,6 @@
     <Content Remove="Views\HabilidadesDePersonajes\Index.cshtml" />
     <Content Remove="Views\Habilidades\Delete.cshtml" />
     <Content Remove="Views\Habilidades\Details.cshtml" />
-    <Content Remove="Views\HechizosDePersonajes\Create.cshtml" />
-    <Content Remove="Views\HechizosDePersonajes\CreateForTest.cshtml" />
-    <Content Remove="Views\HechizosDePersonajes\Delete.cshtml" />
-    <Content Remove="Views\HechizosDePersonajes\Details.cshtml" />
-    <Content Remove="Views\HechizosDePersonajes\Index.cshtml" />
-    <Content Remove="Views\Hechizos\Delete.cshtml" />
-    <Content Remove="Views\Hechizos\Details.cshtml" />
     <Content Remove="Views\ItemsDePersonajes\Create.cshtml" />
     <Content Remove="Views\ItemsDePersonajes\Delete.cshtml" />
     <Content Remove="Views\ItemsDePersonajes\Details.cshtml" />
@@ -61,6 +36,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Atributos\Create.cshtml" />
+    <None Include="Views\Atributos\Delete.cshtml" />
+    <None Include="Views\Atributos\Details.cshtml" />
+    <None Include="Views\Atributos\Edit.cshtml" />
+    <None Include="Views\Atributos\Index.cshtml" />
+    <None Include="Views\HechizosDePersonajes\Create.cshtml" />
+    <None Include="Views\HechizosDePersonajes\CreateFor.cshtml" />
+    <None Include="Views\HechizosDePersonajes\CreateForTest.cshtml" />
+    <None Include="Views\HechizosDePersonajes\Delete.cshtml" />
+    <None Include="Views\HechizosDePersonajes\Details.cshtml" />
+    <None Include="Views\HechizosDePersonajes\Edit.cshtml" />
+    <None Include="Views\HechizosDePersonajes\Index.cshtml" />
+    <None Include="Views\Hechizos\Create.cshtml" />
+    <None Include="Views\Hechizos\Delete.cshtml" />
+    <None Include="Views\Hechizos\Details.cshtml" />
+    <None Include="Views\Hechizos\Edit.cshtml" />
+    <None Include="Views\Hechizos\Index.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_Layout1.cshtml" />
