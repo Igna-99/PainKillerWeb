@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PainKillerWeb.Context;
 using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
+using PainKillerWeb.Services;
 
 namespace PainKillerWeb.Controllers
 {
@@ -87,12 +89,16 @@ namespace PainKillerWeb.Controllers
         {
             Personaje pers = await _context.personajes
                 .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .Include(x => x.raza)
                 .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
 
-            if (ModelState.IsValid && !pers.atributos.Any())
+            CalculosXP cal = new CalculosXP();
+            int xpGastada = cal.costeCreacionPJ(pers.raza, atributosDePersonaje);
+            if (ModelState.IsValid && !pers.atributos.Any() && xpGastada <= pers.expActual)
             {
                 foreach (var item in atributosDePersonaje)
                 {
+                    item.nivel += 2;
                     _context.Add(item);
                 }
                 await _context.SaveChangesAsync();
@@ -101,8 +107,54 @@ namespace PainKillerWeb.Controllers
 
             ViewBag.Atributos = _context.atributos.ToList();
             ViewBag.personajeId = atributosDePersonaje[0].personajeId;
+            ViewBag.CosteXP = xpGastada;
             return View();
         }
+
+        // GET: Personajes/Create
+        public IActionResult CreateConAtributos()
+        {
+            ViewBag.atributos = _context.atributos.ToList();
+            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateConAtributos([Bind("id,nombre,razaId,expActual")] Personaje personaje, [Bind("atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        {
+            //---------------- Inicializaciones ==>
+            Raza razaPersonaje = await _context.raza.FirstOrDefaultAsync(x => x.id == personaje.razaId);
+            CalculosXP cal = new CalculosXP();
+            int xpGastada = cal.costeCreacionPJ(razaPersonaje, atributosDePersonaje);
+            Personaje per = await _context.personajes.OrderByDescending(x => x.id).FirstOrDefaultAsync();
+            
+            //---------------->
+
+            foreach (var item in atributosDePersonaje)
+            {
+                item.personajeId = per.id+1;
+            }
+            if (ModelState.IsValid && xpGastada <= personaje.expActual)
+            {
+                _context.personajes.Add(personaje);
+                foreach (var item in atributosDePersonaje)
+                {
+                    item.nivel += 2;
+
+                    _context.atributosDePersonajes.Add(item);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("CalcularStats", "Personajes", new { id = per.id+1 });
+            }
+
+            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
+            ViewBag.Atributos = _context.atributos.ToList();
+            ViewBag.personajeId = atributosDePersonaje[0].personajeId;
+            ViewBag.CosteXP = xpGastada;
+            return View();
+
+        }
+
 
         // GET: AtributosDePersonajes/Edit/5
         public async Task<IActionResult> Edit(int? id)

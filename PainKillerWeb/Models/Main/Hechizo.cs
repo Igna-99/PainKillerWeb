@@ -1,4 +1,5 @@
-﻿using PainKillerWeb.Models.Pivot;
+﻿using Microsoft.CodeAnalysis.Options;
+using PainKillerWeb.Models.Pivot;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
@@ -24,7 +25,9 @@ namespace PainKillerWeb.Models.Main
         [Display(Name = "Coste Uso")]
         public int costeUso { get; set; }
 
-        //Si es 1 = vida | 2 = mana | 3 = energia
+        //Si es 1 = vida | 2 = mana | 3 = energia |
+        //| 4 = MANA Y VIDA | 5 = MANA Y ENERGIA | 6 = VIDA Y ENERGIA
+        
         [Display(Name = "Tipo coste")]
         public int tipoCoste { get; set; }
 

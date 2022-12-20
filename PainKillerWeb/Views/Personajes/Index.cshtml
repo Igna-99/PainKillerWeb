@@ -9,8 +9,11 @@
         <h1 class="fuenteMedieval800">Lista de Personajes</h1>
     </div>
     <div class="col-6"> </div>
-    <div class="col-2 d-flex justify-content-end">
+    @*<div class="col-2 d-flex justify-content-end">
         <a asp-action="Create" class="btn btn-outline-dark botonDetalles m-2">Crear Personaje</a>
+    </div>*@
+    <div class="col-2 d-flex justify-content-end">
+        <a asp-controller="AtributosDePersonajes" asp-action="CreateConAtributos" class="btn btn-outline-dark botonDetalles m-2">Crear Personaje</a>
     </div>
 </div>
 <hr />
@@ -69,7 +72,6 @@
                                         @foreach (var habilidad in item.habilidades)
                                         {
                                             <h6> @habilidad.Habilidad.nombre | Nivel: @habilidad.Nivel</h6>
-
                                         }
 
                                     </div>

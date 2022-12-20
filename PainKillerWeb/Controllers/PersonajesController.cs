@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PainKillerWeb.Context;
 using PainKillerWeb.Models.Main;
+using PainKillerWeb.Models.Pivot;
+using PainKillerWeb.Services;
 
 namespace PainKillerWeb.Controllers
 {
@@ -110,13 +112,18 @@ namespace PainKillerWeb.Controllers
             return View();
         }
 
-        // POST: Personajes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //POST: Personajes/Create
+        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,nombre,razaId,expActual")] Personaje personaje)
         {
+            var pj = await _context.personajes
+                .Include(x => x.atributos).ThenInclude(x => x.atributo)
+                .Include(x => x.raza)
+                .FirstOrDefaultAsync(m => m.id == personaje.id);
+
             if (ModelState.IsValid)
             {
 
@@ -127,6 +134,56 @@ namespace PainKillerWeb.Controllers
             ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
             return View(personaje);
         }
+
+        //// GET: Personajes/Create
+        //public IActionResult CreateConAtributos()
+        //{
+        //    ViewBag.atributos = _context.atributos.ToList();
+        //    ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
+        //    var atribXPersonaje = _context.atributosDePersonajes.ToList();
+        //    return View(atribXPersonaje);
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateConAtributos([Bind("id,nombre,razaId,expActual")] Personaje personaje, [Bind("atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        //{
+        //    var pj = await _context.personajes
+        //        .Include(x => x.atributos).ThenInclude(x => x.atributo)
+        //        .Include(x => x.raza)
+        //        .FirstOrDefaultAsync(m => m.id == personaje.id);
+
+        //    ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
+
+        //    //---------------- Atributos ==>
+
+        //    Personaje pers = await _context.personajes
+        //        .Include(x => x.atributos).ThenInclude(x => x.atributo)
+        //        .Include(x => x.raza)
+        //        .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
+
+        //    CalculosXP cal = new CalculosXP();
+
+        //    int xpGastada = cal.costeCreacionPJ(pj.raza, atributosDePersonaje);
+        //    if (ModelState.IsValid && !pers.atributos.Any() && xpGastada <= personaje.expActual)
+        //    {
+        //        _context.Add(personaje);
+        //        foreach (var item in atributosDePersonaje)
+        //        {
+        //            item.personajeId = personaje.id;
+        //            item.nivel += 2;
+
+        //            _context.Add(item);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
+        //    }
+
+        //    ViewBag.Atributos = _context.atributos.ToList();
+        //    ViewBag.personajeId = atributosDePersonaje[0].personajeId;
+        //    ViewBag.CosteXP = xpGastada;
+        //    return View();
+
+        //}
 
         public async Task<IActionResult> CalcularStats(int id)
         {
@@ -141,7 +198,7 @@ namespace PainKillerWeb.Controllers
 
                 pers.vidaAct = pers.vidaMax;
                 pers.manaAct = pers.manaMax;
-                pers.energiaAct = pers.energiaMax;
+                pers.energiaAct = pers.energiaMax; 
                 _context.Update(pers);
                 await _context.SaveChangesAsync();
             }
