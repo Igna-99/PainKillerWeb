@@ -1,0 +1,65 @@
+﻿@model PainKillerWeb.Models.Pivot.AtributoDePersonaje
+
+@{
+    ViewData["Title"] = "Crear Personaje";
+}
+
+<h2 class="fuenteMedieval800">Creacion De Personaje</h2>
+<hr />
+@*<div class="form-floating col-3">*@
+
+<div class="fuenteMedieval">
+    <form asp-action="CreateConAtributos" class="row align-content-around" style="paddig:5%">
+        <div asp-validation-summary="ModelOnly" class="text-danger" onsubmit=false></div>
+        <div class="form-floating col-sm-4">
+            <input asp-for="personaje.nombre" class="form-control" placeholder=1 id="nombre" />
+            <label asp-for="personaje.nombre" style="margin-left:1%" ></label>
+            <span asp-validation-for="personaje.nombre" class="text-danger"></span>
+        </div>
+        <div class="form-floating col-sm-4">
+            <select asp-for="personaje.razaId" class="form-select" aria-label="Floating label select example" asp-items="ViewBag.razaId"></select>
+            <label asp-for="personaje.razaId" class="control-label" style="margin-left:1%"></label>
+        </div>
+        <div class="form-floating col-sm-4">
+            <input asp-for="personaje.expActual" class="form-control" placeholder=1 value="25" />
+            <label asp-for="personaje.expActual" style="margin-left:1%"></label>
+            <span asp-validation-for="personaje.expActual" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-floating col-sm-12">
+            <br />
+        </div>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in ViewBag.atributos)
+        {
+            <div class="col-sm-3 form-group" style="margin-left:3%">
+                <label asp-for="nivel">@item.nombre:</label>
+                <input type="hidden" asp-for="atributoId" name="[@i].atributoId" value=@item.id class="col-sm"/>
+                <input type="number" range="" asp-for="nivel" name="[@i].nivel" min="0" max="10" class="form-control" placeholder=1 value="0" />
+                <span hidden>
+                    @(i++)
+                </span>
+                <br />
+            </div>
+        }
+        <div class="form-group" style="display:flex; flex-direction:row">
+            <input type="submit" value="Crear Atributos" class="btn btn-dark" />
+
+            <h4> XP Gastada => @ViewBag.CosteXP</h4>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-controller="Personajes" asp-action="Index" class="btn btn-outline-danger mt-2 btn-sm">Regresar</a>
+    <div class="form-floating col-sm-3">
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

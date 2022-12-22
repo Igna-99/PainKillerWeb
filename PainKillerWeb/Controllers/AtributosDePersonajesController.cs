@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PainKillerWeb.Context;
 using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
@@ -75,85 +76,70 @@ namespace PainKillerWeb.Controllers
             return View(atributoDePersonaje);
         }
 
-        public IActionResult CreateAll(Personaje personaje)
+        //public IActionResult CreateAll(Personaje personaje)
+        //{
+        //    ViewBag.atributos = _context.atributos.ToList();
+        //    ViewBag.personajeId = personaje.id;
+
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateAll([Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        //{
+        //    Personaje pers = await _context.personajes
+        //        .Include(x => x.atributos).ThenInclude(x => x.atributo)
+        //        .Include(x => x.raza)
+        //        .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
+
+        //    CalculosXP cal = new CalculosXP();
+        //    int xpGastada = cal.costeCreacionPJ(pers.raza, atributosDePersonaje);
+        //    if (ModelState.IsValid && !pers.atributos.Any() && xpGastada <= pers.expActual)
+        //    {
+        //        foreach (var item in atributosDePersonaje)
+        //        {
+        //            item.nivel += 2;
+        //            _context.Add(item);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
+        //    }
+
+        //    ViewBag.Atributos = _context.atributos.ToList();
+        //    ViewBag.personajeId = atributosDePersonaje[0].personajeId;
+        //    ViewBag.CosteXP = xpGastada;
+        //    return View();
+        //}
+
+
+        public async Task<IActionResult> SettearADP(String ADPJSON, int id)
         {
-            ViewBag.atributos = _context.atributos.ToList();
-            ViewBag.personajeId = personaje.id;
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAll([Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
-        {
-            Personaje pers = await _context.personajes
-                .Include(x => x.atributos).ThenInclude(x => x.atributo)
-                .Include(x => x.raza)
-                .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
-
-            CalculosXP cal = new CalculosXP();
-            int xpGastada = cal.costeCreacionPJ(pers.raza, atributosDePersonaje);
-            if (ModelState.IsValid && !pers.atributos.Any() && xpGastada <= pers.expActual)
-            {
-                foreach (var item in atributosDePersonaje)
-                {
-                    item.nivel += 2;
-                    _context.Add(item);
-                }
-                await _context.SaveChangesAsync();
-                return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
-            }
-
-            ViewBag.Atributos = _context.atributos.ToList();
-            ViewBag.personajeId = atributosDePersonaje[0].personajeId;
-            ViewBag.CosteXP = xpGastada;
-            return View();
-        }
-
-        // GET: Personajes/Create
-        public IActionResult CreateConAtributos()
-        {
-            ViewBag.atributos = _context.atributos.ToList();
-            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateConAtributos([Bind("id,nombre,razaId,expActual")] Personaje personaje, [Bind("atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
-        {
-            //---------------- Inicializaciones ==>
-            Raza razaPersonaje = await _context.raza.FirstOrDefaultAsync(x => x.id == personaje.razaId);
-            CalculosXP cal = new CalculosXP();
-            int xpGastada = cal.costeCreacionPJ(razaPersonaje, atributosDePersonaje);
-            Personaje per = await _context.personajes.OrderByDescending(x => x.id).FirstOrDefaultAsync();
-            
-            //---------------->
+            List<AtributoDePersonaje> atributosDePersonaje = JsonConvert.DeserializeObject<List<AtributoDePersonaje>>(ADPJSON);
 
             foreach (var item in atributosDePersonaje)
             {
-                item.personajeId = per.id+1;
+                item.nivel += 2;
+                item.personajeId = id;
             }
-            if (ModelState.IsValid && xpGastada <= personaje.expActual)
+
+            if (ModelState.IsValid)
             {
-                _context.personajes.Add(personaje);
                 foreach (var item in atributosDePersonaje)
                 {
-                    item.nivel += 2;
-
                     _context.atributosDePersonajes.Add(item);
                 }
                 await _context.SaveChangesAsync();
-                return RedirectToAction("CalcularStats", "Personajes", new { id = per.id+1 });
-            }
 
-            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
-            ViewBag.Atributos = _context.atributos.ToList();
-            ViewBag.personajeId = atributosDePersonaje[0].personajeId;
-            ViewBag.CosteXP = xpGastada;
+                return RedirectToAction("CalcularStats", "Personajes", new { id = id });
+
+
+            }
             return View();
 
+
         }
+
 
 
         // GET: AtributosDePersonajes/Edit/5
@@ -211,65 +197,65 @@ namespace PainKillerWeb.Controllers
             return View(atributoDePersonaje);
         }
 
-        public async Task<IActionResult> EditAll(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> EditAll(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var personaje = await _context.personajes.Include(x => x.atributos).ThenInclude(x => x.atributo)
-            .FirstOrDefaultAsync(m => m.id == id);
-            if (personaje == null)
-            {
-                return NotFound();
-            }
+        //    var personaje = await _context.personajes.Include(x => x.atributos).ThenInclude(x => x.atributo)
+        //    .FirstOrDefaultAsync(m => m.id == id);
+        //    if (personaje == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            ViewBag.atributos = _context.atributosDePersonajes.Where(x => x.personajeId == id).Include(x => x.atributo).ToList();
-            ViewData["personajeId"] = id;
+        //    ViewBag.atributos = _context.atributosDePersonajes.Where(x => x.personajeId == id).Include(x => x.atributo).ToList();
+        //    ViewData["personajeId"] = id;
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAll(int id, [Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
-        {
-            if (id != atributosDePersonaje.FirstOrDefault().personajeId)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> EditAll(int id, [Bind("personajeId,atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        //{
+        //    if (id != atributosDePersonaje.FirstOrDefault().personajeId)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    foreach (var atributoDePersonaje in atributosDePersonaje)
-                    {
-                        _context.Update(atributoDePersonaje);
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            foreach (var atributoDePersonaje in atributosDePersonaje)
+        //            {
+        //                _context.Update(atributoDePersonaje);
 
-                    }
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AtributoDePersonajeExists(atributosDePersonaje.FirstOrDefault().personajeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction();
-            }
-            ViewBag.atributos = _context.atributosDePersonajes.Where(x => x.personajeId == id).Include(x => x.atributo).ToList();
-            ViewData["personajeId"] = atributosDePersonaje.FirstOrDefault().personajeId;
-            return View();
-        }
+        //            }
+        //            await _context.SaveChangesAsync();
+        //            return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!AtributoDePersonajeExists(atributosDePersonaje.FirstOrDefault().personajeId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction();
+        //    }
+        //    ViewBag.atributos = _context.atributosDePersonajes.Where(x => x.personajeId == id).Include(x => x.atributo).ToList();
+        //    ViewData["personajeId"] = atributosDePersonaje.FirstOrDefault().personajeId;
+        //    return View();
+        //}
 
         // GET: AtributosDePersonajes/Delete/5
         public async Task<IActionResult> Delete(int? id)

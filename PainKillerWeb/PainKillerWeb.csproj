@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Content Remove="Views\AtributosDePersonajes\Create.cshtml" />
+    <Content Remove="Views\AtributosDePersonajes\CreateConAtributos.cshtml" />
     <Content Remove="Views\AtributosDePersonajes\Delete.cshtml" />
     <Content Remove="Views\AtributosDePersonajes\Edit.cshtml" />
     <Content Remove="Views\AtributosDePersonajes\Index.cshtml" />
@@ -32,6 +33,7 @@
     <Content Remove="Views\ItemsDePersonajes\Index.cshtml" />
     <Content Remove="Views\Items\Delete.cshtml" />
     <Content Remove="Views\Items\Details.cshtml" />
+    <Content Remove="Views\Personajes\Create.cshtml" />
     <Content Remove="Views\Personajes\Delete.cshtml" />
   </ItemGroup>
 

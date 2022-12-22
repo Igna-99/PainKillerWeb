@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Newtonsoft.Json;
 using PainKillerWeb.Context;
 using PainKillerWeb.Models.Main;
 using PainKillerWeb.Models.Pivot;
@@ -106,84 +108,76 @@ namespace PainKillerWeb.Controllers
             return View(personaje);
         }
         // GET: Personajes/Create
-        public IActionResult Create()
-        {
-            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
-            return View();
-        }
-
-        //POST: Personajes/Create
-        //To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nombre,razaId,expActual")] Personaje personaje)
-        {
-            var pj = await _context.personajes
-                .Include(x => x.atributos).ThenInclude(x => x.atributo)
-                .Include(x => x.raza)
-                .FirstOrDefaultAsync(m => m.id == personaje.id);
-
-            if (ModelState.IsValid)
-            {
-
-                _context.Add(personaje);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("CreateAll", "AtributosDePersonajes", personaje);
-            }
-            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
-            return View(personaje);
-        }
-
-        //// GET: Personajes/Create
-        //public IActionResult CreateConAtributos()
+        //public IActionResult Create()
         //{
-        //    ViewBag.atributos = _context.atributos.ToList();
         //    ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
-        //    var atribXPersonaje = _context.atributosDePersonajes.ToList();
-        //    return View(atribXPersonaje);
+        //    return View();
         //}
+
+        ////POST: Personajes/Create
+        ////To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateConAtributos([Bind("id,nombre,razaId,expActual")] Personaje personaje, [Bind("atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        //public async Task<IActionResult> Create([Bind("id,nombre,razaId,expActual")] Personaje personaje)
         //{
         //    var pj = await _context.personajes
         //        .Include(x => x.atributos).ThenInclude(x => x.atributo)
         //        .Include(x => x.raza)
         //        .FirstOrDefaultAsync(m => m.id == personaje.id);
 
-        //    ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
-
-        //    //---------------- Atributos ==>
-
-        //    Personaje pers = await _context.personajes
-        //        .Include(x => x.atributos).ThenInclude(x => x.atributo)
-        //        .Include(x => x.raza)
-        //        .FirstOrDefaultAsync(m => m.id == atributosDePersonaje[0].personajeId);
-
-        //    CalculosXP cal = new CalculosXP();
-
-        //    int xpGastada = cal.costeCreacionPJ(pj.raza, atributosDePersonaje);
-        //    if (ModelState.IsValid && !pers.atributos.Any() && xpGastada <= personaje.expActual)
+        //    if (ModelState.IsValid)
         //    {
+
         //        _context.Add(personaje);
-        //        foreach (var item in atributosDePersonaje)
-        //        {
-        //            item.personajeId = personaje.id;
-        //            item.nivel += 2;
-
-        //            _context.Add(item);
-        //        }
         //        await _context.SaveChangesAsync();
-        //        return RedirectToAction("CalcularStats", "Personajes", new { id = atributosDePersonaje.FirstOrDefault().personajeId });
+        //        return RedirectToAction("CreateAll", "AtributosDePersonajes", personaje);
         //    }
-
-        //    ViewBag.Atributos = _context.atributos.ToList();
-        //    ViewBag.personajeId = atributosDePersonaje[0].personajeId;
-        //    ViewBag.CosteXP = xpGastada;
-        //    return View();
-
+        //    ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
+        //    return View(personaje);
         //}
+
+
+        public IActionResult CreateConAtributos()
+        {
+            ViewBag.atributos = _context.atributos.ToList();
+            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre");
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateConAtributos([Bind("id,nombre,razaId,expActual")] Personaje personaje, [Bind("atributoId,nivel")] List<AtributoDePersonaje> atributosDePersonaje)
+        {
+
+            //---------------- Inicializaciones ==>
+            Raza razaPersonaje = await _context.raza.FirstOrDefaultAsync(x => x.id == personaje.razaId);
+            CalculosXP cal = new CalculosXP();
+            int xpGastada = cal.costeCreacionPJ(razaPersonaje, atributosDePersonaje);
+
+            //---------------->
+
+            if (ModelState.IsValid && xpGastada <= personaje.expActual)
+            {
+                personaje.expActual -= xpGastada;
+                personaje.expGastada += xpGastada;
+
+                _context.personajes.Add(personaje);
+                await _context.SaveChangesAsync();
+
+                int ultimoId = _context.personajes.ToList().Last().id;
+
+                return RedirectToAction("SettearADP", "AtributosDePersonajes", new { ADPJSON = JsonConvert.SerializeObject(atributosDePersonaje), id = ultimoId });
+            }
+
+            ViewData["razaId"] = new SelectList(_context.raza, "id", "nombre", personaje.razaId);
+            ViewBag.Atributos = _context.atributos.ToList();
+            ViewBag.CosteXP = xpGastada;
+            return View();
+
+        }
 
         public async Task<IActionResult> CalcularStats(int id)
         {
@@ -252,6 +246,58 @@ namespace PainKillerWeb.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarDeAUno(int id, int num, int tipo)
+        {
+            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
+
+            if (personaje != null)
+            {
+                switch (tipo)
+                {
+                    case 1:
+                        personaje.vidaAct = this.calculoDeEdicion(personaje.vidaAct, num, personaje.vidaMax);
+                        break;
+                    case 2:
+                        personaje.manaAct = this.calculoDeEdicion(personaje.manaAct, num, personaje.manaMax);
+                        break;
+                    case 3:
+                        personaje.energiaAct = this.calculoDeEdicion(personaje.energiaMax, num, personaje.energiaMax);
+                        break;
+                }
+
+
+                _context.Update(personaje);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Jugar", new { id = personaje.id });
+            }
+
+            return RedirectToAction("index");
+
+        }
+
+        private int calculoDeEdicion(int stats, int num, int max) 
+        {
+            if ((stats + num) >= max)
+            {
+                stats = max;
+            }
+            else if ((stats + num) <= 0)
+            {
+                stats = 0;
+            }
+            else
+            {
+                stats += num;
+            }
+
+            return stats;
+
+        }
+
+
+
 
 
         // GET: Personajes/Edit/5
@@ -307,106 +353,6 @@ namespace PainKillerWeb.Controllers
             return View(personaje);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarVida(int id, int num)
-        {
-
-            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
-
-            if (personaje != null)
-            {
-                if ((personaje.vidaAct + num) >= personaje.vidaMax)
-                {
-                    personaje.vidaAct = personaje.vidaMax;
-                }
-                else if ((personaje.vidaAct + num) <= 0)
-                {
-                    personaje.vidaAct = 0;
-                }
-                else
-                {
-                    personaje.vidaAct += num;
-                }
-
-
-
-                _context.Update(personaje);
-                await _context.SaveChangesAsync();
-
-
-                return RedirectToAction("Jugar", new { id = personaje.id });
-            }
-            return RedirectToAction("index");
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarMana(int id, int num)
-        {
-
-            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
-
-            if (personaje != null)
-            {
-                if ((personaje.manaAct + num) >= personaje.manaMax)
-                {
-                    personaje.manaAct = personaje.manaMax;
-                }
-                else if ((personaje.manaAct + num) <= 0)
-                {
-                    personaje.manaAct = 0;
-                }
-                else
-                {
-                    personaje.manaAct += num;
-                }
-
-
-
-                _context.Update(personaje);
-                await _context.SaveChangesAsync();
-
-
-                return RedirectToAction("Jugar", new { id = personaje.id });
-            }
-            return RedirectToAction("index");
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarEnergia(int id, int num)
-        {
-
-            Personaje personaje = await _context.personajes.Where(x => x.id == id).FirstOrDefaultAsync();
-
-            if (personaje != null)
-            {
-                if ((personaje.energiaAct + num) >= personaje.energiaMax)
-                {
-                    personaje.energiaAct = personaje.energiaMax;
-                }
-                else if ((personaje.energiaAct + num) <= 0)
-                {
-                    personaje.energiaAct = 0;
-                }
-                else
-                {
-                    personaje.energiaAct += num;
-                }
-
-                _context.Update(personaje);
-                await _context.SaveChangesAsync();
-
-
-                return RedirectToAction("Jugar", new { id = personaje.id });
-            }
-            return RedirectToAction("index");
-
-        }
 
 
         // GET: Personajes/Delete/5
